@@ -1,0 +1,398 @@
+Wedding Invitation Website — Jessika & Randy
+🎯 Project Goal
+Build a modular, responsive, single-page wedding invitation website for Jessika & Randy getting married Saturday, December 19, 2026 in Madrid, Spain.
+
+Hosting: Vercel
+Repo location: C:\Users\jhoof\Desktop\Projects\Wedding-invite-website\wedding-invitation
+
+🤝 Working Rules (NON-NEGOTIABLE)
+These rules apply to every single phase without exception:
+
+At the START of each phase:
+Ask 5–12 clarifying questions specific to that phase
+
+Each question must have 2–5 answer options (plus "Other: ____")
+
+Provide recommended answers in a bullet list at the end
+
+WAIT for answers before generating any code
+
+At the END of each phase:
+List exactly what was implemented
+
+Give exact run steps (commands + env vars)
+
+Provide a short verification checklist
+
+WAIT for explicit approval ("approved" or similar) before starting the next phase
+
+General rules:
+Never skip the Q&A step — even if the answer seems obvious
+
+Never start the next phase until the user explicitly approves
+
+All content must be driven from src/config/eventConfig.ts — never hardcode content in components
+
+Mobile-first, accessible, smooth-scrolling at all times
+
+TypeScript strictly enforced throughout
+
+🎨 IMPORTANT — PDF Design Reference
+At the start of Phase 2, the user will upload a new updated PDF design file.
+
+The AI must:
+
+Read the PDF thoroughly before asking any Phase 2 questions
+
+Extract the exact color palette, typography hierarchy, section layouts, decorative element placements, spacing patterns, and overall visual language
+
+Cross-reference what's in the PDF against the current implementation and identify gaps
+
+Propose specific updates to colors, spacing, section order, and component styles based on what the PDF shows
+
+Ask the user to confirm any design decisions extracted from the PDF before implementing
+
+The previous PDF established: burgundy (#5e0813), cream (#f4f2eb), sage green (#8a9a5b) — but the new PDF may change or refine these. The new PDF takes priority over the old one.
+
+🏗️ Tech Stack (Locked In — Do Not Change)
+Decision	Choice
+Framework	Next.js 16.1.6 (App Router)
+Language	TypeScript
+Styling	Tailwind CSS v4
+Database	Supabase (Postgres)
+Hosting	Vercel
+UI Language	Spanish only
+Timezone	Europe/Madrid
+⚠️ Critical Tailwind v4 Rules — Read Carefully:
+No tailwind.config.ts — deleted. All theme config lives in globals.css under @theme {}
+
+PostCSS plugin is @tailwindcss/postcss (NOT tailwindcss)
+
+postcss.config.mjs uses ES module syntax (export default {})
+
+Google Fonts @import url(...) must be the absolute first line of globals.css, before @import "tailwindcss"
+
+Custom colors: --color-burgundy, --color-cream, etc. defined in @theme block — Tailwind auto-generates utility classes (bg-burgundy, text-cream, etc.)
+
+@keyframes go inside the @theme {} block
+
+Any component using onClick, useState, useEffect, useRef, forwardRef, or browser APIs needs "use client" as its first line
+
+🎨 Current Design System (May Be Updated by New PDF)
+Current Colors
+Token	Hex	Usage
+burgundy	#5e0813	Primary color, section backgrounds, text
+burgundy-light	#7a1020	Hover states
+burgundy-dark	#3d0509	Dark section background
+cream	#f4f2eb	Background, light sections
+cream-dark	#e8e4d9	Subtle contrast
+cream-light	#faf9f5	Lightest background
+sage	#8a9a5b	Accent sections
+sage-light	#a8b878	Hover states
+sage-dark	#6b7845	Dark sage
+Current Section Background Pattern (alternating):
+cream → sage → burgundy → cream → sage → burgundy → cream → burgundy → dark
+
+Typography (5 font roles — locked in by user)
+CSS Var	Google Font	Used For
+--font-slight	Great Vibes	Section titles, "¡Muchas Gracias!", decorative headings
+--font-cinzel	Cinzel	Body text, labels, nav, buttons, uppercase tracking
+--font-seasons	Cormorant Garamond	Italic prose, story text, times
+--font-icon	Dancing Script	Couple names, large "19", monogram
+--font-oldstandard	Old Standard TT	Location names, venue addresses
+UI Decisions (Locked In)
+Buttons: Fully rounded pill shape
+
+Animations: Moderate — sections fade/slide in on scroll via ScrollReveal
+
+Navigation: Fixed top navbar, transparent → cream on scroll, hamburger on mobile
+
+Hero: Video background (public/videos/hero.mp4) with dark burgundy overlay, or photo fallback
+
+Decorative SVGs: User has their own SVG files for all timeline icons and illustrations — they will provide them in Phase 2
+
+📁 Current File Structure
+text
+Wedding-invite-website/               ← Git repo root
+└── wedding-invitation/               ← Next.js project root (ALL commands run here)
+    ├── public/
+    │   └── videos/                   ← Place hero.mp4 here
+    ├── src/
+    │   ├── app/
+    │   │   ├── api/
+    │   │   │   ├── contact/          ← Empty folder (Phase 5)
+    │   │   │   └── rsvp/             ← Empty folder (Phase 3)
+    │   │   ├── favicon.ico
+    │   │   ├── globals.css           ← ✅ Tailwind v4 theme + all CSS
+    │   │   ├── layout.tsx            ← ✅ Complete
+    │   │   └── page.tsx              ← ✅ Complete (has "use client" — cleanup in Phase 2)
+    │   ├── components/
+    │   │   ├── countdown/
+    │   │   │   └── AdaptiveCountdown.tsx  ← ✅ Complete
+    │   │   ├── ui/
+    │   │   │   ├── Button.tsx        ← ✅ Complete
+    │   │   │   ├── Card.tsx          ← ✅ Complete
+    │   │   │   ├── Container.tsx     ← ✅ Complete
+    │   │   │   ├── Input.tsx         ← ✅ Complete
+    │   │   │   ├── Modal.tsx         ← ✅ Complete
+    │   │   │   ├── SectionHeading.tsx ← ✅ Complete
+    │   │   │   ├── Textarea.tsx      ← ✅ Complete
+    │   │   │   └── Toast.tsx         ← ✅ Complete
+    │   │   ├── Navbar.tsx            ← ✅ Complete
+    │   │   └── ScrollReveal.tsx      ← ✅ Complete
+    │   ├── config/
+    │   │   └── eventConfig.ts        ← ✅ Complete (placeholder content — updated Phase 2)
+    │   ├── lib/
+    │   │   ├── calendar.ts           ← Empty stub (Phase 4)
+    │   │   ├── maps.ts               ← Empty stub (Phase 4)
+    │   │   ├── supabase.ts           ← Empty stub (Phase 3)
+    │   │   ├── utils.ts              ← ✅ Complete (cn(), scrollToSection())
+    │   │   └── validation.ts         ← Empty stub (Phase 3)
+    │   ├── sections/
+    │   │   ├── AccommodationsSection.tsx  ← ✅ Shell complete
+    │   │   ├── ConditionsSection.tsx      ← ✅ Shell complete
+    │   │   ├── ContactSection.tsx         ← ✅ Shell/placeholder (Phase 5)
+    │   │   ├── DateSection.tsx            ← ✅ Shell complete
+    │   │   ├── GiftsSection.tsx           ← ✅ Shell complete
+    │   │   ├── HeroSection.tsx            ← ✅ Shell complete
+    │   │   ├── InfoSection.tsx            ← ✅ Shell complete
+    │   │   ├── RSVPSection.tsx            ← ✅ Placeholder (Phase 3)
+    │   │   ├── StorySection.tsx           ← ✅ Shell complete
+    │   │   ├── ThankYouSection.tsx        ← ✅ Shell complete
+    │   │   └── TimelineSection.tsx        ← ✅ Shell complete
+    │   └── types/
+    │       └── index.ts              ← ✅ Complete
+    ├── .env.example                  ← ✅ Complete
+    ├── .env.local                    ← ✅ Complete (Supabase vars empty for now)
+    ├── .gitignore                    ← ✅ Complete
+    ├── eslint.config.mjs             ← Auto-generated, untouched
+    ├── next-env.d.ts                 ← Auto-generated, untouched
+    ├── next.config.ts                ← Minimal empty config object
+    ├── package.json                  ← ✅ Complete
+    ├── postcss.config.mjs            ← ✅ Fixed for Tailwind v4
+    ├── README.md                     ← ✅ Complete
+    └── tsconfig.json                 ← ✅ Complete (@/* → ./src/*)
+📄 eventConfig.ts Structure
+All site content lives here. Phase 2 replaces placeholder values with real content:
+
+typescript
+eventConfig = {
+  couple:    { partner1: "Jessika", partner2: "Randy", monogram: "JR" }
+  date:      { iso, displayFull, displayDay, displayMonth, displayYear, displayDayOfWeek }
+  hero:      { tagline: "NOS CASAMOS", subTagline }
+  story:     { text, imageUrl }
+  ceremony:  { name, time, location, address, coordinates, mapsUrl }
+  reception: { name, time, location, address, coordinates, mapsUrl }
+  dressCode: {
+    code: "Elegante",
+    note: "La recepción tendrá una parte al aire libre, ¡abrígate!",
+    suggestedColors: [
+      { name: "Rosa", hex: "#F4A7B9" },
+      { name: "Lavanda", hex: "#B9A9D4" },
+      { name: "Púrpura", hex: "#7B4F9E" },
+      { name: "Verde oscuro", hex: "#2D5A3D" },
+      { name: "Verde oliva", hex: "#708238" },
+      { name: "Borgoña", hex: "#5e0813" },
+      { name: "Azul marino", hex: "#1B2A4A" },
+      { name: "Negro", hex: "#1A1A1A" },
+    ]
+  }
+  timeline:  [{ time, event, icon }]   ← 8 events, times are placeholders
+  gifts:     { message, bankDetails: { accountHolder, bank, iban, bic } }
+  accommodations: { text, hotels[] }
+  suggestionsAndConditions: { items[] }
+  contact:   { message, email }
+  calendar:  { ceremony: CalendarEvent, reception: CalendarEvent }
+}
+🗄️ Database Schema (Supabase — Phase 3)
+sql
+CREATE TABLE invitations (
+  id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  display_name  TEXT NOT NULL,
+  rsvp_code     TEXT UNIQUE NOT NULL,
+  primary_email TEXT,
+  allowed_seats INTEGER NOT NULL CHECK (allowed_seats > 0),
+  created_at    TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE TABLE rsvps (
+  id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  invitation_id UUID UNIQUE NOT NULL REFERENCES invitations(id) ON DELETE CASCADE,
+  attending     BOOLEAN NOT NULL,
+  attendees     JSONB DEFAULT '[]',
+  phone         TEXT,
+  notes         TEXT,
+  updated_at    TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE TABLE messages (
+  id         UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name       TEXT NOT NULL,
+  email      TEXT NOT NULL,
+  message    TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+Key RSVP rules:
+Guest looks up invitation by rsvp_code only
+
+API returns only that family's data — never another family's
+
+attendees.length <= allowed_seats enforced server-side always
+
+One RSVP per invitation (upsert = edit flow)
+
+Invitations managed manually via Supabase dashboard (no admin UI needed)
+
+Attendees: up to allowedSeats people (flexible, not required to fill all seats)
+
+Fields collected: attendee names + phone + notes (no dietary restrictions)
+
+🔌 API Endpoints (Phase 3 & 5)
+Method	Path	Purpose
+POST	/api/rsvp/lookup	Find invitation by rsvpCode → returns invitation + existing RSVP
+POST	/api/rsvp/submit	Create or update RSVP (upsert)
+POST	/api/contact	Submit contact/question message
+🌍 Environment Variables
+bash
+# .env.local (never commit)
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+NEXT_PUBLIC_WEDDING_DATE=2026-12-19T18:00:00+01:00
+NEXT_PUBLIC_TIMEZONE=Europe/Madrid
+# RESEND_API_KEY=          ← Phase 5
+# NOTIFICATION_EMAIL=      ← Phase 5
+📋 Sections (scroll order)
+#	Section	Component	Current Background	Status
+1	Hero	HeroSection	Video + burgundy overlay	✅ Shell
+2	Date + Countdown	DateSection	Cream	✅ Shell
+3	Our Story	StorySection	Sage	✅ Shell
+4	Ceremony + Reception + Dress Code	InfoSection	Burgundy	✅ Shell
+5	Timeline	TimelineSection	Cream	✅ Shell
+6	Gift Suggestion	GiftsSection	Sage	✅ Shell
+7	RSVP	RSVPSection	Cream	🔲 Placeholder
+8	Accommodations	AccommodationsSection	Sage	✅ Shell
+9	Suggestions & Conditions	ConditionsSection	Burgundy	✅ Shell
+10	Thank You	ThankYouSection	Dark burgundy	✅ Shell
+🔢 Adaptive Countdown
+In AdaptiveCountdown.tsx, switches modes automatically:
+
+Time Left	Mode	Example
+> 30 days	Months : Days	"3 meses, 15 días"
+7–30 days	Days : Hours : Minutes	"15 días, 8 horas, 23 minutos"
+< 7 days	Hours : Minutes : Seconds	"5 horas, 43 minutos, 12 segundos"
+✅ Phase Status
+✅ PHASE 0 — Complete
+✅ PHASE 1 — Complete
+🔲 PHASE 2 — Static Sections + Content Polish — START HERE
+This is where the new chat begins.
+
+Step 1 — Read the PDF
+The user will upload a new updated PDF at the start of the conversation. Read it fully before doing anything else. Extract:
+
+Exact colors (check against current #5e0813 / #f4f2eb / #8a9a5b)
+
+Section backgrounds and their order
+
+Typography sizing and hierarchy per section
+
+Decorative element positions (rings, glasses, etc.)
+
+Any new sections or removed sections vs. current implementation
+
+Spacing, padding, and layout density
+
+Any content that is now finalized vs. still placeholder
+
+Step 2 — Ask Phase 2 questions
+After reading the PDF, ask questions about:
+
+Any color/design changes the PDF reveals vs. current implementation
+
+Real story text (replaces "Nos conocimos en Curaçao y tal brrrr...")
+
+Exact timeline event times (all currently show "6:00 pm" as placeholder)
+
+Real venue names and addresses (currently "Iglesia tal" and "Finca Bla Bla")
+
+Couple photos — how many, which sections, format
+
+SVG illustrations — user has their own, how to receive them
+
+Real gift/bank details text
+
+Accommodations text and hotel recommendations
+
+Suggestions & Conditions actual content
+
+"use client" cleanup in page.tsx (confirm before touching)
+
+Step 3 — Implement
+Only after answers are received:
+
+Update eventConfig.ts with all real content
+
+Polish all section components to match the new PDF
+
+Update colors in globals.css @theme block if PDF shows changes
+
+Add SVG illustrations where provided
+
+Place video/images in public/
+
+Fix "use client" placement (remove from page.tsx, add to individual components)
+
+Verify responsive layout on mobile and desktop
+
+🔲 PHASE 3 — Database + RSVP System
+Create Supabase project
+
+Run SQL migrations
+
+Build /api/rsvp/lookup and /api/rsvp/submit
+
+Full RSVP form with lookup → display → submit → edit flow
+
+Server-side seat validation
+
+🔲 PHASE 4 — Maps + Calendar
+"Ver ubicación" → Google Maps universal links
+
+"Agregar al Calendario" → Google Calendar link + ICS download
+
+🔲 PHASE 5 — Contact Form
+Working form with Resend email or DB storage fallback
+
+🔲 PHASE 6 — Hardening & Production
+Error boundaries, accessibility, Lighthouse audit
+
+Custom domain, analytics, README finalization
+
+🖥️ Running the Project
+powershell
+# Always from project root:
+cd C:\Users\jhoof\Desktop\Projects\Wedding-invite-website\wedding-invitation
+
+npm run dev       # → http://localhost:3000
+npm run build     # production check
+📌 Critical Notes for the New AI
+User is on Windows — PowerShell commands only
+
+Node v22.2.0, Next.js 16.1.6, Tailwind CSS v4
+
+Tailwind v4 = no config file — all in globals.css @theme {}
+
+page.tsx has "use client" at the top — this works but is not ideal; clean up in Phase 2 by moving "use client" to individual interactive components (Button.tsx, Input.tsx, Textarea.tsx, Card.tsx, InfoSection.tsx)
+
+All "brrrr", "tal", "bla bla" text in current code is placeholder — Phase 2 replaces everything
+
+User has their own SVG files for all decorative elements — ask how they want to provide them
+
+Video file needs to go in public/videos/hero.mp4 — user has it
+
+Supabase not set up yet — lib/supabase.ts, lib/calendar.ts, lib/maps.ts, lib/validation.ts are all empty stubs
+
+The new PDF takes full design priority — analyze it carefully and propose updates before coding
+
+Never generate code before receiving Phase 2 Q&A answers
+

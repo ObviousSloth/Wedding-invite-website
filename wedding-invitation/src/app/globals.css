@@ -1,0 +1,114 @@
+/* ─── 1. Google Fonts — MUST be first ──────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Dancing+Script:wght@400;500;600;700&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Great+Vibes&display=swap');
+
+/* ─── 2. Tailwind v4 ────────────────────────────────────────────────────── */
+@import "tailwindcss";
+
+/* ─── 3. Theme (colors, fonts, animations) ──────────────────────────────── */
+@theme {
+  /* Colors */
+  --color-burgundy:       #5e0813;
+  --color-burgundy-light: #7a1020;
+  --color-burgundy-dark:  #3d0509;
+  --color-cream:          #f4f2eb;
+  --color-cream-dark:     #e8e4d9;
+  --color-cream-light:    #faf9f5;
+  --color-sage:           #8a9a5b;
+  --color-sage-light:     #a8b878;
+  --color-sage-dark:      #6b7845;
+
+  /* Font families */
+  --font-slight:      'Great Vibes', cursive;
+  --font-cinzel:      'Cinzel', serif;
+  --font-seasons:     'Cormorant Garamond', serif;
+  --font-icon:        'Dancing Script', cursive;
+  --font-oldstandard: 'Old Standard TT', serif;
+
+  /* Animations */
+  --animate-fade-in:        fadeIn 0.8s ease-in-out forwards;
+  --animate-fade-up:        fadeUp 0.8s ease-in-out forwards;
+  --animate-slide-in-left:  slideInLeft 0.8s ease-in-out forwards;
+  --animate-slide-in-right: slideInRight 0.8s ease-in-out forwards;
+  --animate-float:          float 3s ease-in-out infinite;
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes slideInRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-8px); }
+  }
+}
+
+/* ─── 4. Base Styles ─────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 64px;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-burgundy);
+  font-family: var(--font-cinzel);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── 5. Scroll Animation ────────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── 6. Custom Scrollbar ────────────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-cream); }
+::-webkit-scrollbar-thumb { background: var(--color-burgundy); border-radius: 3px; }
+
+/* ─── 7. Selection ───────────────────────────────────────────────────────── */
+::selection {
+  background-color: var(--color-burgundy);
+  color: var(--color-cream);
+}
+
+/* ─── 8. Section Backgrounds ─────────────────────────────────────────────── */
+.bg-section-cream    { background-color: var(--color-cream); }
+.bg-section-burgundy { background-color: var(--color-burgundy); }
+.bg-section-sage     { background-color: var(--color-sage); }
+.bg-section-dark     { background-color: var(--color-burgundy-dark); }
+
+/* ─── 9. Divider ─────────────────────────────────────────────────────────── */
+.divider {
+  width: 60px;
+  height: 1px;
+  background-color: currentColor;
+  opacity: 0.4;
+  margin: 0 auto;
+}
+
+/* ─── 10. Video Overlay ──────────────────────────────────────────────────── */
+.video-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(94, 8, 19, 0.55) 0%,
+    rgba(61, 5, 9, 0.70) 100%
+  );
+}

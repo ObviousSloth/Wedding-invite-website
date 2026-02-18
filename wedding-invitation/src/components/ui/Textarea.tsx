@@ -1,14 +1,14 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { InputHTMLAttributes, forwardRef } from "react";
+import { TextareaHTMLAttributes, forwardRef } from "react";
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
   error?: string;
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(
+const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ className, label, error, id, ...props }, ref) => {
     return (
       <div className="flex flex-col gap-1.5 w-full">
@@ -20,11 +20,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             {label}
           </label>
         )}
-        <input
+        <textarea
           ref={ref}
           id={id}
           className={cn(
-            "w-full px-4 py-3 rounded-full border font-cinzel text-sm",
+            "w-full px-4 py-3 rounded-2xl border font-cinzel text-sm resize-none",
             "bg-cream/30 border-current/30 text-current placeholder:opacity-40",
             "focus:outline-none focus:ring-2 focus:ring-current/40 focus:border-current",
             "transition-all duration-150",
@@ -41,5 +41,5 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   }
 );
 
-Input.displayName = "Input";
-export default Input;
+Textarea.displayName = "Textarea";
+export default Textarea;
