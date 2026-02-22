@@ -10,10 +10,12 @@ import AccommodationsSection from "@/sections/AccommodationsSection";
 import ConditionsSection from "@/sections/ConditionsSection";
 import ThankYouSection from "@/sections/ThankYouSection";
 import ScrollReveal from "@/components/ScrollReveal";
+import LandingController from "@/components/LandingController";
 
 export default function Home() {
   return (
     <>
+      <LandingController />
       <Navbar />
       <main>
         <HeroSection />
