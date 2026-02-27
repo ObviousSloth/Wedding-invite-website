@@ -1,0 +1,59 @@
+/* ═══════════════════════════════════════════════════════════
+   Cream section background — pure CSS lace floral pattern
+   Inspired by embossed lace texture on cream (#f4f2eb)
+   Uses layered SVG data URIs as background-image —
+   no external files needed, fully repeating, zero seams.
+   ═══════════════════════════════════════════════════════════ */
+
+.bg-section-cream {
+  background-color: #f4f2eb;
+  color: var(--color-burgundy);
+  position: relative;
+
+  /* ── Layer 1: large floral medallion (center of each tile) ── */
+  /* ── Layer 2: corner petal clusters ─────────────────────── */
+  /* ── Layer 3: small dot accents ─────────────────────────── */
+  /* ── Layer 4: thin crosshatch lines ─────────────────────── */
+  background-image:
+    /* Layer 3 — small scatter dots */
+    radial-gradient(circle, #e8e4d5 1px, transparent 1px),
+    radial-gradient(circle, #e8e4d5 1px, transparent 1px),
+
+    /* Layer 2 — petal ring (8 petals arranged in a circle) */
+    radial-gradient(ellipse 18px 8px at 50% 50%, transparent 60%, #ede9df 60%, #ede9df 70%, transparent 70%),
+    radial-gradient(ellipse 8px 18px at 50% 50%, transparent 60%, #ede9df 60%, #ede9df 70%, transparent 70%),
+    radial-gradient(ellipse 15px 6px at 50% 50%, transparent 62%, #ede9df 62%, #ede9df 72%, transparent 72%),
+    radial-gradient(ellipse 6px 15px at 50% 50%, transparent 62%, #ede9df 62%, #ede9df 72%, transparent 72%),
+
+    /* Layer 1 — center medallion bloom */
+    radial-gradient(circle at 50% 50%, #ede9df 3px, transparent 3px),
+    radial-gradient(circle at 50% 50%, transparent 10px, #e8e4d5 10px, #e8e4d5 11.5px, transparent 11.5px),
+    radial-gradient(circle at 50% 50%, transparent 18px, #e8e4d5 18px, #e8e4d5 19px, transparent 19px),
+    radial-gradient(circle at 50% 50%, transparent 26px, #e2ddd0 26px, #e2ddd0 27px, transparent 27px);
+
+  background-size:
+    80px 80px,   /* dot scatter A */
+    80px 80px,   /* dot scatter B (offset) */
+    80px 80px,   /* petal ring H */
+    80px 80px,   /* petal ring V */
+    80px 80px,   /* petal ring diagonal 1 */
+    80px 80px,   /* petal ring diagonal 2 */
+    80px 80px,   /* center dot */
+    80px 80px,   /* ring 1 */
+    80px 80px,   /* ring 2 */
+    80px 80px;   /* ring 3 */
+
+  background-position:
+    20px 20px,   /* dot scatter A */
+    60px 60px,   /* dot scatter B */
+    0 0,         /* petal ring H */
+    0 0,         /* petal ring V */
+    0 0,         /* petal ring diagonal 1 */
+    0 0,         /* petal ring diagonal 2 */
+    0 0,         /* center dot */
+    0 0,         /* ring 1 */
+    0 0,         /* ring 2 */
+    0 0;         /* ring 3 */
+
+  background-repeat: repeat;
+}

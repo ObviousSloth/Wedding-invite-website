@@ -4,6 +4,9 @@
 /* ─── 2. Tailwind v4 ────────────────────────────────────────────────────── */
 @import "tailwindcss";
 
+@import "../styles/bg-cream.css";
+
+
 /* ─── 3. Theme (colors, fonts, animations) ──────────────────────────────── */
 @theme {
   /* Colors */
@@ -34,6 +37,18 @@
   /* ── Envelope landing animations ─────────────────────────── */
 --animate-envelope-float: envelope-float 3.5s ease-in-out infinite;
 --animate-envelope-shake: envelope-shake 0.45s ease-in-out forwards;
+
+/* ── Fluid typography  ────────────────────────────── */
+--text-couple-name: clamp(3.2rem, 11vw, 7.5rem);
+--text-hero-amp:    clamp(1.4rem, 4vw, 2.8rem);
+
+--text-section-title: clamp(2.4rem, 7vw, 4.5rem);
+--text-date-number:   clamp(4.5rem, 18vw, 9rem);
+--text-story-body:    clamp(1rem, 2.5vw, 1.2rem);
+--text-venue-name:    clamp(1rem, 2.8vw, 1.35rem);
+
+--text-thankyou-title: clamp(3.5rem, 12vw, 8rem);
+
 
   @keyframes fadeIn {
     from { opacity: 0; }
@@ -110,11 +125,35 @@ body {
   color: var(--color-cream);
 }
 
-/* ─── 8. Section Backgrounds ─────────────────────────────────────────────── */
-.bg-section-cream    { background-color: var(--color-cream); }
-.bg-section-burgundy { background-color: var(--color-burgundy); }
-.bg-section-sage     { background-color: var(--color-sage); }
-.bg-section-dark     { background-color: var(--color-burgundy-dark); }
+/* ─── 8. Background Utilities ───────────────────────────────────────────── */
+@layer utilities {
+  /* ── Cream section background ─────────────────────────────
+     Base color = fallback if SVG fails to load.
+     SVG is a full decorative illustration (cover).
+  ────────────────────────────────────────────────────────── */
+  .bg-section-cream {
+    background-color: #f4f2eb;
+    background-image: url('/images/bg-texture-cream.png');
+    background-size: 1024px auto;
+    background-position: center top;
+    background-repeat: no-repeat;
+    color: var(--color-burgundy);
+  }
+
+
+  /* ── Burgundy section background ──────────────────────────
+     Base color = fallback if SVG fails to load.
+     SVG is a single full illustration (cover).
+  ────────────────────────────────────────────────────────── */
+  .bg-section-burgundy {
+    background-color: var(--color-burgundy);
+    background-image: url('/svgs/bg-burgundy.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--color-cream); 
+  }
+}
 
 /* ─── 9. Divider ─────────────────────────────────────────────────────────── */
 .divider {
@@ -133,3 +172,5 @@ body {
     rgba(61, 5, 9, 0.70) 100%
   );
 }
+
+

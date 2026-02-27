@@ -1,0 +1,56 @@
+/* ── Venue cards grid ───────────────────────────────────── */
+.venueGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 52rem;
+  margin: 3rem auto 0;
+}
+
+@media (min-width: 768px) {
+  .venueGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ── Section divider ────────────────────────────────────── */
+.sectionDivider {
+  width: 100%;
+  max-width: 52rem;
+  height: 1px;
+  opacity: 0.15;
+  margin: 4rem auto;
+}
+
+/* ── Dress code color swatches ──────────────────────────── */
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.swatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.swatchCircle {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  /* backgroundColor set via inline style — dynamic hex value from eventConfig */
+  border: 2px solid rgba(244, 242, 235, 0.2);
+  flex-shrink: 0;
+}
+
+.swatchLabel {
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}

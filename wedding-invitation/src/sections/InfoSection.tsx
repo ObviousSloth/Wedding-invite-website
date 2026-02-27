@@ -1,110 +1,138 @@
-"use client";
-
 import { eventConfig } from "@/config/eventConfig";
-import Container from "@/components/ui/Container";
-import Card from "@/components/ui/Card";
-import Button from "@/components/ui/Button";
+import type { Venue } from "@/types";
+import ScrollReveal from "@/components/ScrollReveal";
 import SectionHeading from "@/components/ui/SectionHeading";
+import Container from "@/components/ui/Container";
+import styles from "./InfoSection.module.css";
 
+// ── Reusable venue card ──────────────────────────────────────────────────────
+function VenueCard({ venue, label }: { venue: Venue; label: string }) {
+  return (
+    <div className="border border-cream/20 rounded-2xl p-8 sm:p-10 flex flex-col items-center gap-4 text-center h-full">
+
+      {/* Label */}
+      <p className="font-cinzel text-cream/45 text-[10px] tracking-[0.5em] uppercase">
+        {label}
+      </p>
+
+      {/* Venue name */}
+      <p className="font-cinzel text-cream text-venue-name font-medium leading-snug tracking-wide">
+        {venue.name}
+      </p>
+
+      {/* Time */}
+      <p className="font-seasons italic text-cream/70 text-xl">
+        {venue.time}
+      </p>
+
+      {/* Thin rule */}
+      <div className="h-px w-10 bg-cream/20" aria-hidden="true" />
+
+      {/* Address */}
+      <p className="font-oldstandard text-cream/55 text-sm leading-relaxed">
+        {venue.address}
+      </p>
+
+      {/* Maps link — styled as pill button inline (no Button.tsx API assumptions) */}
+      <a
+        href={venue.mapsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Ver ubicación de ${venue.name} en Google Maps`}
+        className="
+          mt-2 inline-flex items-center gap-2
+          px-6 py-2 rounded-full
+          border border-cream/35
+          font-cinzel text-cream/80 text-[10px] tracking-[0.3em] uppercase
+          hover:bg-cream/10 hover:text-cream
+          transition-colors duration-200
+        "
+      >
+        <svg
+          className="w-3 h-3 flex-shrink-0"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={2}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+          <circle cx="12" cy="9" r="2.5" />
+        </svg>
+        Ver Ubicación
+      </a>
+
+    </div>
+  );
+}
+
+// ── Section ──────────────────────────────────────────────────────────────────
 export default function InfoSection() {
   const { ceremony, reception, dressCode } = eventConfig;
 
   return (
-    <section id="info" className="bg-section-burgundy py-20 md:py-28">
-      <Container size="lg">
+    <section id="ceremonia" className="bg-section-burgundy py-24 sm:py-32">
+      <Container className="flex flex-col items-center text-center">
 
-        {/* Ceremony + Reception */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+        {/* ── Venue heading ───────────────────────────────────── */}
+        <ScrollReveal>
+          <SectionHeading variant="light">El Gran Día</SectionHeading>
+        </ScrollReveal>
 
-          {/* Ceremony Card */}
-          <Card variant="outline" className="text-cream border-cream/30 text-center">
-            <div className="flex flex-col items-center gap-4">
-              {/* Ring icon placeholder */}
-              <div className="w-12 h-12 flex items-center justify-center opacity-60">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="w-10 h-10">
-                  <circle cx="12" cy="12" r="5" />
-                  <circle cx="12" cy="12" r="9" />
-                </svg>
-              </div>
-              <h3 className="font-slight text-3xl text-cream">Ceremonia Religiosa</h3>
-              <div className="divider text-cream" />
-              <p className="font-icon text-5xl text-cream">{ceremony.time}</p>
-              <p className="font-cinzel tracking-widest uppercase text-sm text-cream/80">
-                {ceremony.name}
-              </p>
-              <p className="font-oldstandard italic text-cream/70 text-sm">
-                {ceremony.location}
-              </p>
-              <Button
-                variant="secondary"
-                size="sm"
-                onClick={() => window.open(ceremony.mapsUrl, "_blank")}
-              >
-                Ver ubicación
-              </Button>
-            </div>
-          </Card>
-
-          {/* Reception Card */}
-          <Card variant="outline" className="text-cream border-cream/30 text-center">
-            <div className="flex flex-col items-center gap-4">
-              {/* Champagne glasses icon placeholder */}
-              <div className="w-12 h-12 flex items-center justify-center opacity-60">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="w-10 h-10">
-                  <path d="M8 2l2 8-4 4h8l-4-4 2-8" />
-                  <path d="M16 2l2 8-4 4h8l-4-4 2-8" />
-                </svg>
-              </div>
-              <h3 className="font-slight text-3xl text-cream">Recepción</h3>
-              <div className="divider text-cream" />
-              <p className="font-icon text-5xl text-cream">{reception.time}</p>
-              <p className="font-cinzel tracking-widest uppercase text-sm text-cream/80">
-                {reception.name}
-              </p>
-              <p className="font-oldstandard italic text-cream/70 text-sm">
-                {reception.location}
-              </p>
-              <Button
-                variant="secondary"
-                size="sm"
-                onClick={() => window.open(reception.mapsUrl, "_blank")}
-              >
-                Ver ubicación
-              </Button>
-            </div>
-          </Card>
+        {/* ── Venue cards ─────────────────────────────────────── */}
+        <div className={styles.venueGrid}>
+          <ScrollReveal delay={0}>
+            <VenueCard venue={ceremony} label="Ceremonia Religiosa" />
+          </ScrollReveal>
+          <ScrollReveal delay={150}>
+            <VenueCard venue={reception} label="Recepción" />
+          </ScrollReveal>
         </div>
 
-        {/* Dress Code */}
-        <div className="text-center">
-          <SectionHeading title="Código de Vestimenta" variant="burgundy" />
+        {/* ── Divider ─────────────────────────────────────────── */}
+        <div className={`${styles.sectionDivider} bg-cream`} aria-hidden="true" />
 
-          <p className="font-cinzel tracking-[0.4em] uppercase text-cream text-lg mb-3">
+        {/* ── Dress code heading ──────────────────────────────── */}
+        <ScrollReveal>
+          <SectionHeading variant="light">Código de Vestimenta</SectionHeading>
+        </ScrollReveal>
+
+        <ScrollReveal delay={100}>
+          <p className="font-cinzel text-cream text-xl sm:text-2xl tracking-[0.35em] uppercase mt-5 mb-3">
             {dressCode.code}
           </p>
-          <p className="font-seasons italic text-cream/70 text-base mb-8">
+          <p className="font-seasons italic text-cream/60 text-base sm:text-lg max-w-md mx-auto">
             {dressCode.note}
           </p>
+        </ScrollReveal>
 
-          {/* Color Palette */}
-          <div className="mt-4">
-            <p className="font-cinzel text-cream/60 tracking-widest uppercase text-xs mb-5">
-              Sugerencia de colores
-            </p>
-            <div className="flex flex-wrap justify-center gap-3">
-              {dressCode.suggestedColors.map((color) => (
-                <div key={color.name} className="flex flex-col items-center gap-2">
-                  <div
-                    className="w-10 h-10 rounded-full border-2 border-cream/20 shadow"
-                    style={{ backgroundColor: color.hex }}
-                    title={color.name}
-                  />
-                  <span className="font-cinzel text-cream/60 text-xs">{color.name}</span>
-                </div>
-              ))}
-            </div>
+        {/* ── Color swatches ──────────────────────────────────── */}
+        <ScrollReveal delay={200}>
+          <div
+            className={styles.swatches}
+            role="list"
+            aria-label="Colores sugeridos para el código de vestimenta"
+          >
+            {dressCode.suggestedColors.map((color) => (
+              <div key={color.name} className={styles.swatch} role="listitem">
+                <div
+                  className={styles.swatchCircle}
+                  style={{ backgroundColor: color.hex }}
+                  /*
+                    ↑ Inline style intentional: backgroundColor is a dynamic
+                    hex value from eventConfig — cannot be a static Tailwind class.
+                  */
+                  aria-label={color.name}
+                />
+                <span className={`${styles.swatchLabel} font-cinzel text-cream`}>
+                  {color.name}
+                </span>
+              </div>
+            ))}
           </div>
-        </div>
+        </ScrollReveal>
 
       </Container>
     </section>

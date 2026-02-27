@@ -1,36 +1,28 @@
-"use client";
-
-import { cn } from "@/lib/utils";
-
-interface SectionHeadingProps {
-  title: string;
-  subtitle?: string;
-  variant?: "cream" | "burgundy";
+interface Props {
+  children: React.ReactNode;
+  /**
+   * "dark"  → text-burgundy  (use on cream / sage backgrounds)
+   * "light" → text-cream     (use on burgundy backgrounds)
+   */
+  variant?: "dark" | "light";
   className?: string;
 }
 
 export default function SectionHeading({
-  title,
-  subtitle,
-  variant = "cream",
-  className,
-}: SectionHeadingProps) {
-  const colors = {
-    cream: "text-burgundy",
-    burgundy: "text-cream",
-  };
+  children,
+  variant = "dark",
+  className = "",
+}: Props) {
+  const color = variant === "light" ? "text-cream" : "text-burgundy";
 
   return (
-    <div className={cn("text-center mb-10 md:mb-14", className)}>
-      <h2 className={cn("font-slight text-5xl md:text-6xl mb-3", colors[variant])}>
-        {title}
-      </h2>
-      <div className={cn("divider mb-4", colors[variant])} />
-      {subtitle && (
-        <p className={cn("font-seasons italic text-base md:text-lg opacity-80", colors[variant])}>
-          {subtitle}
-        </p>
-      )}
-    </div>
+    <h2
+      className={`
+        font-slight text-section-title leading-tight tracking-wide
+        ${color} ${className}
+      `}
+    >
+      {children}
+    </h2>
   );
 }

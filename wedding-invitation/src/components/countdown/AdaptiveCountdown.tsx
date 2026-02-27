@@ -62,10 +62,10 @@ interface UnitBoxProps {
 function UnitBox({ value, label }: UnitBoxProps) {
   return (
     <div className="flex flex-col items-center gap-2">
-      <span className="font-icon text-burgundy text-5xl md:text-6xl leading-none tabular-nums">
+      <span className="font-icon text-cream text-5xl md:text-6xl leading-none tabular-nums">
         {String(value).padStart(2, "0")}
       </span>
-      <span className="font-cinzel text-burgundy/60 text-xs tracking-widest uppercase">
+      <span className="font-cinzel text-cream/60 text-xs tracking-widest uppercase">
         {label}
       </span>
     </div>
@@ -85,18 +85,18 @@ export default function AdaptiveCountdown({ targetDate }: AdaptiveCountdownProps
   if (timeLeft.mode === "passed") {
     return (
       <div className="text-center">
-        <p className="font-slight text-burgundy text-4xl">¡Feliz boda!</p>
+        <p className="font-slight text-cream text-4xl">¡Feliz boda!</p>
       </div>
     );
   }
 
   const separator = (
-    <span className="font-cinzel text-burgundy/40 text-3xl md:text-4xl self-start pt-3">:</span>
+    <span className="font-cinzel text-cream/40 text-3xl md:text-4xl self-start pt-3">:</span>
   );
 
   return (
     <div className="flex flex-col items-center gap-4">
-      <p className="font-cinzel text-burgundy/50 tracking-[0.4em] uppercase text-xs">
+      <p className="font-cinzel text-cream/50 tracking-[0.4em] uppercase text-xs">
         Cuenta regresiva
       </p>
       <div className="flex items-start gap-4 md:gap-8">

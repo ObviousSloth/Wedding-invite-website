@@ -1,63 +1,100 @@
 import { eventConfig } from "@/config/eventConfig";
-import Container from "@/components/ui/Container";
+import type { TimelineEvent } from "@/types";
+import ScrollReveal from "@/components/ScrollReveal";
 import SectionHeading from "@/components/ui/SectionHeading";
+import Container from "@/components/ui/Container";
+import TimelineIcon from "@/components/timeline/TimelineIcon";
+import styles from "./TimelineSection.module.css";
 
-const iconMap: Record<string, string> = {
-  church:   "⛪",
-  car:      "🚗",
-  cocktail: "🥂",
-  dance:    "💃",
-  menu:     "🍽",
-  cake:     "🎂",
-  disco:    "🪩",
-  clock:    "🕐",
-};
-
-export default function TimelineSection() {
+// ── Card sub-component ───────────────────────────────────────────────────────
+function TimelineCard({ item }: { item: TimelineEvent }) {
   return (
-    <section id="itinerario" className="bg-section-cream py-20 md:py-28">
-      <Container size="sm">
-        <SectionHeading
-          title="Itinerario de Actividades"
-          variant="cream"
-        />
+    <div className={styles.card}>
+      <p className="font-cinzel text-burgundy/45 text-[10px] tracking-[0.4em] uppercase mb-[3px]">
+        {item.time}
+      </p>
+      <p className="font-cinzel text-burgundy text-[0.82rem] sm:text-[0.9rem] tracking-wide font-medium leading-snug">
+        {item.event}
+      </p>
+    </div>
+  );
+}
 
-        <div className="relative">
-          {/* Vertical line */}
-          <div className="absolute left-1/2 -translate-x-px top-0 bottom-0 w-px bg-burgundy/20" />
+// ── Section ──────────────────────────────────────────────────────────────────
+export default function TimelineSection() {
+  const { timeline } = eventConfig;
 
-          <div className="flex flex-col gap-0">
-            {eventConfig.timeline.map((item, index) => {
-              const isLeft = index % 2 === 0;
-              return (
+  return (
+    <section id="itinerario" className="py-24 sm:py-32">
+      <Container className="flex flex-col items-center">
+
+        <ScrollReveal>
+          <SectionHeading>Itinerario</SectionHeading>
+        </ScrollReveal>
+
+        <div className={styles.wrapper}>
+
+          {/* Center vertical line */}
+          <div className={styles.vertLine} aria-hidden="true" />
+
+          {timeline.map((item, i) => {
+            const isEven = i % 2 === 0;
+            const isLast = i === timeline.length - 1;
+
+            return (
+              <ScrollReveal key={i} delay={i * 75}>
                 <div
-                  key={index}
-                  className={`flex items-center gap-6 md:gap-10 py-6 ${
-                    isLeft ? "flex-row" : "flex-row-reverse"
-                  }`}
+                  className={`
+                    ${styles.item}
+                    ${isEven ? styles.itemEven : styles.itemOdd}
+                  `}
                 >
-                  {/* Content */}
-                  <div className={`flex-1 ${isLeft ? "text-right" : "text-left"}`}>
-                    <p className="font-seasons italic text-burgundy/60 text-sm mb-1">
-                      {item.time}
-                    </p>
-                    <p className="font-cinzel text-burgundy tracking-widest uppercase text-xs md:text-sm">
-                      {item.event}
-                    </p>
+
+                  {/* ── Desktop SVG (hidden on mobile) ───────────────
+                      Even  → renders in LEFT  column
+                      Odd   → renders in RIGHT column
+                      CSS grid-column placement handles this — DOM
+                      order doesn't matter for desktop. ✓
+                  ──────────────────────────────────────────────────── */}
+                  <div className={styles.svgSlot}>
+                    <TimelineIcon
+                      icon={item.icon}
+                      className={styles.svgIcon}
+                      size={item.iconSize}
+                    />
                   </div>
 
-                  {/* Center dot + icon */}
-                  <div className="relative flex-shrink-0 w-10 h-10 rounded-full bg-cream border-2 border-burgundy/30 flex items-center justify-center z-10 text-base">
-                    {iconMap[item.icon] ?? "◆"}
+                  {/* ── Dot (center line marker) ─────────────────── */}
+                  <div className={styles.dotSlot}>
+                    <div className={styles.dot} />
                   </div>
 
-                  {/* Empty opposite side */}
-                  <div className="flex-1" />
+                  {/* ── Event card ───────────────────────────────── */}
+                  <div className={styles.cardSlot}>
+                    <TimelineCard item={item} />
+                  </div>
+
+                  {/* ── Mobile SVG connector (hidden on desktop) ───
+                      Appears in row 2, between this item's card and
+                      the next item's dot. Not shown after last item.
+                  ──────────────────────────────────────────────────── */}
+                  {!isLast && (
+                    <div className={styles.mobileSvgRow}>
+                      <TimelineIcon
+                        icon={item.icon}
+                        className={styles.svgIconMobile}
+                        size={item.iconSize}
+                      />
+                    </div>
+                  )}
+
                 </div>
-              );
-            })}
-          </div>
+              </ScrollReveal>
+            );
+          })}
+
         </div>
+
       </Container>
     </section>
   );

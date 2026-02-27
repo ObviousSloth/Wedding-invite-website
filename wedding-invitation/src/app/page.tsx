@@ -11,40 +11,47 @@ import ConditionsSection from "@/sections/ConditionsSection";
 import ThankYouSection from "@/sections/ThankYouSection";
 import ScrollReveal from "@/components/ScrollReveal";
 import LandingController from "@/components/LandingController";
+import CreamBackground from "@/components/ui/CreamBackground";
+import ContactSection from "@/sections/ContactSection";
 
 export default function Home() {
   return (
     <>
       <LandingController />
       <Navbar />
-      <main>
-        <HeroSection />
-        <ScrollReveal>
-          <DateSection />
-        </ScrollReveal>
-        <ScrollReveal>
-          <StorySection />
-        </ScrollReveal>
-        <ScrollReveal>
-          <InfoSection />
-        </ScrollReveal>
-        <ScrollReveal>
-          <TimelineSection />
-        </ScrollReveal>
-        <ScrollReveal>
-          <GiftsSection />
-        </ScrollReveal>
-        <ScrollReveal>
-          <RSVPSection />
-        </ScrollReveal>
-        <ScrollReveal>
-          <AccommodationsSection />
-        </ScrollReveal>
-        <ScrollReveal>
-          <ConditionsSection />
-        </ScrollReveal>
-        <ThankYouSection />
-      </main>
+        <main>
+    <HeroSection />
+
+    {/* Shared cream background — no seam */}
+    <div className="bg-section-cream">
+      <DateSection />
+      <StorySection />
+    </div>
+
+    <InfoSection />
+
+    <div className="bg-section-cream">
+      <TimelineSection />
+    </div>
+
+    <GiftsSection />
+
+    <div className="bg-section-cream">
+      <RSVPSection />
+    </div>
+
+    <div className="bg-section-burgundy">
+      <AccommodationsSection />
+      <ConditionsSection />
+    </div>
+
+    <div className="bg-section-cream">
+      <ContactSection />
+    </div>
+
+    <ThankYouSection />
+  </main>
+
     </>
   );
 }

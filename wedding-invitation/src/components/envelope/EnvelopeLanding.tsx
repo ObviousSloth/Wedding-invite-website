@@ -2,20 +2,21 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import styles from "./EnvelopeLanding.module.css";
 
 type Phase = "idle" | "shaking" | "burst" | "fading";
 
 interface PolaroidConfig {
-  translateX: string;
-  translateY: string;
-  rotate: string;
+  tx:    string;
+  ty:    string;
+  rot:   string;
   delay: string;
 }
 
 const POLAROIDS: PolaroidConfig[] = [
-  { translateX: "-175px", translateY: "-135px", rotate: "-14deg", delay: "0ms"   },
-  { translateX: "5px",    translateY: "-210px", rotate: "2deg",   delay: "80ms"  },
-  { translateX: "180px",  translateY: "-115px", rotate: "12deg",  delay: "160ms" },
+  { tx: "-175px", ty: "-135px", rot: "-14deg", delay: "0ms"   },
+  { tx: "5px",    ty: "-210px", rot: "2deg",   delay: "80ms"  },
+  { tx: "180px",  ty: "-115px", rot: "12deg",  delay: "160ms" },
 ];
 
 interface Props {
@@ -28,19 +29,19 @@ export default function EnvelopeLanding({ onComplete }: Props) {
 
   const handleOpen = () => {
     if (phase !== "idle") return;
-
     setPhase("shaking");
-
     timers.current = [
-      setTimeout(() => setPhase("burst"),   400),
-      setTimeout(() => setPhase("fading"),  1700),
-      setTimeout(() => onComplete(),         2450),
+      setTimeout(() => setPhase("burst"),  400),
+      setTimeout(() => setPhase("fading"), 1700),
+      setTimeout(() => onComplete(),        2450),
     ];
   };
 
   useEffect(() => {
     return () => timers.current.forEach(clearTimeout);
   }, []);
+
+  const isBurst = phase === "burst" || phase === "fading";
 
   return (
     <div
@@ -56,7 +57,8 @@ export default function EnvelopeLanding({ onComplete }: Props) {
         ${phase === "fading" ? "opacity-0 pointer-events-none" : "opacity-100"}
       `}
     >
-      {/* ── Envelope + polaroids container ───────────────────────── */}
+
+      {/* ── Envelope + polaroids container ─────────────────────── */}
       <div
         className={`
           relative flex items-center justify-center will-change-transform
@@ -64,43 +66,45 @@ export default function EnvelopeLanding({ onComplete }: Props) {
           ${phase === "shaking" ? "animate-envelope-shake" : ""}
         `}
       >
-        {/* ── Polaroid cards (burst on click) ──────────────────────── */}
+
+        {/* ── Polaroid cards (burst on click) ────────────────────
+            CSS custom props (--tx, --ty, --rot, --delay) carry
+            the per-card positional data; all transitions live
+            in EnvelopeLanding.module.css
+        ─────────────────────────────────────────────────────── */}
         {POLAROIDS.map((p, i) => (
           <div
             key={i}
-            className="absolute top-1/2 left-1/2 w-[115px] sm:w-[135px] bg-white shadow-2xl z-30"
+            className={`
+              absolute top-1/2 left-1/2
+              w-[115px] sm:w-[135px] bg-white shadow-2xl z-30
+              ${styles.polaroid}
+              ${isBurst ? styles.polaroidBurst : styles.polaroidIdle}
+            `}
             style={{
-              transform:
-                phase === "burst" || phase === "fading"
-                  ? `translate(calc(-50% + ${p.translateX}), calc(-50% + ${p.translateY})) rotate(${p.rotate}) scale(1)`
-                  : `translate(-50%, -50%) rotate(0deg) scale(0)`,
-              opacity: phase === "burst" || phase === "fading" ? 1 : 0,
-              transition: `
-                transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${p.delay},
-                opacity   0.25s ease ${p.delay}
-              `,
-            }}
+              "--tx":    p.tx,
+              "--ty":    p.ty,
+              "--rot":   p.rot,
+              "--delay": p.delay,
+            } as React.CSSProperties}
           >
-            {/* Photo area — TODO: replace gradient with real couple photo via Next.js <Image> */}
+            {/* TODO: replace gradient with real couple photo via Next.js <Image> */}
             <div className="m-[6px] mb-0 h-[95px] sm:h-[110px] bg-gradient-to-br from-burgundy/10 to-cream-dark flex items-center justify-center overflow-hidden">
-              <span className="text-3xl opacity-20" aria-hidden>📷</span>
+              <span className="text-3xl opacity-20" aria-hidden="true">📷</span>
             </div>
-            {/* Polaroid bottom white strip */}
+            {/* Polaroid white bottom strip */}
             <div className="h-[28px]" />
           </div>
         ))}
 
-        {/* ── Envelope SVG ─────────────────────────────────────────── */}
-        {/*
-            Place your SVG at: public/svgs/envelope.svg
-            Recommended: keep original viewBox, remove fixed width/height attrs
-        */}
+        {/* ── Envelope SVG ───────────────────────────────────────
+            Place file at: public/svgs/envelope.svg
+            Remove hardcoded width/height from <svg> root — keep viewBox only
+        ─────────────────────────────────────────────────────── */}
         <div
           className={`
             relative z-20 transition-transform duration-300
-            ${phase === "shaking" || phase === "burst" || phase === "fading"
-              ? "scale-[1.05]"
-              : "scale-100"}
+            ${phase !== "idle" ? "scale-[1.05]" : "scale-100"}
           `}
         >
           <Image
@@ -113,32 +117,27 @@ export default function EnvelopeLanding({ onComplete }: Props) {
           />
         </div>
 
-        {/* ── Wax Seal SVG (breaks on click) ───────────────────────── */}
-        {/*
-            Place your SVG at: public/svgs/wax-seal.svg
-            It will be positioned over the envelope flap center
-        */}
+        {/* ── Wax Seal SVG ───────────────────────────────────────
+            Place file at: public/svgs/wax-seal.svg
+            Positioned over envelope flap center
+        ─────────────────────────────────────────────────────── */}
         <div className="absolute inset-0 flex items-end justify-center z-40 pb-[14%]">
           <Image
             src="/svgs/wax-seal.svg"
             alt="Sello de cera JR"
             width={80}
             height={80}
-            className="w-[62px] sm:w-[78px] h-auto drop-shadow-md"
-            style={{
-              transform:
-                phase !== "idle"
-                  ? "scale(0) rotate(65deg)"
-                  : "scale(1) rotate(0deg)",
-              opacity:   phase !== "idle" ? 0 : 1,
-              transition:
-                "transform 0.28s cubic-bezier(0.55, 0, 1, 0.45), opacity 0.22s ease",
-            }}
+            className={`
+              w-[62px] sm:w-[78px] h-auto drop-shadow-md
+              ${styles.waxSeal}
+              ${phase === "idle" ? styles.waxSealVisible : styles.waxSealHidden}
+            `}
           />
         </div>
+
       </div>
 
-      {/* ── "Toca para abrir" hint ───────────────────────────────── */}
+      {/* ── "Toca para abrir" hint ─────────────────────────────── */}
       <p
         className={`
           absolute bottom-12 font-cinzel text-[11px] tracking-[0.28em] uppercase
@@ -148,6 +147,7 @@ export default function EnvelopeLanding({ onComplete }: Props) {
       >
         Toca para abrir
       </p>
+
     </div>
   );
 }

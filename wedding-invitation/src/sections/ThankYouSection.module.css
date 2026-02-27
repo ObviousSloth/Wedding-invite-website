@@ -1,0 +1,27 @@
+/* ── Wax seal image ───────────────────────────────────────── */
+.seal {
+  width: 6rem;
+  height: 6rem;
+  object-fit: contain;
+  opacity: 0.25;
+  margin: 2rem auto 0;
+  display: block;
+}
+
+/* ── Thin horizontal rules either side of names ──────────── */
+.rule {
+  height: 1px;
+  flex: 1;
+  background: rgba(244, 242, 235, 0.18);
+}
+
+/* ── Date chip ────────────────────────────────────────────── */
+.dateChip {
+  border: 1px solid rgba(244, 242, 235, 0.18);
+  border-radius: 9999px;
+  padding: 0.4rem 1.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: 2.25rem;
+}

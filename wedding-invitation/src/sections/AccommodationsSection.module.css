@@ -1,0 +1,48 @@
+/* ── Hotels grid — ready for when real hotels are added ───── */
+.hotelsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 50rem;
+  margin-top: 3rem;
+}
+
+@media (min-width: 640px) {
+  .hotelsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hotelsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ── Hotel card ───────────────────────────────────────────── */
+.hotelCard {
+  background: rgba(244, 242, 235, 0.07);
+  border: 1px solid rgba(244, 242, 235, 0.18);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: background 0.2s ease;
+}
+
+.hotelCard:hover {
+  background: rgba(244, 242, 235, 0.11);
+}
+
+/* ── Placeholder notice ───────────────────────────────────── */
+.placeholder {
+  max-width: 36rem;
+  margin: 2.5rem auto 0;
+  background: rgba(244, 242, 235, 0.07);
+  border: 1px dashed rgba(244, 242, 235, 0.2);
+  border-radius: 1rem;
+  padding: 2rem 2.5rem;
+  text-align: center;
+}

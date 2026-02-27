@@ -1,0 +1,260 @@
+/* ─── Code Entry Step ────────────────────────────────────────────────────── */
+.codeForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 28rem;
+  margin: 0 auto;
+}
+
+.inputRow {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.codeInput {
+  flex: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.errorBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: rgba(94, 8, 19, 0.08);
+  border: 1px solid rgba(94, 8, 19, 0.2);
+  text-align: center;
+  width: 100%;
+}
+
+/* ─── Family Card ─────────────────────────────────────────────────────────── */
+.familyCard {
+  background: white;
+  border-radius: 1.25rem;
+  padding: 1.75rem;
+  box-shadow: 0 4px 24px rgba(94, 8, 19, 0.1);
+  width: 100%;
+  max-width: 36rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ─── Attendance Choice ───────────────────────────────────────────────────── */
+.attendanceRow {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.attendanceBtn {
+  flex: 1;
+  min-width: 7rem;
+  max-width: 10rem;
+  padding: 0.875rem 1.5rem;
+  border-radius: 9999px;
+  border: 2px solid;
+  font-family: var(--font-cinzel);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: transparent;
+}
+
+.attendanceBtnYes {
+  border-color: var(--color-burgundy);
+  color: var(--color-burgundy);
+}
+
+.attendanceBtnYes:hover,
+.attendanceBtnYesActive {
+  background: var(--color-burgundy);
+  color: var(--color-cream);
+}
+
+.attendanceBtnNo {
+  border-color: var(--color-sage);
+  color: var(--color-sage-dark);
+}
+
+.attendanceBtnNo:hover,
+.attendanceBtnNoActive {
+  background: var(--color-sage);
+  color: white;
+}
+
+/* ─── Attendee Fields ─────────────────────────────────────────────────────── */
+.attendeeList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.attendeeRow {
+  display: grid;
+  grid-template-columns: auto 1fr 1fr;
+  gap: 0.625rem;
+  align-items: center;
+}
+
+.attendeeNumber {
+  font-family: var(--font-cinzel);
+  font-size: 0.8rem;
+  color: var(--color-burgundy);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  padding-top: 0.125rem;
+}
+
+/* ─── Confirmation Card ───────────────────────────────────────────────────── */
+.confirmationCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2.5rem 2rem;
+  background: white;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 40px rgba(94, 8, 19, 0.12);
+  width: 100%;
+  max-width: 36rem;
+  margin: 0 auto;
+  text-align: center;
+  animation: confirmIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.confirmationIcon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+}
+
+.confirmationIconYes {
+  background: rgba(94, 8, 19, 0.08);
+}
+
+.confirmationIconNo {
+  background: rgba(138, 154, 91, 0.15);
+}
+
+.confirmationDate {
+  font-family: var(--font-cinzel);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  color: var(--color-burgundy);
+  opacity: 0.7;
+  text-transform: uppercase;
+}
+
+.confirmationDivider {
+  width: 3rem;
+  height: 1px;
+  background: var(--color-burgundy);
+  opacity: 0.2;
+}
+
+/* ─── Closed State ────────────────────────────────────────────────────────── */
+.closedCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 1.5rem;
+  background: rgba(94, 8, 19, 0.05);
+  border: 1px solid rgba(94, 8, 19, 0.15);
+  border-radius: 1.25rem;
+  text-align: center;
+  max-width: 30rem;
+  margin: 0 auto;
+}
+
+/* ─── Section divider label ───────────────────────────────────────────────── */
+.fieldLabel {
+  font-family: var(--font-cinzel);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-burgundy);
+  opacity: 0.65;
+  margin-bottom: 0.25rem;
+}
+
+/* ─── Animations ──────────────────────────────────────────────────────────── */
+@keyframes confirmIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ─── Partial Seats Modal ─────────────────────────────────────────────────── */
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(61, 5, 9, 0.55);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1.5rem;
+  animation: fadeIn 0.2s ease forwards;
+}
+
+.modalBox {
+  background: var(--color-cream);
+  border-radius: 1.5rem;
+  padding: 2rem 1.75rem;
+  max-width: 22rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  text-align: center;
+  box-shadow: 0 16px 60px rgba(61, 5, 9, 0.2);
+  animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.modalIcon {
+  font-size: 2.25rem;
+  line-height: 1;
+}
+
+.modalActions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}

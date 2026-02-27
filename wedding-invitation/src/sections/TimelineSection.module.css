@@ -1,0 +1,201 @@
+/* ── Wrapper ─────────────────────────────────────────────── */
+.wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 52rem;
+  margin: 3.5rem auto 0;
+}
+
+/* ── Vertical line ────────────────────────────────────────── */
+/*
+  Mobile:  line at 1.75rem = center of the 3.5rem dot column
+  Desktop: line at 50%     = center of the 5rem dot column
+*/
+.vertLine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  pointer-events: none;
+  z-index: 0;
+  left: 1.75rem;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(94, 8, 19, 0.13) 5%,
+    rgba(94, 8, 19, 0.13) 95%,
+    transparent
+  );
+}
+
+@media (min-width: 768px) {
+  .vertLine {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* ── Item ─────────────────────────────────────────────────── */
+/*
+  Mobile:  2-col grid [3.5rem dot | 1fr card], 2 rows
+           Row 1: dot + card side-by-side
+           Row 2: mobile SVG icon centered on the line (between items)
+
+  Desktop: 3-col grid [1fr SVG | 5rem dot | 1fr card], 1 row
+           Even: SVG left  | dot center | card right
+           Odd:  card left | dot center | SVG right
+*/
+.item {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  grid-template-rows: auto auto;
+  position: relative;
+  z-index: 1;
+}
+
+@media (min-width: 768px) {
+  .item {
+    grid-template-columns: 1fr 5rem 1fr;
+    grid-template-rows: 1fr;
+    align-items: center;
+    min-height: 8rem;
+  }
+}
+
+/* ── Dot slot ─────────────────────────────────────────────── */
+.dotSlot {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 1rem;
+  z-index: 1;
+}
+
+@media (min-width: 768px) {
+  .dotSlot {
+    grid-column: 2;
+    grid-row: 1;
+    align-items: center;
+    padding-top: 0;
+  }
+}
+
+/* ── Dot circle ───────────────────────────────────────────── */
+.dot {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background: white;
+  border: 1.5px solid rgba(94, 8, 19, 0.3);
+  box-shadow: 0 0 0 4px rgba(94, 8, 19, 0.05);
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+/* ── Card slot ────────────────────────────────────────────── */
+/* Mobile: always col 2, row 1, card to the right of the dot */
+.cardSlot {
+  grid-column: 2;
+  grid-row: 1;
+  padding: 0.6rem 0.5rem 0.6rem 1rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Desktop even: card goes to the RIGHT column */
+@media (min-width: 768px) {
+  .itemEven .cardSlot {
+    grid-column: 3;
+    grid-row: 1;
+    padding: 1rem 0.5rem 1rem 2.5rem;
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  /* Desktop odd: card goes to the LEFT column */
+  .itemOdd .cardSlot {
+    grid-column: 1;
+    grid-row: 1;
+    padding: 1rem 2.5rem 1rem 0.5rem;
+    justify-content: flex-end;
+    text-align: right;
+  }
+}
+
+/* ── Desktop SVG slot — hidden on mobile ─────────────────── */
+.svgSlot {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .svgSlot {
+    display: flex;
+    align-items: center;
+    grid-row: 1;
+  }
+
+  /* Even: large SVG goes to the LEFT column */
+  .itemEven .svgSlot {
+    grid-column: 1;
+    justify-content: flex-end;
+    padding-right: 2.5rem;
+  }
+
+  /* Odd: large SVG goes to the RIGHT column */
+  .itemOdd .svgSlot {
+    grid-column: 3;
+    justify-content: flex-start;
+    padding-left: 2.5rem;
+  }
+}
+
+/* ── Mobile SVG connector — hidden on desktop ────────────── */
+/*
+  grid-column: 2 = right column only.
+  The left column (3.5rem) stays empty — the vertical line
+  passes through it naturally. Icon sits to the RIGHT of the line.
+*/
+.mobileSvgRow {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0 0.25rem 1rem;
+}
+
+@media (min-width: 768px) {
+  .mobileSvgRow {
+    display: none;
+  }
+}
+
+/* ── SVG icon — desktop size ─────────────────────────────── */
+.svgIcon {
+  width: 5.5rem;
+  height: 5.5rem;
+  object-fit: contain;
+  opacity: 0.82;
+  flex-shrink: 0;
+}
+
+/* ── SVG icon — mobile ────────────────────────────────────── */
+.svgIconMobile {
+  width: 3rem;
+  height: 3rem;
+  object-fit: contain;
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+/* ── Card ─────────────────────────────────────────────────── */
+.card {
+  background: white;
+  border: 1px solid rgba(94, 8, 19, 0.09);
+  border-radius: 0.875rem;
+  padding: 0.85rem 1.25rem;
+  box-shadow: 0 2px 12px rgba(94, 8, 19, 0.04);
+  display: inline-block;
+}

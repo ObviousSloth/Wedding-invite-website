@@ -1,0 +1,65 @@
+/* ── Bank details card ────────────────────────────────────── */
+.bankCard {
+  width: 100%;
+  max-width: 28rem;
+  background: rgba(244, 242, 235, 0.07);
+  border: 1px solid rgba(244, 242, 235, 0.18);
+  border-radius: 1.25rem;
+  padding: 2rem 2rem;
+  text-align: left;
+}
+
+@media (min-width: 640px) {
+  .bankCard {
+    padding: 2.25rem 2.5rem;
+  }
+}
+
+/* ── Each data row ────────────────────────────────────────── */
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba(244, 242, 235, 0.09);
+}
+
+.row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.row:first-child {
+  padding-top: 0;
+}
+
+/* ── IBAN row: value + copy button side by side ──────────── */
+.ibanValue {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+/* ── Copy button ──────────────────────────────────────────── */
+.copyBtn {
+  border: 1px solid rgba(244, 242, 235, 0.22);
+  border-radius: 9999px;
+  padding: 0.18rem 0.7rem;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.copyBtn:hover {
+  background: rgba(244, 242, 235, 0.1);
+  border-color: rgba(244, 242, 235, 0.45);
+}
+
+.copyBtnConfirmed {
+  border-color: rgba(138, 154, 91, 0.6);
+  color: #a8b878;
+}

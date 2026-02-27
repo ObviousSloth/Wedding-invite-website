@@ -1,125 +1,179 @@
-// ─── Invitation & RSVP Types ───────────────────────────────────────────────
-
-export interface Invitation {
-  id: string;
-  displayName: string;
-  allowedSeats: number;
-  primaryEmail?: string;
-  createdAt: string;
+// ─── Couple ────────────────────────────────────────────────────────────────
+export interface Couple {
+  partner1: string;
+  partner2: string;
+  monogram: string;
 }
 
-export interface Attendee {
-  name: string;
+// ─── Date ──────────────────────────────────────────────────────────────────
+export interface DateInfo {
+  iso: string;
+  displayFull: string;
+  displayDay: string;
+  displayMonth: string;
+  displayYear: string;
+  displayDayOfWeek: string;
 }
 
-export interface Rsvp {
-  id: string;
-  invitationId: string;
-  attending: boolean;
-  attendees: Attendee[];
-  phone?: string;
-  notes?: string;
-  updatedAt: string;
+// ─── Hero ──────────────────────────────────────────────────────────────────
+export interface Hero {
+  tagline: string;
+  subTagline: string;
+  videoUrl: string;
+  fallbackImageUrl: string;
 }
 
-export interface InvitationWithRsvp extends Invitation {
-  rsvp: Rsvp | null;
+// ─── Story ─────────────────────────────────────────────────────────────────
+export interface Story {
+  text: string;
+  imageUrl: string;
 }
 
-// ─── API Response Types ────────────────────────────────────────────────────
-
-export interface ApiResponse<T = unknown> {
-  success: boolean;
-  data?: T;
-  error?: string;
+// ─── Venue ─────────────────────────────────────────────────────────────────
+export interface Coordinates {
+  lat: number;
+  lng: number;
 }
-
-export interface LookupResponse {
-  invitation: InvitationWithRsvp;
-}
-
-// ─── Event Config Types ────────────────────────────────────────────────────
 
 export interface Venue {
   name: string;
   time: string;
   location: string;
   address: string;
-  coordinates?: { lat: number; lng: number };
-  mapsUrl?: string;
+  coordinates: Coordinates;
+  mapsUrl: string;
 }
 
-export interface TimelineItem {
-  time: string;
-  event: string;
-  icon: string;
-}
-
-export interface ColorSwatch {
+// ─── Dress Code ────────────────────────────────────────────────────────────
+export interface SuggestedColor {
   name: string;
   hex: string;
 }
 
+export interface DressCode {
+  code: string;
+  note: string;
+  suggestedColors: SuggestedColor[];
+}
+
+// ─── Timeline ──────────────────────────────────────────────────────────────
+export interface TimelineEvent {
+  time: string;
+  event: string;
+  icon: string; // filename stem → /svgs/timeline/{icon}.svg
+  iconSize?: string;
+}
+
+// ─── Gifts ─────────────────────────────────────────────────────────────────
+export interface BankDetails {
+  accountHolder: string;
+  bank: string;
+  iban: string;
+  bic: string;
+}
+
+export interface Gifts {
+  message: string;
+  bankDetails: BankDetails;
+}
+
+// ─── Accommodations ────────────────────────────────────────────────────────
+export interface Hotel {
+  name: string;
+  address?: string;
+  url?: string;
+  priceRange?: string;
+}
+
+export interface Accommodations {
+  text: string;
+  hotels: Hotel[];
+}
+
+// ─── Suggestions & Conditions ──────────────────────────────────────────────
+export interface SuggestionsAndConditions {
+  items: string[];
+}
+
+// ─── Contact ───────────────────────────────────────────────────────────────
+export interface Contact {
+  message: string;
+  email: string;
+}
+
+// ─── Calendar ──────────────────────────────────────────────────────────────
 export interface CalendarEvent {
   title: string;
+  start: string;
+  end: string;
   location: string;
-  startTime: string;
-  endTime: string;
   description: string;
 }
 
+// ─── RSVP / Database ──────────────────────────────────────────────────────────
+
+export interface Attendee {
+  firstName: string
+  lastName:  string
+}
+
+export interface Invitation {
+  id:            string
+  display_name:  string
+  rsvp_code:     string
+  primary_email: string | null
+  allowed_seats: number
+  created_at:    string
+}
+export interface Rsvp {
+  id:             string
+  invitation_id:  string
+  attending:      boolean
+  attendees:      Attendee[]
+  attendee_count: number
+  phone:          string | null
+  notes:          string | null
+  updated_at:     string
+}
+export interface RsvpLookupResponse {
+  invitation: Invitation
+  rsvp:       Rsvp | null
+}
+// ─── API Responses ────────────────────────────────────────────────────────────
+
+
+
+// ─── Root Config ───────────────────────────────────────────────────────────
 export interface EventConfig {
-  couple: {
-    partner1: string;
-    partner2: string;
-    monogram: string;
-  };
-  date: {
-    iso: string;
-    displayFull: string;
-    displayDay: string;
-    displayMonth: string;
-    displayYear: string;
-    displayDayOfWeek: string;
-  };
-  hero: {
-    tagline: string;
-    subTagline: string;
-  };
-  story: {
-    text: string;
-    imageUrl?: string;
-  };
+  couple: Couple;
+  date: DateInfo;
+  hero: Hero;
+  story: Story;
   ceremony: Venue;
   reception: Venue;
-  dressCode: {
-    code: string;
-    note: string;
-    suggestedColors: ColorSwatch[];
-  };
-  timeline: TimelineItem[];
-  gifts: {
-    message: string;
-    bankDetails: {
-      accountHolder: string;
-      bank: string;
-      iban: string;
-      bic: string;
-    } | null;
-  };
-  accommodations: {
-    text: string;
-    hotels?: { name: string; url: string; distance: string }[];
-  };
-  suggestionsAndConditions: {
-    items: string[];
-  };
-  contact: {
-    message: string;
-    email: string;
-  };
+  dressCode: DressCode;
+  timeline: TimelineEvent[];
+  gifts: Gifts;
+  accommodations: Accommodations;
+  suggestionsAndConditions: SuggestionsAndConditions;
+  contact: Contact;
   calendar: {
     ceremony: CalendarEvent;
-    reception?: CalendarEvent;
+    reception: CalendarEvent;
   };
+  rsvp: {
+    deadline:    string   // ISO date string — form closes after this date
+    closedMessage: string // shown after deadline
+  }
 }
+
+export interface ApiSuccess<T> {
+  success: true
+  data:    T
+}
+
+export interface ApiError {
+  success: false
+  error:   string
+}
+export type ApiResponse<T> = ApiSuccess<T> | ApiError

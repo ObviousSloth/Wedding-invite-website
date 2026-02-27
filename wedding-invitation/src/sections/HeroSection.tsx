@@ -1,81 +1,124 @@
 "use client";
 
+import { useState } from "react";
 import { eventConfig } from "@/config/eventConfig";
-import { scrollToSection } from "@/lib/utils";
-import Button from "@/components/ui/Button";
 
 export default function HeroSection() {
+  const [videoError, setVideoError] = useState(false);
+  const { couple, date, hero } = eventConfig;
+
   return (
     <section
-      id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      id="inicio"
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
+      aria-label="Sección principal"
     >
-      {/* Video / Fallback background */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
+
+      {/* ── Background: video → gradient fallback ──────────────── */}
+      {!videoError ? (
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster={hero.fallbackImageUrl}
+          onError={() => setVideoError(true)}
+          className="absolute inset-0 w-full h-full object-cover z-0"
+          aria-hidden="true"
+        >
+          <source src={hero.videoUrl} type="video/mp4" />
+        </video>
+      ) : (
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-burgundy-dark via-burgundy to-burgundy-dark z-0"
+          aria-hidden="true"
+        />
+      )}
+
+      {/* ── Burgundy overlay ───────────────────────────────────── */}
+      <div
+        className="absolute inset-0 bg-burgundy/65 z-10"
         aria-hidden="true"
-      >
-        {/* Replace /videos/hero.mp4 with your actual uploaded video */}
-        <source src="/videos/hero.mp4" type="video/mp4" />
-      </video>
+      />
 
-      {/* Overlay */}
-      <div className="absolute inset-0 video-overlay" />
+      {/* ── Hero content ───────────────────────────────────────── */}
+      <div className="relative z-20 flex flex-col items-center justify-center text-center px-6 py-32 gap-0">
 
-      {/* Wax seal — top right decorative element */}
-      <div className="absolute top-24 right-8 md:right-16 opacity-30 hidden md:block">
-        <div className="w-16 h-16 rounded-full border-2 border-cream flex items-center justify-center">
-          <span className="font-icon text-cream text-xl">{eventConfig.couple.monogram}</span>
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 text-center px-6 flex flex-col items-center gap-6">
-        {/* Tagline */}
-        <p className="font-cinzel text-cream/80 tracking-[0.35em] uppercase text-xs md:text-sm">
-          {eventConfig.hero.tagline}
+        {/* Top date line */}
+        <p className="font-cinzel text-cream/70 text-[10px] sm:text-xs tracking-[0.4em] uppercase mb-6">
+          {date.displayDayOfWeek}&nbsp;&nbsp;·&nbsp;&nbsp;
+          {date.displayDay}&nbsp;de&nbsp;{date.displayMonth}&nbsp;del&nbsp;{date.displayYear}
         </p>
 
-        {/* Names */}
-        <h1 className="font-icon text-cream text-7xl md:text-9xl leading-tight">
-          {eventConfig.couple.partner1}
-          <span className="block font-seasons italic text-cream/70 text-3xl md:text-4xl my-1">&amp;</span>
-          {eventConfig.couple.partner2}
+        {/* Decorative thin line */}
+        <div className="w-px h-10 bg-cream/25 mb-8" aria-hidden="true" />
+
+        {/* Couple names — fluid size from @theme --text-couple-name */}
+        <h1 className="font-icon text-cream text-couple-name leading-none tracking-wide">
+          {couple.partner1}
         </h1>
 
-        {/* Date */}
-        <p className="font-seasons italic text-cream/80 text-xl md:text-2xl tracking-wide">
-          {eventConfig.date.displayFull}
+        {/* Ampersand divider — fluid size from @theme --text-hero-amp */}
+        <p
+          className="font-seasons italic text-cream/50 text-hero-amp my-1 sm:my-2"
+          aria-hidden="true"
+        >
+          &amp;
         </p>
 
-        {/* Divider */}
-        <div className="w-16 h-px bg-cream/40" />
+        <h1 className="font-icon text-cream text-couple-name leading-none tracking-wide">
+          {couple.partner2}
+        </h1>
 
-        {/* CTA */}
-        <Button
-          variant="secondary"
-          size="lg"
-          onClick={() => scrollToSection("rsvp")}
-          className="mt-2"
-        >
-          {eventConfig.hero.subTagline}
-        </Button>
+        {/* Monogram + horizontal rules */}
+        <div className="flex items-center gap-4 sm:gap-6 my-8 sm:my-10" aria-hidden="true">
+          {/* <div className="h-px w-14 sm:w-24 bg-cream/30" /> */}
+          {/* <span className="font-icon text-cream/40 text-2xl sm:text-3xl select-none">
+            {couple.monogram}
+          </span> */}
+          {/* <div className="h-px w-14 sm:w-24 bg-cream/30" /> */}
+        </div>
 
-        {/* Scroll indicator */}
-        <button
-          onClick={() => scrollToSection("fecha")}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-cream/50 hover:text-cream transition-colors animate-float"
-          aria-label="Desplazarse hacia abajo"
-        >
-          <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <path d="M12 5v14M5 12l7 7 7-7" />
-          </svg>
-        </button>
+        {/* Tagline */}
+        <p className="font-cinzel text-cream/90 text-[11px] sm:text-sm tracking-[0.55em] uppercase mb-3">
+          {hero.tagline}
+        </p>
+
+        {/* Sub-tagline */}
+        <p className="font-seasons italic text-cream/60 text-base sm:text-xl">
+          {hero.subTagline}
+        </p>
+
       </div>
+
+      {/* ── Scroll-down indicator ──────────────────────────────── */}
+      <a
+        href="#fecha"
+        aria-label="Desplazarse a la siguiente sección"
+        className="
+          absolute bottom-8 left-1/2 -translate-x-1/2 z-20
+          flex flex-col items-center gap-2
+          text-cream/40 hover:text-cream/80
+          transition-colors duration-300
+        "
+      >
+        <span className="font-cinzel text-[9px] tracking-[0.35em] uppercase">
+          Descubrir
+        </span>
+        <svg
+          className="w-[18px] h-[18px] animate-bounce"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={1.5}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M6 9l6 6 6-6" />
+        </svg>
+      </a>
+
     </section>
   );
 }

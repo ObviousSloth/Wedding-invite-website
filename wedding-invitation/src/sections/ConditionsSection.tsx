@@ -1,26 +1,48 @@
 import { eventConfig } from "@/config/eventConfig";
-import Container from "@/components/ui/Container";
+import ScrollReveal from "@/components/ScrollReveal";
 import SectionHeading from "@/components/ui/SectionHeading";
+import Container from "@/components/ui/Container";
+import styles from "./ConditionsSection.module.css";
 
 export default function ConditionsSection() {
   const { suggestionsAndConditions } = eventConfig;
 
   return (
-    <section id="condiciones" className="bg-section-burgundy py-20 md:py-28">
-      <Container size="sm">
-        <SectionHeading title="Sugerencias y Condiciones" variant="burgundy" />
-        <ul className="flex flex-col gap-5 text-center">
+    <section id="condiciones" className="bg-section-cream py-24 sm:py-32">
+      <Container className="flex flex-col items-center text-center">
+
+        <ScrollReveal>
+          <SectionHeading variant="dark">
+            Sugerencias y Condiciones
+          </SectionHeading>
+        </ScrollReveal>
+
+        <div
+          className={styles.list}
+          role="list"
+          aria-label="Sugerencias y condiciones del evento"
+        >
           {suggestionsAndConditions.items.map((item, i) => (
-            <li key={i} className="flex flex-col items-center gap-2">
-              <span className="font-cinzel text-cream/40 text-xs tracking-widest uppercase">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <p className="font-seasons italic text-cream/90 text-base md:text-lg leading-relaxed max-w-md">
-                {item}
-              </p>
-            </li>
+            <ScrollReveal key={i} delay={i * 80}>
+              <div className={styles.listItem} role="listitem">
+
+                {/* Number badge */}
+                <div className={styles.badge} aria-hidden="true">
+                  <span className="font-cinzel text-burgundy/40 text-[0.6rem] tracking-wide">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                </div>
+
+                {/* Item text */}
+                <p className="font-seasons italic text-burgundy/75 text-story-body leading-relaxed text-left">
+                  {item}
+                </p>
+
+              </div>
+            </ScrollReveal>
           ))}
-        </ul>
+        </div>
+
       </Container>
     </section>
   );
