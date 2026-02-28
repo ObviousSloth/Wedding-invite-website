@@ -38,6 +38,7 @@ export interface Coordinates {
 export interface Venue {
   name: string;
   time: string;
+  endTime?: string;   // ← ADDED: optional end time (reception uses this)
   location: string;
   address: string;
   coordinates: Coordinates;
@@ -60,7 +61,7 @@ export interface DressCode {
 export interface TimelineEvent {
   time: string;
   event: string;
-  icon: string; // filename stem → /svgs/timeline/{icon}.svg
+  icon: string;
   iconSize?: string;
 }
 
@@ -104,47 +105,46 @@ export interface Contact {
 // ─── Calendar ──────────────────────────────────────────────────────────────
 export interface CalendarEvent {
   title: string;
-  start: string;
-  end: string;
+  start: string;   // ← your actual field name
+  end: string;     // ← your actual field name
   location: string;
   description: string;
 }
 
 // ─── RSVP / Database ──────────────────────────────────────────────────────────
-
 export interface Attendee {
-  firstName: string
-  lastName:  string
+  firstName: string;
+  lastName: string;
 }
 
 export interface Invitation {
-  id:            string
-  display_name:  string
-  rsvp_code:     string
-  primary_email: string | null
-  allowed_seats: number
-  created_at:    string
+  id: string;
+  display_name: string;
+  rsvp_code: string;
+  primary_email: string | null;
+  allowed_seats: number;
+  created_at: string;
 }
+
 export interface Rsvp {
-  id:             string
-  invitation_id:  string
-  attending:      boolean
-  attendees:      Attendee[]
-  attendee_count: number
-  phone:          string | null
-  notes:          string | null
-  updated_at:     string
+  id: string;
+  invitation_id: string;
+  attending: boolean;
+  attendees: Attendee[];
+  attendee_count: number;
+  phone: string | null;
+  notes: string | null;
+  updated_at: string;
 }
+
 export interface RsvpLookupResponse {
-  invitation: Invitation
-  rsvp:       Rsvp | null
+  invitation: Invitation;
+  rsvp: Rsvp | null;
 }
-// ─── API Responses ────────────────────────────────────────────────────────────
-
-
 
 // ─── Root Config ───────────────────────────────────────────────────────────
 export interface EventConfig {
+  siteUrl: string;   // ← ADDED: used in calendar event descriptions
   couple: Couple;
   date: DateInfo;
   hero: Hero;
@@ -162,18 +162,20 @@ export interface EventConfig {
     reception: CalendarEvent;
   };
   rsvp: {
-    deadline:    string   // ISO date string — form closes after this date
-    closedMessage: string // shown after deadline
-  }
+    deadline: string;
+    closedMessage: string;
+  };
 }
 
+// ─── API Responses ────────────────────────────────────────────────────────────
 export interface ApiSuccess<T> {
-  success: true
-  data:    T
+  success: true;
+  data: T;
 }
 
 export interface ApiError {
-  success: false
-  error:   string
+  success: false;
+  error: string;
 }
-export type ApiResponse<T> = ApiSuccess<T> | ApiError
+
+export type ApiResponse<T> = ApiSuccess<T> | ApiError;

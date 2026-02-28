@@ -1,7 +1,8 @@
 import type { EventConfig } from "@/types";
 
 export const eventConfig: EventConfig = {
-
+  
+  siteUrl: 'https://jessikarandy.com',
   // ── Couple ──────────────────────────────────────────────────────────────
   couple: {
     partner1: "Jessika",
@@ -52,12 +53,13 @@ export const eventConfig: EventConfig = {
   reception: {
     name:        "Complejos La Cigüeña",
     time:        "8:00 pm",
+    endTime:     "2:00 am",              // ← ADD THIS LINE
     location:    "Arganda del Rey, Madrid",
     address:     "Ctra. de Arganda a Chinchón Km 2,5, Arganda del Rey",
     coordinates: { lat: 40.3039, lng: -3.4459 },
-    mapsUrl:
-      "https://maps.google.com/?q=Complejos+La+Cig%C3%BC%C3%B1a,+Ctra+de+Arganda+a+Chinch%C3%B3n+Km+2.5,+Arganda+del+Rey+Madrid",
+    mapsUrl:     "https://maps.google.com/?q=...",  // keep your existing URL
   },
+
 
   // ── Dress Code ──────────────────────────────────────────────────────────
   dressCode: {
@@ -131,20 +133,21 @@ export const eventConfig: EventConfig = {
   // ── Calendar ────────────────────────────────────────────────────────────
   calendar: {
     ceremony: {
-      title:       "Ceremonia — Jessika & Randy",
+      title:       "💒 Boda de Jessika & Randy — Ceremonia",
       start:       "2026-12-19T18:00:00+01:00",
       end:         "2026-12-19T20:00:00+01:00",
       location:    "Basílica parroquia Virgen Milagrosa, García de Paredes 45, 28010 Madrid",
-      description: "Ceremonia religiosa de la boda de Jessika y Randy.",
+      description: "¡La boda de Jessika & Randy! Te esperamos en la Basílica parroquia Virgen Milagrosa.\n\nDirección: García de Paredes, 45, 28010 Madrid\n\nMás info: https://jessikarandy.com",
     },
     reception: {
-      title:       "Recepción — Jessika & Randy",
+      title:       "🥂 Boda de Jessika & Randy — Recepción",
       start:       "2026-12-19T20:00:00+01:00",
-      end:         "2026-12-20T04:00:00+01:00",
+      end:         "2026-12-20T02:00:00+01:00",   
       location:    "Complejos La Cigüeña, Ctra. de Arganda a Chinchón Km 2,5, Arganda del Rey",
-      description: "Recepción de la boda de Jessika y Randy.",
+      description: "¡La boda de Jessika & Randy! Te esperamos en Complejos La Cigüeña para la recepción, cena y fiesta.\n\nDirección: Ctra. de Arganda a Chinchón Km 2,5, Arganda del Rey\n\nMás info: https://jessikarandy.com",
     },
   },
+
   rsvp: {
     deadline:      '2026-11-30T23:59:59+01:00',
     closedMessage: 'El plazo para confirmar asistencia ha cerrado. Si tienes alguna pregunta, contáctanos por correo.',

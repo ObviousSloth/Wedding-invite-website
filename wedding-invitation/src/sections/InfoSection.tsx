@@ -1,12 +1,23 @@
 import { eventConfig } from "@/config/eventConfig";
-import type { Venue } from "@/types";
+import type { Venue, CalendarEvent } from "@/types";
 import ScrollReveal from "@/components/ScrollReveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Container from "@/components/ui/Container";
+import CalendarButton from "@/components/ui/CalendarButton";
 import styles from "./InfoSection.module.css";
 
 // ── Reusable venue card ──────────────────────────────────────────────────────
-function VenueCard({ venue, label }: { venue: Venue; label: string }) {
+function VenueCard({
+  venue,
+  label,
+  calendarEvent,
+  icsFilename,
+}: {
+  venue: Venue;
+  label: string;
+  calendarEvent: CalendarEvent;
+  icsFilename: string;
+}) {
   return (
     <div className="border border-cream/20 rounded-2xl p-8 sm:p-10 flex flex-col items-center gap-4 text-center h-full">
 
@@ -33,47 +44,59 @@ function VenueCard({ venue, label }: { venue: Venue; label: string }) {
         {venue.address}
       </p>
 
-      {/* Maps link — styled as pill button inline (no Button.tsx API assumptions) */}
-      <a
-        href={venue.mapsUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={`Ver ubicación de ${venue.name} en Google Maps`}
-        className="
-          mt-2 inline-flex items-center gap-2
-          px-6 py-2 rounded-full
-          border border-cream/35
-          font-cinzel text-cream/80 text-[10px] tracking-[0.3em] uppercase
-          hover:bg-cream/10 hover:text-cream
-          transition-colors duration-200
-        "
-      >
-        <svg
-          className="w-3 h-3 flex-shrink-0"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={2}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
-        >
-          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
-          <circle cx="12" cy="9" r="2.5" />
-        </svg>
-        Ver Ubicación
-      </a>
+      {/* Button row */}
+      <div className="flex flex-wrap items-center justify-center gap-3 mt-2">
 
+        {/* Maps link — unchanged from your original */}
+        <a
+          href={venue.mapsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Ver ubicación de ${venue.name} en Google Maps`}
+          className="
+            inline-flex items-center gap-2
+            px-6 py-2 rounded-full
+            border border-cream/35
+            font-cinzel text-cream/80 text-[10px] tracking-[0.3em] uppercase
+            hover:bg-cream/10 hover:text-cream
+            transition-colors duration-200
+          "
+        >
+          <svg
+            className="w-3 h-3 flex-shrink-0"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+            <circle cx="12" cy="9" r="2.5" />
+          </svg>
+          Ver Ubicación
+        </a>
+
+        {/* Calendar button — Phase 4 addition */}
+        <CalendarButton
+          event={calendarEvent}
+          icsFilename={icsFilename}
+          label="Calendario"
+          variant="light"
+        />
+
+      </div>
     </div>
   );
 }
 
 // ── Section ──────────────────────────────────────────────────────────────────
 export default function InfoSection() {
-  const { ceremony, reception, dressCode } = eventConfig;
+  const { ceremony, reception, dressCode, calendar } = eventConfig;
 
   return (
-    <section id="ceremonia" className="bg-section-burgundy py-24 sm:py-32">
+    <section id="info" className="bg-section-burgundy py-24 sm:py-32">
       <Container className="flex flex-col items-center text-center">
 
         {/* ── Venue heading ───────────────────────────────────── */}
@@ -84,10 +107,20 @@ export default function InfoSection() {
         {/* ── Venue cards ─────────────────────────────────────── */}
         <div className={styles.venueGrid}>
           <ScrollReveal delay={0}>
-            <VenueCard venue={ceremony} label="Ceremonia Religiosa" />
+            <VenueCard
+              venue={ceremony}
+              label="Ceremonia Religiosa"
+              calendarEvent={calendar.ceremony}
+              icsFilename="ceremonia-jessika-randy.ics"
+            />
           </ScrollReveal>
           <ScrollReveal delay={150}>
-            <VenueCard venue={reception} label="Recepción" />
+            <VenueCard
+              venue={reception}
+              label="Recepción"
+              calendarEvent={calendar.reception}
+              icsFilename="recepcion-jessika-randy.ics"
+            />
           </ScrollReveal>
         </div>
 
