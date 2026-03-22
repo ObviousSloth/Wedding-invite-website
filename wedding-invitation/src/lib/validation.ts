@@ -15,12 +15,38 @@ export const attendeeSchema = z.object({
 
 export const rsvpSubmitSchema = z.object({
   invitationId: z.string().uuid(),
-  attending:    z.boolean(),
+  attending:    z.boolean(),  
+  email: z
+    .string()
+    .min(1, 'El email es requerido')
+    .email('El email no es válido')
+    .transform((v) => v.trim().toLowerCase()),
   attendees:    z.array(attendeeSchema).max(20),
   phone:        z.string().max(30).optional().or(z.literal('')),
   notes:        z.string().max(1000).optional().or(z.literal('')),
 })
 
+// ─── Contact ────────────────────────────────────────────────────────────────
+
+export const contactSchema = z.object({
+  firstName: z
+    .string()
+    .min(1, 'El nombre es requerido')
+    .max(100)
+    .transform((v) => v.trim()),
+  lastName: z
+    .string()
+    .min(1, 'El apellido es requerido')
+    .max(100)
+    .transform((v) => v.trim()),
+  message: z
+    .string()
+    .min(1, 'El mensaje es requerido')
+    .max(500, 'Máximo 500 caracteres')
+    .transform((v) => v.trim()),
+});
+
+export type ContactInput = z.infer<typeof contactSchema>;
 export type RsvpLookupInput = z.infer<typeof rsvpLookupSchema>
 export type RsvpSubmitInput = z.infer<typeof rsvpSubmitSchema>
 export type AttendeeInput   = z.infer<typeof attendeeSchema>

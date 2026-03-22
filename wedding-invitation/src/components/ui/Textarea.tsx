@@ -23,6 +23,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         <textarea
           ref={ref}
           id={id}
+          suppressHydrationWarning
           className={cn(
             "w-full px-4 py-3 rounded-2xl border font-cinzel text-sm resize-none",
             "bg-cream/30 border-current/30 text-current placeholder:opacity-40",

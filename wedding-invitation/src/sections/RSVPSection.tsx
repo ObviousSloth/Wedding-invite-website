@@ -92,6 +92,8 @@ export default function RSVPSection() {
   const [loading,       setLoading]       = useState(false)
   const [isClosed,      setIsClosed]      = useState(false)
   const [showPartialModal, setShowPartialModal] = useState(false)
+  const [email, setEmail] = useState('');
+
 
   const [form, setForm] = useState<FormState>({
     invitation:   null,
@@ -150,6 +152,7 @@ export default function RSVPSection() {
         phone:        rsvp?.phone ?? '',
         notes:        rsvp?.notes ?? '',
       })
+      setEmail(rsvp?.email ?? '')
       setStep('form')
     } catch {
       setLookupErr('Error de conexión. Por favor intenta de nuevo.')
@@ -207,6 +210,7 @@ export default function RSVPSection() {
         body:    JSON.stringify({
           invitationId: form.invitation.id,
           attending:    form.attending,
+          email,  
           attendees:    form.attending ? form.attendees : [],
           phone:        form.phone  || '',
           notes:        form.notes  || '',
@@ -235,7 +239,12 @@ export default function RSVPSection() {
     setSubmitErr(null)
 
     if (form.attending) {
-      const filled = countFilledAttendees(form.attendees)
+        if (!email.trim()) {
+        setSubmitErr('Por favor ingresa tu email para confirmar.');
+        return;
+      }
+
+      const filled = countFilledAttendees(form.attendees);
 
       // Must have at least 1 filled row
       if (filled === 0) {
@@ -430,6 +439,23 @@ export default function RSVPSection() {
                         </div>
                       ))}
                     </div>
+                  </div>
+                )}
+                {/* Attending — email field */}
+                {form.attending === true && (
+                  <div>
+                    <p className={styles.fieldLabel}>
+                      Email <span style={{ color: '#b91c1c' }}>*</span>
+                    </p>
+                    <Input
+                      type="email"
+                      placeholder="tu@email.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      autoComplete="email"
+                      disabled={loading}
+                      aria-label="Email de contacto"
+                    />
                   </div>
                 )}
 

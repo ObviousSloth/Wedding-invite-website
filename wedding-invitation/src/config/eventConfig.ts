@@ -2,7 +2,7 @@ import type { EventConfig } from "@/types";
 
 export const eventConfig: EventConfig = {
   
-  siteUrl: 'https://jessikarandy.com',
+  siteUrl: 'https://bodaayubidefaria.eu',
   // ── Couple ──────────────────────────────────────────────────────────────
   couple: {
     partner1: "Jessika",

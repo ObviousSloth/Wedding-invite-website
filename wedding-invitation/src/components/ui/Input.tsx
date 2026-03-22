@@ -31,6 +31,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             error && "border-red-400 focus:ring-red-300",
             className
           )}
+          suppressHydrationWarning
           {...props}
         />
         {error && (

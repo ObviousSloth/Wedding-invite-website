@@ -1,45 +1,49 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { getSupabaseAdmin } from '@/lib/supabase'
-import { rsvpSubmitSchema } from '@/lib/validation'
-import { ApiResponse, Rsvp } from '@/types'
+import { NextRequest, NextResponse } from 'next/server';
+import { getSupabaseAdmin } from '@/lib/supabase';
+import { rsvpSubmitSchema } from '@/lib/validation';
+import { ApiResponse, Rsvp } from '@/types';
+import {
+  sendRsvpConfirmationEmail,
+  sendRsvpUpdateEmail,
+} from '@/lib/mailer';
 
 export async function POST(request: NextRequest): Promise<NextResponse<ApiResponse<Rsvp>>> {
   try {
-    const body   = await request.json()
-    const parsed = rsvpSubmitSchema.safeParse(body)
+    const body   = await request.json();
+    const parsed = rsvpSubmitSchema.safeParse(body);
 
     if (!parsed.success) {
       return NextResponse.json(
         { success: false, error: parsed.error.errors[0]?.message ?? 'Datos inválidos' },
         { status: 400 }
-      )
+      );
     }
 
-    const { invitationId, attending, attendees, phone, notes } = parsed.data
-    const supabase = getSupabaseAdmin()
+    const { invitationId, attending, email, attendees, phone, notes } = parsed.data;
+    const supabase = getSupabaseAdmin();
 
-    // Verify invitation + get allowed_seats
+    // 1 — Verify invitation + get allowed_seats, display_name, rsvp_code for email
     const { data: invitation, error: inviteError } = await supabase
       .from('invitations')
-      .select('id, allowed_seats')
+      .select('id, allowed_seats, display_name, rsvp_code')
       .eq('id', invitationId)
-      .single()
+      .single();
 
     if (inviteError || !invitation) {
       return NextResponse.json(
         { success: false, error: 'Invitación no encontrada.' },
         { status: 404 }
-      )
+      );
     }
 
-    // Strip rows where both first + last name are empty
+    // 2 — Strip rows where both first + last name are empty
     const filledAttendees = attending
       ? attendees.filter(
           (a) => a.firstName.trim() !== '' || a.lastName.trim() !== ''
         )
-      : []
+      : [];
 
-    // Server-side seat cap (filled rows must not exceed allowed_seats)
+    // 3 — Server-side seat cap
     if (attending && filledAttendees.length > invitation.allowed_seats) {
       return NextResponse.json(
         {
@@ -47,18 +51,29 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
           error: `Tu invitación permite un máximo de ${invitation.allowed_seats} persona${invitation.allowed_seats === 1 ? '' : 's'}.`,
         },
         { status: 400 }
-      )
+      );
     }
 
-    const attendeeCount = attending ? filledAttendees.length : 0
+    // 4 — Check if RSVP already exists (determines confirmation vs update email)
+    const { data: existingRsvp } = await supabase
+      .from('rsvps')
+      .select('id, attending')
+      .eq('invitation_id', invitationId)
+      .maybeSingle();
 
-    // Upsert RSVP
+    const isNewRsvp        = !existingRsvp;
+    const wasAlreadyAttending = existingRsvp?.attending === true;
+
+    const attendeeCount = attending ? filledAttendees.length : 0;
+
+    // 5 — Upsert RSVP
     const { data: rsvp, error: upsertError } = await supabase
       .from('rsvps')
       .upsert(
         {
           invitation_id:  invitationId,
           attending,
+          email,
           attendees:      filledAttendees,
           attendee_count: attendeeCount,
           phone:          phone  || null,
@@ -68,20 +83,41 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
         { onConflict: 'invitation_id' }
       )
       .select()
-      .single()
+      .single();
 
     if (upsertError || !rsvp) {
       return NextResponse.json(
         { success: false, error: 'No se pudo guardar tu confirmación. Intenta de nuevo.' },
         { status: 500 }
-      )
+      );
     }
 
-    return NextResponse.json({ success: true, data: rsvp })
+    // 6 — Send email if attending (non-blocking — RSVP is already saved)
+    if (attending) {
+      const emailPayload = {
+        email,
+        displayName: invitation.display_name,
+        rsvpCode:    invitation.rsvp_code,
+        attendees:   filledAttendees,
+      };
+
+      try {
+        if (isNewRsvp || !wasAlreadyAttending) {
+          await sendRsvpConfirmationEmail(emailPayload);
+        } else {
+          await sendRsvpUpdateEmail(emailPayload);
+        }
+      } catch (mailError) {
+        console.error('[rsvp/submit] Nodemailer error:', mailError);
+        // Intentionally non-blocking — RSVP is saved regardless
+      }
+    }
+
+    return NextResponse.json({ success: true, data: rsvp });
   } catch {
     return NextResponse.json(
       { success: false, error: 'Error del servidor. Por favor intenta de nuevo.' },
       { status: 500 }
-    )
+    );
   }
 }

@@ -132,6 +132,7 @@ export interface Rsvp {
   attending: boolean;
   attendees: Attendee[];
   attendee_count: number;
+  email?: string; 
   phone: string | null;
   notes: string | null;
   updated_at: string;
