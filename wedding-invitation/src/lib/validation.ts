@@ -9,9 +9,10 @@ export const rsvpLookupSchema = z.object({
 })
 
 export const attendeeSchema = z.object({
-  firstName: z.string().max(50),
-  lastName:  z.string().max(50),
-})
+  firstName: z.string().optional().transform((v) => v?.trim() ?? ''),
+  lastName:  z.string().optional().transform((v) => v?.trim() ?? ''),
+  meal: z.enum(['carne', 'pescado', 'vegetariano']).optional(),
+});
 
 export const rsvpSubmitSchema = z.object({
   invitationId: z.string().uuid(),
@@ -24,6 +25,11 @@ export const rsvpSubmitSchema = z.object({
   attendees:    z.array(attendeeSchema).max(20),
   phone:        z.string().max(30).optional().or(z.literal('')),
   notes:        z.string().max(1000).optional().or(z.literal('')),
+  allergies: z
+    .string()
+    .min(1, 'Por favor indica si tienes alergias o escribe "Ninguna"')
+    .max(500)
+    .transform((v) => v.trim()),
 })
 
 // ─── Contact ────────────────────────────────────────────────────────────────

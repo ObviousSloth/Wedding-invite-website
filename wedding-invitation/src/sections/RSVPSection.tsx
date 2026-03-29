@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { eventConfig } from '@/config/eventConfig'
-import { Invitation, Rsvp, Attendee } from '@/types'
+import { Invitation, Rsvp, Attendee, MealChoice } from '@/types'
 import SectionHeading from '@/components/ui/SectionHeading'
 import Container from '@/components/ui/Container'
 import Button from '@/components/ui/Button'
@@ -22,6 +22,7 @@ interface FormState {
   attendees:    Attendee[]
   phone:        string
   notes:        string
+  allergies:    string 
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -95,14 +96,15 @@ export default function RSVPSection() {
   const [email, setEmail] = useState('');
 
 
-  const [form, setForm] = useState<FormState>({
-    invitation:   null,
-    existingRsvp: null,
-    attending:    null,
-    attendees:    [],
-    phone:        '',
-    notes:        '',
-  })
+ const [form, setForm] = useState<FormState>({
+  invitation:   null,
+  existingRsvp: null,
+  attending:    null,
+  attendees:    [],
+  phone:        '',
+  notes:        '',
+  allergies:    '',
+})
 
   useEffect(() => {
     setIsClosed(isDeadlinePassed())
@@ -151,6 +153,7 @@ export default function RSVPSection() {
         attendees:    prefillAttendees,
         phone:        rsvp?.phone ?? '',
         notes:        rsvp?.notes ?? '',
+        allergies:    rsvp?.allergies ?? '',
       })
       setEmail(rsvp?.email ?? '')
       setStep('form')
@@ -214,6 +217,7 @@ export default function RSVPSection() {
           attendees:    form.attending ? form.attendees : [],
           phone:        form.phone  || '',
           notes:        form.notes  || '',
+          allergies:    form.allergies || '',
         }),
       })
       const json = await res.json()
@@ -244,6 +248,22 @@ export default function RSVPSection() {
         return;
       }
 
+    if (!form.allergies.trim()) {
+    setSubmitErr('Por favor indica si tienes alergias o escribe "Ninguna".')
+    return
+    }
+    
+    // Check meal selection for each filled attendee
+    const filledAttendees = form.attendees.filter(
+      (a) => a.firstName.trim() !== '' || a.lastName.trim() !== ''
+    )
+    const missingMeal = filledAttendees.some((a) => !a.meal)
+    if (missingMeal) {
+      setSubmitErr('Por favor selecciona una opción de menú para cada persona.')
+      return
+    }
+
+
       const filled = countFilledAttendees(form.attendees);
 
       // Must have at least 1 filled row
@@ -269,6 +289,13 @@ export default function RSVPSection() {
     ? countFilledAttendees(form.attendees)
     : 0
 
+  function updateAttendeeMeal(index: number, meal: MealChoice) {
+  setForm((prev) => {
+    const updated = [...prev.attendees]
+    updated[index] = { ...updated[index], meal }
+    return { ...prev, attendees: updated }
+  })
+}
   // ─── Render ───────────────────────────────────────────────────────────────────
 
   return (
@@ -409,38 +436,46 @@ export default function RSVPSection() {
                 </div>
 
                 {/* Attending — attendee name fields */}
-                {form.attending === true && (
-                  <div>
-                    <div className="flex items-baseline justify-between mb-2 flex-wrap gap-1">
-                      <p className={styles.fieldLabel}>
-                        Nombre de los asistentes
-                      </p>
-                      {/* Live seat counter */}
-                      <p className="font-cinzel text-xs text-burgundy/50 tracking-wide">
-                        {filledCount} / {form.invitation.allowed_seats} lugar{form.invitation.allowed_seats === 1 ? '' : 'es'}
-                      </p>
-                    </div>
-                    <div className={styles.attendeeList}>
-                      {form.attendees.map((att, i) => (
-                        <div key={i} className={styles.attendeeRow}>
-                          <span className={styles.attendeeNumber}>{i + 1}.</span>
-                          <Input
-                            placeholder="Nombre"
-                            value={att.firstName}
-                            onChange={(e) => updateAttendee(i, 'firstName', e.target.value)}
-                            aria-label={`Nombre persona ${i + 1}`}
-                          />
-                          <Input
-                            placeholder="Apellido"
-                            value={att.lastName}
-                            onChange={(e) => updateAttendee(i, 'lastName', e.target.value)}
-                            aria-label={`Apellido persona ${i + 1}`}
-                          />
+                {form.attendees.map((att, i) => (
+                  <div key={i} className={styles.attendeeRow}>
+                    <span className={styles.attendeeNumber}>{i + 1}.</span>
+                    <div className={styles.attendeeFields}>
+                      <div className={styles.attendeeNameRow}>
+                        <Input
+                          placeholder="Nombre"
+                          value={att.firstName}
+                          onChange={(e) => updateAttendee(i, 'firstName', e.target.value)}
+                          aria-label={`Nombre persona ${i + 1}`}
+                        />
+                        <Input
+                          placeholder="Apellido"
+                          value={att.lastName}
+                          onChange={(e) => updateAttendee(i, 'lastName', e.target.value)}
+                          aria-label={`Apellido persona ${i + 1}`}
+                        />
+                      </div>
+                      {/* Meal selection pills */}
+                      {(att.firstName.trim() || att.lastName.trim()) && (
+                        <div className={styles.mealRow} role="group" aria-label={`Menú persona ${i + 1}`}>
+                          {(['carne', 'pescado', 'vegetariano'] as MealChoice[]).map((option) => (
+                            <button
+                              key={option}
+                              type="button"
+                              onClick={() => updateAttendeeMeal(i, option)}
+                              className={`${styles.mealBtn} ${att.meal === option ? styles.mealBtnActive : ''}`}
+                              aria-pressed={att.meal === option}
+                            >
+                              {option === 'carne' && '🥩 '}
+                              {option === 'pescado' && '🐟 '}
+                              {option === 'vegetariano' && '🥗 '}
+                              {option.charAt(0).toUpperCase() + option.slice(1)}
+                            </button>
+                          ))}
                         </div>
-                      ))}
+                      )}
                     </div>
                   </div>
-                )}
+                ))}
                 {/* Attending — email field */}
                 {form.attending === true && (
                   <div>
@@ -455,6 +490,21 @@ export default function RSVPSection() {
                       autoComplete="email"
                       disabled={loading}
                       aria-label="Email de contacto"
+                    />
+                  </div>
+                )}
+                {/* Allergies — required for attending guests */}
+                {form.attending === true && (
+                  <div>
+                    <p className={styles.fieldLabel}>
+                      Alergias o intolerancias <span style={{ color: '#b91c1c' }}>*</span>
+                    </p>
+                    <Textarea
+                      placeholder="Escribe 'Ninguna' si no tienes alergias"
+                      value={form.allergies}
+                      onChange={(e) => setForm((p) => ({ ...p, allergies: e.target.value }))}
+                      rows={2}
+                      aria-label="Alergias o intolerancias alimentarias"
                     />
                   </div>
                 )}
@@ -577,6 +627,7 @@ export default function RSVPSection() {
                     setForm({
                       invitation: null, existingRsvp: null,
                       attending: null, attendees: [], phone: '', notes: '',
+                      allergies: '',
                     })
                   }}
                 >

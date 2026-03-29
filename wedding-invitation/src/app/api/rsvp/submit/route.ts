@@ -19,7 +19,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
       );
     }
 
-    const { invitationId, attending, email, attendees, phone, notes } = parsed.data;
+    const { invitationId, attending, email, attendees, phone, notes, allergies } = parsed.data;
     const supabase = getSupabaseAdmin();
 
     // 1 — Verify invitation + get allowed_seats, display_name, rsvp_code for email
@@ -78,6 +78,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
           attendee_count: attendeeCount,
           phone:          phone  || null,
           notes:          notes  || null,
+          allergies:      allergies || null,
           updated_at:     new Date().toISOString(),
         },
         { onConflict: 'invitation_id' }

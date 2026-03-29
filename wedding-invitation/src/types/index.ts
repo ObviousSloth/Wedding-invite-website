@@ -112,9 +112,12 @@ export interface CalendarEvent {
 }
 
 // ─── RSVP / Database ──────────────────────────────────────────────────────────
+export type MealChoice = 'carne' | 'pescado' | 'vegetariano';
+
 export interface Attendee {
   firstName: string;
   lastName: string;
+  meal?: MealChoice;
 }
 
 export interface Invitation {
@@ -135,6 +138,7 @@ export interface Rsvp {
   email?: string; 
   phone: string | null;
   notes: string | null;
+   allergies?: string;
   updated_at: string;
 }
 

@@ -153,14 +153,24 @@ function venueBlock(): string {
     </table>`;
 }
 
-function attendeeListBlock(attendees: Array<{ firstName: string; lastName: string }>): string {
+function attendeeListBlock(attendees: Array<{ firstName: string; lastName: string; meal?: string }>): string {
   if (!attendees.length) return '';
+
+  const mealLabels: Record<string, string> = {
+    carne:        'Carne',
+    pescado:      'Pescado',
+    vegetariano:  'Vegetariano',
+  };
+
   const names = attendees
-    .map(
-      (a) =>
-        `<li style="padding:4px 0;font-size:15px;color:#1a1a1a;font-family:Georgia,serif;">${escape(a.firstName)} ${escape(a.lastName)}</li>`
-    )
+    .map((a) => {
+      const mealLabel = a.meal ? mealLabels[a.meal] ?? a.meal : null;
+      return `<li style="padding:4px 0;font-size:15px;color:#1a1a1a;font-family:Georgia,serif;">
+        ${escape(a.firstName)} ${escape(a.lastName)}${mealLabel ? ` <span style="font-size:12px;color:#5e0813;letter-spacing:0.1em;font-family:Georgia,serif;">— ${mealLabel}</span>` : ''}
+      </li>`;
+    })
     .join('');
+
   return `
     <p style="margin:0 0 6px;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:#5e0813;font-family:Georgia,serif;">Asistentes confirmados</p>
     <ul style="margin:0 0 28px;padding-left:20px;">${names}</ul>`;

@@ -104,9 +104,9 @@
 
 .attendeeRow {
   display: grid;
-  grid-template-columns: auto 1fr 1fr;
+  grid-template-columns: auto 1fr;
   gap: 0.625rem;
-  align-items: center;
+  align-items: start;
 }
 
 .attendeeNumber {
@@ -115,7 +115,59 @@
   color: var(--color-burgundy);
   letter-spacing: 0.05em;
   white-space: nowrap;
-  padding-top: 0.125rem;
+  padding-top: 0.75rem;
+}
+
+.attendeeFields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.attendeeNameRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+@media (max-width: 480px) {
+  .attendeeNameRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── Meal Selection Pills ────────────────────────────────────────────────── */
+.mealRow {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.mealBtn {
+  font-family: var(--font-cinzel);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(94, 8, 19, 0.3);
+  color: var(--color-burgundy);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.mealBtn:hover {
+  border-color: var(--color-burgundy);
+  background: rgba(94, 8, 19, 0.06);
+}
+
+.mealBtnActive {
+  background: var(--color-burgundy) !important;
+  border-color: var(--color-burgundy) !important;
+  color: var(--color-cream) !important;
 }
 
 /* ─── Confirmation Card ───────────────────────────────────────────────────── */
