@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, useState, useCallback } from "react";
 import { eventConfig } from "@/config/eventConfig";
 import type { TimelineEvent } from "@/types";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -6,95 +9,206 @@ import Container from "@/components/ui/Container";
 import TimelineIcon from "@/components/timeline/TimelineIcon";
 import styles from "./TimelineSection.module.css";
 
-// ── Card sub-component ───────────────────────────────────────────────────────
-function TimelineCard({ item }: { item: TimelineEvent }) {
+// ── Single carousel item (icon + event name + time) ─────────────────────────
+function CarouselItem({
+  item,
+  position,
+}: {
+  item: TimelineEvent;
+  position: "above" | "below";
+}) {
   return (
-    <div className={styles.card}>
-      <p className="font-cinzel text-burgundy/45 text-[10px] tracking-[0.4em] uppercase mb-[3px]">
-        {item.time}
-      </p>
-      <p className="font-cinzel text-burgundy text-[0.82rem] sm:text-[0.9rem] tracking-wide font-medium leading-snug">
-        {item.event}
-      </p>
+    <div
+      className={`${styles.item} ${position === "above" ? styles.itemAbove : styles.itemBelow}`}
+    >
+      {position === "above" ? (
+        <>
+          <div className={styles.iconWrap}>
+            <TimelineIcon
+              icon={item.icon}
+              className={styles.icon}
+              size={item.iconSize}
+            />
+          </div>
+          <p className={styles.eventName}>{item.event}</p>
+          <p className={styles.eventTime}>{item.time}</p>
+        </>
+      ) : (
+        <>
+          <p className={styles.eventTime}>{item.time}</p>
+          <p className={styles.eventName}>{item.event}</p>
+          <div className={styles.iconWrap}>
+            <TimelineIcon
+              icon={item.icon}
+              className={styles.icon}
+              size={item.iconSize}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 }
 
-// ── Section ──────────────────────────────────────────────────────────────────
+// ── Carousel ────────────────────────────────────────────────────────────────
 export default function TimelineSection() {
   const { timeline } = eventConfig;
+  const trackRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const animRef = useRef<number | null>(null);
+  const resumeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const directionRef = useRef<1 | -1>(1); // 1 = forward, -1 = backward
+  const speedRef = useRef(0.5); // px per frame
+  const [isAutoScrolling, setIsAutoScrolling] = useState(false);
+  const isInViewRef = useRef(false);
+
+  // Sync line width to match the inner content width
+  const lineRef = useRef<HTMLDivElement>(null);
+  const syncLineWidth = useCallback(() => {
+    const inner = innerRef.current;
+    const line = lineRef.current;
+    if (inner && line) {
+      line.style.width = `${inner.scrollWidth}px`;
+    }
+  }, []);
+
+  useEffect(() => {
+    syncLineWidth();
+    window.addEventListener("resize", syncLineWidth);
+    return () => window.removeEventListener("resize", syncLineWidth);
+  }, [syncLineWidth]);
+
+  // Auto-scroll logic
+  const tick = useCallback(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const maxScroll = track.scrollWidth - track.clientWidth;
+
+    track.scrollLeft += speedRef.current * directionRef.current;
+
+    if (directionRef.current === 1 && track.scrollLeft >= maxScroll - 1) {
+      // Reached the end — reverse direction
+      directionRef.current = -1;
+    } else if (directionRef.current === -1 && track.scrollLeft <= 0) {
+      // Back at the start — go forward again
+      directionRef.current = 1;
+    }
+
+    animRef.current = requestAnimationFrame(tick);
+  }, []);
+
+  // Start auto-scroll when section enters viewport
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isInViewRef.current = entry.isIntersecting;
+        if (entry.isIntersecting) {
+          setIsAutoScrolling(true);
+        } else {
+          setIsAutoScrolling(false);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  // Run animation loop
+  useEffect(() => {
+    if (isAutoScrolling) {
+      animRef.current = requestAnimationFrame(tick);
+    }
+    return () => {
+      if (animRef.current) {
+        cancelAnimationFrame(animRef.current);
+        animRef.current = null;
+      }
+    };
+  }, [isAutoScrolling, tick]);
+
+  // Pause on user interaction, resume after 1s of inactivity
+  const handleInteractionStart = () => {
+    // Stop the animation
+    if (animRef.current) {
+      cancelAnimationFrame(animRef.current);
+      animRef.current = null;
+    }
+    setIsAutoScrolling(false);
+
+    // Clear any existing resume timer
+    if (resumeTimerRef.current) {
+      clearTimeout(resumeTimerRef.current);
+    }
+
+    // Resume after 1 second if still in viewport
+    resumeTimerRef.current = setTimeout(() => {
+      if (isInViewRef.current) {
+        setIsAutoScrolling(true);
+      }
+    }, 1000);
+  };
+
+  // Cleanup resume timer on unmount
+  useEffect(() => {
+    return () => {
+      if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
+    };
+  }, []);
 
   return (
-    <section id="itinerario" className="py-24 sm:py-32">
+    <section id="itinerario" className="py-24 sm:py-32" ref={sectionRef}>
       <Container className="flex flex-col items-center">
-
         <ScrollReveal>
           <SectionHeading>Itinerario</SectionHeading>
         </ScrollReveal>
 
-        <div className={styles.wrapper}>
+        <div className={styles.carousel}>
+          <div
+            ref={trackRef}
+            className={styles.track}
+            onPointerDown={handleInteractionStart}
+            onWheel={handleInteractionStart}
+            onTouchStart={handleInteractionStart}
+          >
+            <div ref={innerRef} className={styles.inner}>
+              {/* Horizontal connecting line — spans full inner width */}
+              <div ref={lineRef} className={styles.line} aria-hidden="true" />
 
-          {/* Center vertical line */}
-          <div className={styles.vertLine} aria-hidden="true" />
-
-          {timeline.map((item, i) => {
-            const isEven = i % 2 === 0;
-            const isLast = i === timeline.length - 1;
-
-            return (
-              <ScrollReveal key={i} delay={i * 75}>
-                <div
-                  className={`
-                    ${styles.item}
-                    ${isEven ? styles.itemEven : styles.itemOdd}
-                  `}
-                >
-
-                  {/* ── Desktop SVG (hidden on mobile) ───────────────
-                      Even  → renders in LEFT  column
-                      Odd   → renders in RIGHT column
-                      CSS grid-column placement handles this — DOM
-                      order doesn't matter for desktop. ✓
-                  ──────────────────────────────────────────────────── */}
-                  <div className={styles.svgSlot}>
-                    <TimelineIcon
-                      icon={item.icon}
-                      className={styles.svgIcon}
-                      size={item.iconSize}
-                    />
-                  </div>
-
-                  {/* ── Dot (center line marker) ─────────────────── */}
-                  <div className={styles.dotSlot}>
-                    <div className={styles.dot} />
-                  </div>
-
-                  {/* ── Event card ───────────────────────────────── */}
-                  <div className={styles.cardSlot}>
-                    <TimelineCard item={item} />
-                  </div>
-
-                  {/* ── Mobile SVG connector (hidden on desktop) ───
-                      Appears in row 2, between this item's card and
-                      the next item's dot. Not shown after last item.
-                  ──────────────────────────────────────────────────── */}
-                  {!isLast && (
-                    <div className={styles.mobileSvgRow}>
-                      <TimelineIcon
-                        icon={item.icon}
-                        className={styles.svgIconMobile}
-                        size={item.iconSize}
-                      />
+              {timeline.map((item, i) => {
+                const position = i % 2 === 0 ? "above" : "below";
+                return (
+                  <div
+                    key={i}
+                    className={`${styles.stop} ${position === "above" ? styles.stopAbove : styles.stopBelow}`}
+                  >
+                    <div className={styles.contentAbove}>
+                      {position === "above" && (
+                        <CarouselItem item={item} position="above" />
+                      )}
                     </div>
-                  )}
 
-                </div>
-              </ScrollReveal>
-            );
-          })}
+                    <div className={styles.dotRow}>
+                      <div className={styles.dot} />
+                    </div>
 
+                    <div className={styles.contentBelow}>
+                      {position === "below" && (
+                        <CarouselItem item={item} position="below" />
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
-
       </Container>
     </section>
   );

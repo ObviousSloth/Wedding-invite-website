@@ -1,201 +1,204 @@
-/* ── Wrapper ─────────────────────────────────────────────── */
-.wrapper {
-  position: relative;
+/* ── Carousel container ──────────────────────────────────── */
+.carousel {
   width: 100%;
-  max-width: 52rem;
-  margin: 3.5rem auto 0;
-}
-
-/* ── Vertical line ────────────────────────────────────────── */
-/*
-  Mobile:  line at 1.75rem = center of the 3.5rem dot column
-  Desktop: line at 50%     = center of the 5rem dot column
-*/
-.vertLine {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  pointer-events: none;
-  z-index: 0;
-  left: 1.75rem;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgba(94, 8, 19, 0.13) 5%,
-    rgba(94, 8, 19, 0.13) 95%,
-    transparent
-  );
-}
-
-@media (min-width: 768px) {
-  .vertLine {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-}
-
-/* ── Item ─────────────────────────────────────────────────── */
-/*
-  Mobile:  2-col grid [3.5rem dot | 1fr card], 2 rows
-           Row 1: dot + card side-by-side
-           Row 2: mobile SVG icon centered on the line (between items)
-
-  Desktop: 3-col grid [1fr SVG | 5rem dot | 1fr card], 1 row
-           Even: SVG left  | dot center | card right
-           Odd:  card left | dot center | SVG right
-*/
-.item {
-  display: grid;
-  grid-template-columns: 3.5rem 1fr;
-  grid-template-rows: auto auto;
+  margin: 3rem auto 0;
   position: relative;
-  z-index: 1;
 }
 
-@media (min-width: 768px) {
-  .item {
-    grid-template-columns: 1fr 5rem 1fr;
-    grid-template-rows: 1fr;
-    align-items: center;
-    min-height: 8rem;
-  }
-}
-
-/* ── Dot slot ─────────────────────────────────────────────── */
-.dotSlot {
-  grid-column: 1;
-  grid-row: 1;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 1rem;
-  z-index: 1;
-}
-
-@media (min-width: 768px) {
-  .dotSlot {
-    grid-column: 2;
-    grid-row: 1;
-    align-items: center;
-    padding-top: 0;
-  }
-}
-
-/* ── Dot circle ───────────────────────────────────────────── */
-.dot {
-  width: 0.8rem;
-  height: 0.8rem;
-  border-radius: 50%;
-  background: white;
-  border: 1.5px solid rgba(94, 8, 19, 0.3);
-  box-shadow: 0 0 0 4px rgba(94, 8, 19, 0.05);
+/* ── Scrollable track ────────────────────────────────────── */
+.track {
+  overflow-x: auto;
   position: relative;
-  z-index: 1;
-  flex-shrink: 0;
+
+  /* Hide scrollbar */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
-
-/* ── Card slot ────────────────────────────────────────────── */
-/* Mobile: always col 2, row 1, card to the right of the dot */
-.cardSlot {
-  grid-column: 2;
-  grid-row: 1;
-  padding: 0.6rem 0.5rem 0.6rem 1rem;
-  display: flex;
-  align-items: center;
-}
-
-/* Desktop even: card goes to the RIGHT column */
-@media (min-width: 768px) {
-  .itemEven .cardSlot {
-    grid-column: 3;
-    grid-row: 1;
-    padding: 1rem 0.5rem 1rem 2.5rem;
-    justify-content: flex-start;
-    text-align: left;
-  }
-
-  /* Desktop odd: card goes to the LEFT column */
-  .itemOdd .cardSlot {
-    grid-column: 1;
-    grid-row: 1;
-    padding: 1rem 2.5rem 1rem 0.5rem;
-    justify-content: flex-end;
-    text-align: right;
-  }
-}
-
-/* ── Desktop SVG slot — hidden on mobile ─────────────────── */
-.svgSlot {
+.track::-webkit-scrollbar {
   display: none;
 }
 
-@media (min-width: 768px) {
-  .svgSlot {
-    display: flex;
-    align-items: center;
-    grid-row: 1;
-  }
+/* ── Inner flex container (holds stops + line) ───────────── */
+.inner {
+  display: inline-flex;
+  align-items: stretch;
+  position: relative;
+  padding: 0 2.5rem;
+}
 
-  /* Even: large SVG goes to the LEFT column */
-  .itemEven .svgSlot {
-    grid-column: 1;
-    justify-content: flex-end;
-    padding-right: 2.5rem;
-  }
+/* ── Horizontal connecting line ──────────────────────────── */
+/* Positioned absolutely inside .inner so it spans the full
+   content width, not just the visible viewport portion.    */
+.line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 1px;
+  background: rgba(94, 8, 19, 0.22);
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 0;
+}
 
-  /* Odd: large SVG goes to the RIGHT column */
-  .itemOdd .svgSlot {
-    grid-column: 3;
-    justify-content: flex-start;
-    padding-left: 2.5rem;
+/* ── Each stop (column) on the carousel ──────────────────── */
+.stop {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  width: 7rem;
+  min-width: 7rem;
+}
+
+@media (min-width: 640px) {
+  .stop {
+    width: 9.5rem;
+    min-width: 9.5rem;
   }
 }
 
-/* ── Mobile SVG connector — hidden on desktop ────────────── */
-/*
-  grid-column: 2 = right column only.
-  The left column (3.5rem) stays empty — the vertical line
-  passes through it naturally. Icon sits to the RIGHT of the line.
-*/
-.mobileSvgRow {
-  grid-column: 2;
-  grid-row: 2;
+@media (min-width: 1024px) {
+  .stop {
+    width: 11rem;
+    min-width: 11rem;
+  }
+}
+
+/* ── Content zones (above / below the line) ──────────────── */
+.contentAbove,
+.contentBelow {
+  flex: 1;
   display: flex;
   align-items: center;
-  padding: 0.25rem 0 0.25rem 1rem;
+  justify-content: center;
+  min-height: 9rem;
 }
 
-@media (min-width: 768px) {
-  .mobileSvgRow {
-    display: none;
+@media (min-width: 640px) {
+  .contentAbove,
+  .contentBelow {
+    min-height: 10.5rem;
   }
 }
 
-/* ── SVG icon — desktop size ─────────────────────────────── */
-.svgIcon {
-  width: 5.5rem;
-  height: 5.5rem;
-  object-fit: contain;
-  opacity: 0.82;
-  flex-shrink: 0;
+@media (min-width: 1024px) {
+  .contentAbove,
+  .contentBelow {
+    min-height: 12rem;
+  }
 }
 
-/* ── SVG icon — mobile ────────────────────────────────────── */
-.svgIconMobile {
-  width: 3rem;
-  height: 3rem;
-  object-fit: contain;
-  opacity: 0.7;
-  flex-shrink: 0;
+/* Align content to the edge closest to the line */
+.contentAbove {
+  align-items: flex-end;
+  padding-bottom: 0.75rem;
 }
 
-/* ── Card ─────────────────────────────────────────────────── */
-.card {
+.contentBelow {
+  align-items: flex-start;
+  padding-top: 0.75rem;
+}
+
+/* ── Dot row (sits on the line) ──────────────────────────── */
+.dotRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 0;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Dot ─────────────────────────────────────────────────── */
+.dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
   background: white;
-  border: 1px solid rgba(94, 8, 19, 0.09);
-  border-radius: 0.875rem;
-  padding: 0.85rem 1.25rem;
-  box-shadow: 0 2px 12px rgba(94, 8, 19, 0.04);
-  display: inline-block;
+  border: 1.5px solid rgba(94, 8, 19, 0.35);
+  box-shadow: 0 0 0 3px rgba(94, 8, 19, 0.06);
+  flex-shrink: 0;
+}
+
+/* ── Item layout (icon + text) ───────────────────────────── */
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.2rem;
+}
+
+/* ── Icon wrapper ────────────────────────────────────────── */
+.iconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 4rem;
+}
+
+@media (min-width: 640px) {
+  .iconWrap {
+    height: 5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .iconWrap {
+    height: 6rem;
+  }
+}
+
+/* ── Icon image ──────────────────────────────────────────── */
+.icon {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  opacity: 0.8;
+}
+
+/* ── Event name ──────────────────────────────────────────── */
+.eventName {
+  font-family: var(--font-cinzel), serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-burgundy);
+  line-height: 1.3;
+  max-width: 7rem;
+}
+
+@media (min-width: 640px) {
+  .eventName {
+    font-size: 0.75rem;
+    max-width: 8rem;
+  }
+}
+
+/* ── Event time ──────────────────────────────────────────── */
+.eventTime {
+  font-family: var(--font-cinzel), serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(94, 8, 19, 0.45);
+}
+
+@media (min-width: 640px) {
+  .eventTime {
+    font-size: 0.68rem;
+  }
+}
+
+/* ── Above item: icon on top, name+time at bottom ────────── */
+.itemAbove {
+  justify-content: flex-end;
+}
+
+/* ── Below item: name+time on top, icon at bottom ────────── */
+.itemBelow {
+  justify-content: flex-start;
 }
