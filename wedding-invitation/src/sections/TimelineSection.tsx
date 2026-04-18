@@ -163,10 +163,25 @@ export default function TimelineSection() {
   }, []);
 
   return (
-    <section id="itinerario" className="py-24 sm:py-32" ref={sectionRef}>
+    <section id="itinerario" className="py-24 sm:py-32 relative overflow-hidden" ref={sectionRef}>
+
+      {/* ── Vine side decorations ────────────────────────────── */}
+      <img
+        src="/svgs/decorative/vine1.svg"
+        alt=""
+        aria-hidden="true"
+        className="absolute top-0 left-0 h-full w-14 md:w-20 object-cover object-left pointer-events-none opacity-25"
+      />
+      <img
+        src="/svgs/decorative/vine2.svg"
+        alt=""
+        aria-hidden="true"
+        className="absolute top-0 right-0 h-full w-14 md:w-20 object-cover object-right pointer-events-none opacity-25 scale-x-[-1]"
+      />
+
       <Container className="flex flex-col items-center">
         <ScrollReveal>
-          <SectionHeading>Itinerario</SectionHeading>
+          <SectionHeading>Itinerario de actividades</SectionHeading>
         </ScrollReveal>
 
         <div className={styles.carousel}>

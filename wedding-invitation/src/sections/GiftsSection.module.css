@@ -1,12 +1,21 @@
-/* ── Bank details card ────────────────────────────────────── */
+/* ── Disclosure wrapper ────────────────────────────────────── */
+.bankDisclosure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* ── Bank details card (on cream bg) ─────────────────────── */
 .bankCard {
   width: 100%;
   max-width: 28rem;
-  background: rgba(244, 242, 235, 0.07);
-  border: 1px solid rgba(244, 242, 235, 0.18);
+  background: rgba(94, 8, 19, 0.04);
+  border: 1px solid rgba(94, 8, 19, 0.15);
   border-radius: 1.25rem;
-  padding: 2rem 2rem;
+  padding: 2rem;
   text-align: left;
+  margin-top: 1.25rem;
 }
 
 @media (min-width: 640px) {
@@ -22,7 +31,7 @@
   align-items: center;
   gap: 1rem;
   padding: 0.8rem 0;
-  border-bottom: 1px solid rgba(244, 242, 235, 0.09);
+  border-bottom: 1px solid rgba(94, 8, 19, 0.08);
 }
 
 .row:last-child {
@@ -45,7 +54,7 @@
 
 /* ── Copy button ──────────────────────────────────────────── */
 .copyBtn {
-  border: 1px solid rgba(244, 242, 235, 0.22);
+  border: 1px solid rgba(94, 8, 19, 0.25);
   border-radius: 9999px;
   padding: 0.18rem 0.7rem;
   background: transparent;
@@ -55,8 +64,8 @@
 }
 
 .copyBtn:hover {
-  background: rgba(244, 242, 235, 0.1);
-  border-color: rgba(244, 242, 235, 0.45);
+  background: rgba(94, 8, 19, 0.07);
+  border-color: rgba(94, 8, 19, 0.4);
 }
 
 .copyBtnConfirmed {

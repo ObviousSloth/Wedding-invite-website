@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { ButtonHTMLAttributes, forwardRef } from "react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "outline" | "ghost";
+  variant?: "primary" | "secondary" | "outline" | "ghost" | "cream";
   size?: "sm" | "md" | "lg";
   loading?: boolean;
 }
@@ -23,6 +23,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         "border border-current text-burgundy hover:bg-burgundy hover:text-cream active:scale-95",
       ghost:
         "text-burgundy hover:bg-burgundy/10 active:scale-95",
+      // used on burgundy backgrounds — cream fill with burgundy text
+      cream:
+        "bg-cream text-burgundy hover:bg-cream-dark active:scale-95 focus:ring-offset-burgundy",
     };
 
     const sizes = {

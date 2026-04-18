@@ -6,48 +6,58 @@ import Container from "@/components/ui/Container";
 import CalendarButton from "@/components/ui/CalendarButton";
 import styles from "./InfoSection.module.css";
 
-// ── Reusable venue card ──────────────────────────────────────────────────────
+// ── Venue card ────────────────────────────────────────────────────────────────
 function VenueCard({
   venue,
   label,
   calendarEvent,
   icsFilename,
+  iconName,
 }: {
   venue: Venue;
   label: string;
   calendarEvent: CalendarEvent;
   icsFilename: string;
+  iconName?: string; // stem of /svgs/decorative/{iconName}.svg
 }) {
   return (
     <div className="border border-cream/20 rounded-2xl p-8 sm:p-10 flex flex-col items-center gap-4 text-center h-full">
 
+      {/* Decorative icon above venue heading */}
+      {iconName && (
+        <img
+          src={`/svgs/decorative/${iconName}.svg`}
+          alt=""
+          aria-hidden="true"
+          className="w-16 md:w-24 object-contain opacity-90 pointer-events-none"
+        />
+      )}
+
       {/* Label */}
-      <p className="font-cinzel text-cream/45 text-[10px] tracking-[0.5em] uppercase">
+      <p className="font-slight text-cream text-3xl sm:text-4xl leading-tight">
         {label}
       </p>
 
-      {/* Venue name */}
-      <p className="font-cinzel text-cream text-venue-name font-medium leading-snug tracking-wide">
-        {venue.name}
-      </p>
-
       {/* Time */}
-      <p className="font-seasons italic text-cream/70 text-xl">
+      <p className="font-cinzel text-cream/70 text-lg sm:text-xl tracking-widest">
         {venue.time}
       </p>
 
       {/* Thin rule */}
       <div className="h-px w-10 bg-cream/20" aria-hidden="true" />
 
-      {/* Address */}
-      <p className="font-oldstandard text-cream/55 text-sm leading-relaxed">
-        {venue.address}
+      {/* Venue name */}
+      <p className="font-cinzel text-cream text-venue-name font-medium leading-snug tracking-wide">
+        {venue.name}
+      </p>
+
+      {/* Location */}
+      <p className="font-seasons italic text-cream/55 text-sm leading-relaxed">
+        {venue.location}
       </p>
 
       {/* Button row */}
       <div className="flex flex-wrap items-center justify-center gap-3 mt-2">
-
-        {/* Maps link — unchanged from your original */}
         <a
           href={venue.mapsUrl}
           target="_blank"
@@ -55,51 +65,51 @@ function VenueCard({
           aria-label={`Ver ubicación de ${venue.name} en Google Maps`}
           className="
             inline-flex items-center gap-2
-            px-6 py-2 rounded-full
+            px-6 py-3 min-h-[44px] rounded-full
             border border-cream/35
             font-cinzel text-cream/80 text-[10px] tracking-[0.3em] uppercase
-            hover:bg-cream/10 hover:text-cream
+            hover:bg-cream/10 hover:text-cream active:bg-cream/20
             transition-colors duration-200
           "
         >
-          <svg
-            className="w-3 h-3 flex-shrink-0"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={2}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
-            <circle cx="12" cy="9" r="2.5" />
-          </svg>
           Ver Ubicación
         </a>
 
-        {/* Calendar button — Phase 4 addition */}
         <CalendarButton
           event={calendarEvent}
           icsFilename={icsFilename}
           label="Calendario"
           variant="light"
         />
-
       </div>
     </div>
   );
 }
 
-// ── Section ──────────────────────────────────────────────────────────────────
+// ── Section ───────────────────────────────────────────────────────────────────
 export default function InfoSection() {
   const { ceremony, reception, dressCode, calendar } = eventConfig;
 
   return (
-    <section id="info" className="bg-section-burgundy py-24 sm:py-32">
+    <section id="info" className="bg-section-burgundy py-24 sm:py-32 relative overflow-hidden">
+
+      {/* ── Vine side decorations ────────────────────────────── */}
+      <img
+        src="/svgs/decorative/vine1.svg"
+        alt=""
+        aria-hidden="true"
+        className="absolute top-0 left-0 h-full w-16 md:w-24 object-cover object-left pointer-events-none opacity-30"
+      />
+      <img
+        src="/svgs/decorative/vine2.svg"
+        alt=""
+        aria-hidden="true"
+        className="absolute top-0 right-0 h-full w-16 md:w-24 object-cover object-right pointer-events-none opacity-30 scale-x-[-1]"
+      />
+
       <Container className="flex flex-col items-center text-center">
 
-        {/* ── Venue heading ───────────────────────────────────── */}
+        {/* ── Ceremony + Reception heading ─────────────────────── */}
         <ScrollReveal>
           <SectionHeading variant="light">El Gran Día</SectionHeading>
         </ScrollReveal>
@@ -112,6 +122,7 @@ export default function InfoSection() {
               label="Ceremonia Religiosa"
               calendarEvent={calendar.ceremony}
               icsFilename="ceremonia-jessika-randy.ics"
+              iconName="rings"
             />
           </ScrollReveal>
           <ScrollReveal delay={150}>
@@ -120,6 +131,7 @@ export default function InfoSection() {
               label="Recepción"
               calendarEvent={calendar.reception}
               icsFilename="recepcion-jessika-randy.ics"
+              iconName="toast"
             />
           </ScrollReveal>
         </div>
@@ -127,7 +139,7 @@ export default function InfoSection() {
         {/* ── Divider ─────────────────────────────────────────── */}
         <div className={`${styles.sectionDivider} bg-cream`} aria-hidden="true" />
 
-        {/* ── Dress code heading ──────────────────────────────── */}
+        {/* ── Dress code ──────────────────────────────────────── */}
         <ScrollReveal>
           <SectionHeading variant="light">Código de Vestimenta</SectionHeading>
         </ScrollReveal>
@@ -136,12 +148,12 @@ export default function InfoSection() {
           <p className="font-cinzel text-cream text-xl sm:text-2xl tracking-[0.35em] uppercase mt-5 mb-3">
             {dressCode.code}
           </p>
-          <p className="font-seasons italic text-cream/60 text-base sm:text-lg max-w-md mx-auto">
+          <p className="font-seasons italic text-cream/60 text-base sm:text-lg max-w-md mx-auto mb-6">
             {dressCode.note}
           </p>
         </ScrollReveal>
 
-        {/* ── Color swatches ──────────────────────────────────── */}
+        {/* ── Color swatches — 3×3 grid, no labels ────────────── */}
         <ScrollReveal delay={200}>
           <div
             className={styles.swatches}
@@ -149,22 +161,29 @@ export default function InfoSection() {
             aria-label="Colores sugeridos para el código de vestimenta"
           >
             {dressCode.suggestedColors.map((color) => (
-              <div key={color.name} className={styles.swatch} role="listitem">
-                <div
-                  className={styles.swatchCircle}
-                  style={{ backgroundColor: color.hex }}
-                  /*
-                    ↑ Inline style intentional: backgroundColor is a dynamic
-                    hex value from eventConfig — cannot be a static Tailwind class.
-                  */
-                  aria-label={color.name}
-                />
-                <span className={`${styles.swatchLabel} font-cinzel text-cream`}>
-                  {color.name}
-                </span>
-              </div>
+              <div
+                key={color.name}
+                className={styles.swatchCircle}
+                role="listitem"
+                style={{ backgroundColor: color.hex }}
+                /*
+                  ↑ Inline style intentional: backgroundColor is a dynamic
+                  hex value from eventConfig — cannot be a static Tailwind class.
+                */
+                aria-label={color.name}
+              />
             ))}
           </div>
+        </ScrollReveal>
+
+        {/* ── Dresscode illustration ───────────────────────────── */}
+        <ScrollReveal delay={280}>
+          <img
+            src="/svgs/decorative/dresscode.svg"
+            alt=""
+            aria-hidden="true"
+            className="w-28 md:w-36 object-contain opacity-80 mt-8 pointer-events-none"
+          />
         </ScrollReveal>
 
       </Container>

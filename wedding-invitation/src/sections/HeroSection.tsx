@@ -5,7 +5,7 @@ import { eventConfig } from "@/config/eventConfig";
 
 export default function HeroSection() {
   const [videoError, setVideoError] = useState(false);
-  const { couple, date, hero } = eventConfig;
+  const { couple, hero } = eventConfig;
 
   return (
     <section
@@ -35,57 +35,49 @@ export default function HeroSection() {
         />
       )}
 
-      {/* ── Burgundy overlay ───────────────────────────────────── */}
+      {/* ── Top + bottom fade gradient (not a full wash) ─────── */}
       <div
-        className="absolute inset-0 bg-burgundy/65 z-10"
+        className="absolute inset-0 z-10 pointer-events-none"
+        style={{
+          // inline style: complex multi-stop gradient not expressible as a single Tailwind class
+          background:
+            "linear-gradient(to bottom, rgba(61,5,9,0.65) 0%, transparent 35%, transparent 65%, rgba(61,5,9,0.55) 100%)",
+        }}
         aria-hidden="true"
       />
 
       {/* ── Hero content ───────────────────────────────────────── */}
-      <div className="relative z-20 flex flex-col items-center justify-center text-center px-6 py-32 gap-0">
+      <div className="relative z-20 flex flex-col items-center justify-center text-center px-6 py-32 gap-3">
 
-        {/* Top date line */}
-        <p className="font-cinzel text-cream/70 text-[10px] sm:text-xs tracking-[0.4em] uppercase mb-6">
-          {date.displayDayOfWeek}&nbsp;&nbsp;·&nbsp;&nbsp;
-          {date.displayDay}&nbsp;de&nbsp;{date.displayMonth}&nbsp;del&nbsp;{date.displayYear}
+        {/* Tagline above names */}
+        <p className="font-cinzel text-cream/80 text-[10px] sm:text-xs tracking-[0.4em] uppercase">
+          {hero.tagline}
         </p>
 
         {/* Decorative thin line */}
-        <div className="w-px h-10 bg-cream/25 mb-8" aria-hidden="true" />
+        <div className="w-px h-8 bg-cream/25 my-1" aria-hidden="true" />
 
-        {/* Couple names — fluid size from @theme --text-couple-name */}
-        <h1 className="font-icon text-cream text-couple-name leading-none tracking-wide">
+        {/* Partner 1 name */}
+        <h1 className="font-slight text-cream text-couple-name leading-none tracking-wide">
           {couple.partner1}
         </h1>
 
-        {/* Ampersand divider — fluid size from @theme --text-hero-amp */}
+        {/* Ampersand divider */}
         <p
-          className="font-seasons italic text-cream/50 text-hero-amp my-1 sm:my-2"
+          className="font-slight italic text-cream/60 text-hero-amp leading-none"
           aria-hidden="true"
         >
           &amp;
         </p>
 
-        <h1 className="font-icon text-cream text-couple-name leading-none tracking-wide">
+        {/* Partner 2 name */}
+        <h1 className="font-slight text-cream text-couple-name leading-none tracking-wide">
           {couple.partner2}
         </h1>
 
-        {/* Monogram + horizontal rules */}
-        <div className="flex items-center gap-4 sm:gap-6 my-8 sm:my-10" aria-hidden="true">
-          {/* <div className="h-px w-14 sm:w-24 bg-cream/30" /> */}
-          {/* <span className="font-icon text-cream/40 text-2xl sm:text-3xl select-none">
-            {couple.monogram}
-          </span> */}
-          {/* <div className="h-px w-14 sm:w-24 bg-cream/30" /> */}
-        </div>
-
-        {/* Tagline */}
-        <p className="font-cinzel text-cream/90 text-[11px] sm:text-sm tracking-[0.55em] uppercase mb-3">
-          {hero.tagline}
-        </p>
-
         {/* Sub-tagline */}
-        <p className="font-seasons italic text-cream/60 text-base sm:text-xl">
+        <div className="w-px h-8 bg-cream/25 my-1" aria-hidden="true" />
+        <p className="font-seasons italic text-cream/70 text-sm sm:text-base">
           {hero.subTagline}
         </p>
 
@@ -98,7 +90,7 @@ export default function HeroSection() {
         className="
           absolute bottom-8 left-1/2 -translate-x-1/2 z-20
           flex flex-col items-center gap-2
-          text-cream/40 hover:text-cream/80
+          text-cream/40 hover:text-cream/80 active:text-cream
           transition-colors duration-300
         "
       >

@@ -1,0 +1,86 @@
+You are working on the Jessika & Randy wedding invitation website.
+
+## Context
+- Next.js 16.1.6 (App Router), TypeScript, Tailwind CSS v4, Supabase, hosted on Vercel
+- All commands must be PowerShell (Windows)
+- Full project breakdown is in CLAUDE.md — read it before doing anything
+
+## Reference Images
+I am attaching ~12 PNG screenshots of my Canva design:
+- The first half are the MOBILE version (375px viewport) — treat these as the primary design source
+- The second half are the DESKTOP version (1280px+ viewport) — treat these as the responsive expansion
+
+Label each screenshot mentally as MOBILE or DESKTOP based on its proportions. If unsure, ask me before planning.
+
+## Your Task
+Visually align the website with my Canva design across all screen sizes. The SVG assets are already placed in the correct folders:
+- `public/svgs/envelope.svg`
+- `public/svgs/wax-seal.svg`
+- `public/svgs/timeline/` (church, car, drinks, swans, menu, cake, disco, clock)
+- Any decorative plant/floral SVGs are in `public/svgs/decorative/`
+
+---
+
+## Step 1 — /plan (DO THIS FIRST, DO NOT WRITE CODE YET)
+
+
+### 1. Image inventory
+List all 12 PNGs, identify each as MOBILE or DESKTOP, and map it to the section it shows (HeroSection, DateSection, etc.)
+
+### 2. Per-section visual diff
+For each section, compare MOBILE PNG vs DESKTOP PNG and note:
+- **Mobile layout** — column structure, SVG sizes, font sizes, spacing, decorative element placement
+- **Desktop layout** — how it expands (grid changes, larger SVGs, different proportions)
+- **Responsive delta** — what specifically needs to change between breakpoints (e.g. "timeline goes from stacked single-column on mobile to 3-col grid on desktop")
+- **SVG usage** — which decorative SVGs appear, where they are positioned, approximate size relative to content
+
+### 3. Change list per section
+For each section that needs updating, list:
+- Which file(s) will be touched (`.tsx` and/or `.module.css` only)
+- Mobile-first change (what the base style is at 375px)
+- Desktop override (what changes at `md:` or `lg:` breakpoint)
+- Whether it's a Tailwind class change, `.module.css` change, or `eventConfig.ts` update
+
+### 4. Breakpoints to use
+Use Tailwind v4 breakpoint prefixes only:
+- `sm:` → 640px
+- `md:` → 768px
+- `lg:` → 1024px
+- `xl:` → 1280px
+Use `md:` as the primary mobile→desktop switch unless the design clearly shows a tablet layout.
+
+### 5. What will NOT change
+Explicitly list files and tokens that stay untouched.
+
+
+
+---
+
+## Step 2 — Rules (only after plan is approved)
+
+Follow these rules:
+
+### Mobile-first rules
+- Write base styles for 375px — no default desktop assumptions
+- Add `md:` or `lg:` overrides for desktop expansion
+- Test mental model at both 375px and 1280px before marking a section done
+- Touch targets: all interactive elements (buttons, pills, nav links) must be minimum 44×44px on mobile
+- Font sizes use existing fluid `clamp()` tokens from `globals.css @theme {}` — do not hardcode `px` font sizes
+- Never use `hover:` styles without a corresponding `active:` state for mobile tap feedback
+
+### Structure rules (non-negotiable)
+- Never add `"use client"` to `page.tsx` or layout-level Server Components
+- Never hardcode content — all text/data stays in `eventConfig.ts`
+- Never create new color or font tokens — use only what is defined in `globals.css @theme {}`
+- Existing tokens: `burgundy`, `cream`, `sage` variants + 5 font vars (`--font-slight`, `--font-cinzel`, `--font-seasons`, `--font-icon`, `--font-oldstandard`)
+- CSS architecture: complex transitions, transform chains, and layout go in `.module.css` — never as inline styles
+- Inline `style={{}}` only for dynamic values (hex from config, per-item positional data) — must include a comment explaining why
+
+### SVG rules
+- Size decorative SVGs with Tailwind responsive classes: e.g. `w-12 md:w-20` — never hardcoded px
+- Timeline icon sizes go through the `iconSize` field in `eventConfig.ts` (desktop override only — mobile sizes use a smaller default in `.module.css`)
+- Never guess SVG file names — only use stems confirmed to exist in `public/svgs/`
+- For plant/floral decorative SVGs: position with CSS (absolute within a relative container), use `pointer-events-none` and `aria-hidden="true"`, never let them interfere with touch targets
+
+
+you can find the mobile design images in @"Image Temp\Mobile\" . you can find the desktop design images at @"Image Temp\desktop\"

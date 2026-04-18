@@ -18,6 +18,7 @@ export const eventConfig: EventConfig = {
     displayMonth:     "Diciembre",
     displayYear:      "2026",
     displayDayOfWeek: "Sábado",
+    heading:          "Acompáñanos este día especial",
   },
 
   // ── Hero ────────────────────────────────────────────────────────────────
@@ -31,11 +32,18 @@ export const eventConfig: EventConfig = {
   },
 
   // ── Story ───────────────────────────────────────────────────────────────
-  // TODO: Replace placeholder text with real story
-  // Place story photo at: public/images/story.jpg
+  // TODO: Replace placeholder text with real story blocks
   story: {
-    text: `Nos conocimos bajo el sol del Caribe, en la mágica isla de Curaçao, donde dos mundos se cruzaron por primera vez. Lo que empezó con una mirada cargada de curiosidad se convirtió, sin que nos diéramos cuenta, en la historia de amor más bonita de nuestras vidas. Hoy, después de tantos momentos compartidos, estamos listos para dar el paso más importante juntos: celebrar nuestro amor rodeados de todas las personas que más queremos.`,
-    imageUrl: "/images/story.jpg",
+    blocks: [
+      {
+        text: "Nos conocimos bajo el sol del Caribe, en la mágica isla de Curaçao, donde dos mundos se cruzaron por primera vez.",
+        icon: "curacao",
+      },
+      {
+        text: "Lo que empezó con una mirada cargada de curiosidad se convirtió, sin que nos diéramos cuenta, en la historia de amor más bonita de nuestras vidas.",
+        icon: "paris",
+      },
+    ],
   },
 
   // ── Ceremony ────────────────────────────────────────────────────────────
@@ -97,6 +105,7 @@ export const eventConfig: EventConfig = {
     message:
       "El mejor regalo es tu presencia. Sin embargo, si deseas hacernos un detalle, " +
       "puedes realizar una transferencia a la cuenta indicada a continuación.",
+    wishlistUrl: "#", // TODO: replace with real wishlist URL
     bankDetails: {
       accountHolder: "Jessika & Randy",
       bank:          "Nombre del Banco",

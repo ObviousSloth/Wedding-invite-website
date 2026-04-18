@@ -310,28 +310,37 @@ export default function RSVPSection() {
         />
       )}
 
-      <section id="rsvp" className="py-20 bg-cream">
+      <section id="rsvp" className="bg-section-burgundy py-20">
         <Container>
           <ScrollReveal>
-            <SectionHeading variant="dark" className="mb-12">
+            <SectionHeading variant="light" className="mb-4">
               Confirma tu Presencia
             </SectionHeading>
           </ScrollReveal>
+          {/* Deadline line */}
+          <p className="font-cinzel text-cream/50 text-[10px] tracking-[0.35em] uppercase text-center mb-10">
+            Hasta el{" "}
+            {new Date(eventConfig.rsvp.deadline).toLocaleDateString("es-ES", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })}
+          </p>
 
           {/* ── RSVP Closed ───────────────────────────────────────────────── */}
           {isClosed && (
             <ScrollReveal delay={100}>
               <div className={styles.closedCard}>
                 <span className="text-4xl">📅</span>
-                <p className="font-cinzel text-burgundy text-sm tracking-widest uppercase">
+                <p className="font-cinzel text-cream text-sm tracking-widest uppercase">
                   Plazo cerrado
                 </p>
-                <p className="font-seasons text-burgundy/80 text-base leading-relaxed">
+                <p className="font-seasons text-cream/80 text-base leading-relaxed">
                   {eventConfig.rsvp.closedMessage}
                 </p>
                 <a
                   href={`mailto:${eventConfig.contact.email}`}
-                  className="font-cinzel text-burgundy text-sm underline underline-offset-4 hover:text-burgundy-light transition-colors"
+                  className="font-cinzel text-cream/70 text-sm underline underline-offset-4 hover:text-cream transition-colors"
                 >
                   {eventConfig.contact.email}
                 </a>
@@ -343,12 +352,13 @@ export default function RSVPSection() {
           {!isClosed && step === 'code' && (
             <ScrollReveal delay={100}>
               <form onSubmit={handleLookup} className={styles.codeForm}>
-                <p className="font-seasons text-burgundy/70 text-base text-center leading-relaxed">
+                <p className="font-seasons text-cream/70 text-base text-center leading-relaxed">
                   Ingresa el código de tu invitación para confirmar tu asistencia.
                 </p>
 
                 <div className={styles.inputRow}>
                   <Input
+                    tone="dark"
                     className={styles.codeInput}
                     placeholder="Ej: JHOOF"
                     value={code}
@@ -361,20 +371,20 @@ export default function RSVPSection() {
                     disabled={loading}
                     aria-label="Código de invitación"
                   />
-                  <Button type="submit" disabled={loading || !code.trim()}>
+                  <Button type="submit" variant="cream" disabled={loading || !code.trim()}>
                     {loading ? 'Buscando…' : 'Buscar'}
                   </Button>
                 </div>
 
                 {lookupErr && (
                   <div className={styles.errorBox} role="alert">
-                    <p className="font-cinzel text-burgundy text-sm">{lookupErr}</p>
+                    <p className="font-cinzel text-cream text-sm">{lookupErr}</p>
                     {failCount >= 2 && (
-                      <p className="font-seasons text-burgundy/70 text-sm">
+                      <p className="font-seasons text-cream/70 text-sm">
                         ¿Tienes problemas?{' '}
                         <a
                           href={`mailto:${eventConfig.contact.email}`}
-                          className="underline underline-offset-4 hover:text-burgundy transition-colors"
+                          className="underline underline-offset-4 hover:text-cream transition-colors"
                         >
                           Escríbenos
                         </a>
@@ -394,11 +404,11 @@ export default function RSVPSection() {
                 {/* Family greeting */}
                 <div className="text-center">
                   <p className={styles.fieldLabel}>Invitación para</p>
-                  <p className="font-slight text-burgundy text-2xl">
+                  <p className="font-slight text-cream text-2xl">
                     {form.invitation.display_name}
                   </p>
                   {form.existingRsvp && (
-                    <p className="font-seasons text-burgundy/60 text-sm mt-1 italic">
+                    <p className="font-seasons text-cream/60 text-sm mt-1 italic">
                       Ya confirmaste. Puedes actualizar tu respuesta abajo.
                     </p>
                   )}
@@ -442,12 +452,14 @@ export default function RSVPSection() {
                     <div className={styles.attendeeFields}>
                       <div className={styles.attendeeNameRow}>
                         <Input
+                          tone="dark"
                           placeholder="Nombre"
                           value={att.firstName}
                           onChange={(e) => updateAttendee(i, 'firstName', e.target.value)}
                           aria-label={`Nombre persona ${i + 1}`}
                         />
                         <Input
+                          tone="dark"
                           placeholder="Apellido"
                           value={att.lastName}
                           onChange={(e) => updateAttendee(i, 'lastName', e.target.value)}
@@ -483,6 +495,7 @@ export default function RSVPSection() {
                       Email <span style={{ color: '#b91c1c' }}>*</span>
                     </p>
                     <Input
+                      tone="dark"
                       type="email"
                       placeholder="tu@email.com"
                       value={email}
@@ -500,6 +513,7 @@ export default function RSVPSection() {
                       Alergias o intolerancias <span style={{ color: '#b91c1c' }}>*</span>
                     </p>
                     <Textarea
+                      tone="dark"
                       placeholder="Escribe 'Ninguna' si no tienes alergias"
                       value={form.allergies}
                       onChange={(e) => setForm((p) => ({ ...p, allergies: e.target.value }))}
@@ -516,6 +530,7 @@ export default function RSVPSection() {
                       Teléfono <span className="opacity-50">(opcional)</span>
                     </p>
                     <Input
+                      tone="dark"
                       type="tel"
                       placeholder="+34 600 000 000"
                       value={form.phone}
@@ -532,10 +547,11 @@ export default function RSVPSection() {
                       Mensaje o notas <span className="opacity-50">(opcional)</span>
                     </p>
                     <Textarea
+                      tone="dark"
                       placeholder={
                         form.attending === false
                           ? 'Déjanos un mensaje…'
-                          : 'Alergias, canciones favoritas, o lo que quieras decirnos…'
+                          : 'Canciones favoritas, o lo que quieras decirnos…'
                       }
                       value={form.notes}
                       onChange={(e) => setForm((p) => ({ ...p, notes: e.target.value }))}
@@ -548,7 +564,7 @@ export default function RSVPSection() {
                 {/* Submit error */}
                 {submitErr && (
                   <div className={styles.errorBox} role="alert">
-                    <p className="font-cinzel text-burgundy text-sm">{submitErr}</p>
+                    <p className="font-cinzel text-cream text-sm">{submitErr}</p>
                   </div>
                 )}
 
@@ -558,6 +574,7 @@ export default function RSVPSection() {
                     <Button
                       type="button"
                       variant="outline"
+                      className="border-cream/40 text-cream hover:bg-cream/10 hover:text-cream"
                       onClick={() => {
                         setStep('code')
                         setCode('')
@@ -567,7 +584,7 @@ export default function RSVPSection() {
                     >
                       Volver
                     </Button>
-                    <Button type="submit" disabled={loading}>
+                    <Button type="submit" variant="cream" disabled={loading}>
                       {loading
                         ? 'Guardando…'
                         : form.existingRsvp
@@ -633,6 +650,7 @@ export default function RSVPSection() {
                 >
                   Cerrar
                 </Button>
+                {/* Note: confirmation card has cream bg so outline variant uses burgundy text automatically */}
               </div>
             </ScrollReveal>
           )}

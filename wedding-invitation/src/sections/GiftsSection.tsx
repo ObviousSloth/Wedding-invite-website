@@ -5,10 +5,12 @@ import { eventConfig } from "@/config/eventConfig";
 import ScrollReveal from "@/components/ScrollReveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Container from "@/components/ui/Container";
+import Button from "@/components/ui/Button";
 import styles from "./GiftsSection.module.css";
 
 export default function GiftsSection() {
   const { gifts } = eventConfig;
+  const [showBank, setShowBank] = useState(false);
   const [copied, setCopied] = useState(false);
 
   const handleCopyIban = async () => {
@@ -22,69 +24,110 @@ export default function GiftsSection() {
   };
 
   const rows = [
-    { label: "Titular",    value: gifts.bankDetails.accountHolder, copyable: false },
-    { label: "Banco",      value: gifts.bankDetails.bank,          copyable: false },
-    { label: "BIC / SWIFT",value: gifts.bankDetails.bic,           copyable: false },
+    { label: "Titular",     value: gifts.bankDetails.accountHolder },
+    { label: "Banco",       value: gifts.bankDetails.bank },
+    { label: "BIC / SWIFT", value: gifts.bankDetails.bic },
   ];
 
   return (
-    <section id="regalo" className="bg-section-burgundy py-24 sm:py-32">
+    // Background inherited from the bg-section-cream wrapper in page.tsx
+    <section id="regalo" className="py-24 sm:py-32">
       <Container className="flex flex-col items-center text-center">
 
+        {/* Gift SVG */}
         <ScrollReveal>
-          <SectionHeading variant="light">Sugerencia de Regalo</SectionHeading>
+          <img
+            src="/svgs/decorative/gift.svg"
+            alt=""
+            aria-hidden="true"
+            className="w-24 md:w-32 object-contain opacity-90 mb-6 pointer-events-none"
+          />
+        </ScrollReveal>
+
+        <ScrollReveal delay={80}>
+          <SectionHeading variant="dark">Sugerencia de Regalo</SectionHeading>
         </ScrollReveal>
 
         {/* Intro message */}
-        <ScrollReveal delay={150}>
-          <p className="font-seasons italic text-cream/80 text-story-body leading-relaxed max-w-lg mt-6 mb-10">
+        <ScrollReveal delay={160}>
+          <p className="font-Cinzel italic text-burgundy/80 text-story-body leading-relaxed max-w-lg mt-6 mb-10">
             {gifts.message}
           </p>
         </ScrollReveal>
 
-        {/* Bank details card */}
-        <ScrollReveal delay={280}>
-          <div className={styles.bankCard}>
+        {/* Primary CTA: Wishlist */}
+        <ScrollReveal delay={240}>
+          <a
+            href={gifts.wishlistUrl ?? "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block"
+            aria-label="Ver lista de deseos"
+          >
+            <Button variant="primary" size="lg" className="min-h-[44px] min-w-[10rem]">
+              Wishlist
+            </Button>
+          </a>
+        </ScrollReveal>
 
-            <p className="font-cinzel text-cream/35 text-[10px] tracking-[0.5em] uppercase mb-5">
-              Datos Bancarios
-            </p>
+        {/* Secondary: bank details disclosure */}
+        <ScrollReveal delay={320}>
+          <div className={styles.bankDisclosure}>
+            <button
+              type="button"
+              onClick={() => setShowBank((v) => !v)}
+              aria-expanded={showBank}
+              className="
+                font-cinzel text-[10px] tracking-[0.3em] uppercase text-burgundy/50
+                hover:text-burgundy active:text-burgundy
+                underline underline-offset-4 decoration-dotted
+                transition-colors duration-200 mt-8 min-h-[44px]
+              "
+            >
+              {showBank ? "Ocultar datos bancarios" : "Ver datos bancarios"}
+            </button>
 
-            {/* Static rows */}
-            {rows.map(({ label, value }) => (
-              <div key={label} className={styles.row}>
-                <span className="font-cinzel text-cream/40 text-[0.65rem] tracking-[0.18em] uppercase flex-shrink-0">
-                  {label}
-                </span>
-                <span className="font-cinzel text-cream/85 text-[0.8rem] text-right">
-                  {value}
-                </span>
+            {showBank && (
+              <div className={styles.bankCard}>
+                <p className="font-cinzel text-burgundy/35 text-[10px] tracking-[0.5em] uppercase mb-5">
+                  Datos Bancarios
+                </p>
+
+                {rows.map(({ label, value }) => (
+                  <div key={label} className={styles.row}>
+                    <span className="font-cinzel text-burgundy/40 text-[0.65rem] tracking-[0.18em] uppercase flex-shrink-0">
+                      {label}
+                    </span>
+                    <span className="font-cinzel text-burgundy/85 text-[0.8rem] text-right">
+                      {value}
+                    </span>
+                  </div>
+                ))}
+
+                {/* IBAN row — copyable */}
+                <div className={styles.row}>
+                  <span className="font-cinzel text-burgundy/40 text-[0.65rem] tracking-[0.18em] uppercase flex-shrink-0">
+                    IBAN
+                  </span>
+                  <div className={styles.ibanValue}>
+                    <span className="font-cinzel text-burgundy/85 text-[0.8rem] tracking-wider">
+                      {gifts.bankDetails.iban}
+                    </span>
+                    <button
+                      onClick={handleCopyIban}
+                      aria-label="Copiar IBAN al portapapeles"
+                      className={`
+                        ${styles.copyBtn}
+                        font-cinzel text-[0.58rem] tracking-[0.15em] uppercase
+                        ${copied ? `${styles.copyBtnConfirmed} text-sage-light` : "text-burgundy/45"}
+                      `}
+                    >
+                      {copied ? "✓ Copiado" : "Copiar"}
+                    </button>
+                  </div>
+                </div>
               </div>
-            ))}
-
-            {/* IBAN row — copyable */}
-            <div className={styles.row}>
-              <span className="font-cinzel text-cream/40 text-[0.65rem] tracking-[0.18em] uppercase flex-shrink-0">
-                IBAN
-              </span>
-              <div className={styles.ibanValue}>
-                <span className="font-cinzel text-cream/85 text-[0.8rem] tracking-wider">
-                  {gifts.bankDetails.iban}
-                </span>
-                <button
-                  onClick={handleCopyIban}
-                  aria-label="Copiar IBAN al portapapeles"
-                  className={`
-                    ${styles.copyBtn}
-                    font-cinzel text-[0.58rem] tracking-[0.15em] uppercase
-                    ${copied ? `${styles.copyBtnConfirmed} text-sage-light` : "text-cream/45"}
-                  `}
-                >
-                  {copied ? "✓ Copiado" : "Copiar"}
-                </button>
-              </div>
-            </div>
-
+            )}
           </div>
         </ScrollReveal>
 

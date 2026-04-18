@@ -13,6 +13,7 @@ export interface DateInfo {
   displayMonth: string;
   displayYear: string;
   displayDayOfWeek: string;
+  heading?: string; // cursive subtitle above the date block
 }
 
 // ─── Hero ──────────────────────────────────────────────────────────────────
@@ -24,9 +25,15 @@ export interface Hero {
 }
 
 // ─── Story ─────────────────────────────────────────────────────────────────
-export interface Story {
+export interface StoryBlock {
   text: string;
-  imageUrl: string;
+  icon?: string; // stem of /svgs/decorative/{icon}.svg
+}
+
+export interface Story {
+  blocks: StoryBlock[];
+  text?: string;    // legacy — kept for TS compatibility, not rendered
+  imageUrl?: string;
 }
 
 // ─── Venue ─────────────────────────────────────────────────────────────────
@@ -76,6 +83,7 @@ export interface BankDetails {
 export interface Gifts {
   message: string;
   bankDetails: BankDetails;
+  wishlistUrl?: string;
 }
 
 // ─── Accommodations ────────────────────────────────────────────────────────

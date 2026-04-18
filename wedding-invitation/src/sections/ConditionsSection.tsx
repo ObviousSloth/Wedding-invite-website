@@ -8,7 +8,15 @@ export default function ConditionsSection() {
   const { suggestionsAndConditions } = eventConfig;
 
   return (
-    <section id="condiciones" className="bg-section-cream py-24 sm:py-32">
+    <section id="condiciones" className="bg-section-cream py-24 sm:py-32 relative overflow-hidden">
+      {/* Light restyle: small vine accent top-right for visual cohesion */}
+      <img
+        src="/svgs/decorative/vine1.svg"
+        alt=""
+        aria-hidden="true"
+        className="absolute top-0 right-0 w-20 md:w-28 opacity-20 pointer-events-none"
+        style={{ transform: "scaleX(-1)" }}
+      />
       <Container className="flex flex-col items-center text-center">
 
         <ScrollReveal>

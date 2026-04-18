@@ -9,9 +9,7 @@ import RSVPSection from "@/sections/RSVPSection";
 import AccommodationsSection from "@/sections/AccommodationsSection";
 import ConditionsSection from "@/sections/ConditionsSection";
 import ThankYouSection from "@/sections/ThankYouSection";
-import ScrollReveal from "@/components/ScrollReveal";
 import LandingController from "@/components/LandingController";
-import CreamBackground from "@/components/ui/CreamBackground";
 import ContactSection from "@/sections/ContactSection";
 
 export default function Home() {
@@ -19,39 +17,37 @@ export default function Home() {
     <>
       <LandingController />
       <Navbar />
-        <main>
-    <HeroSection />
+      <main>
+        <HeroSection />
 
-    {/* Shared cream background — no seam */}
-    <div className="bg-section-cream">
-      <DateSection />
-      <StorySection />
-    </div>
+        {/* Cream: Date, Story, Timeline, Gifts share texture */}
+        <div className="bg-section-cream">
+          <DateSection />
+          <StorySection />
+          <TimelineSection />
+          <GiftsSection />
+        </div>
 
-    <InfoSection />
+        {/* Burgundy: Ceremony, Reception, Dress Code */}
+        <InfoSection />
 
-    <div className="bg-section-cream">
-      <TimelineSection />
-    </div>
+        {/* Burgundy: RSVP */}
+        <RSVPSection />
 
-    <GiftsSection />
+        {/* Burgundy: Accommodations + Conditions */}
+        <div className="bg-section-burgundy">
+          <AccommodationsSection />
+          <ConditionsSection />
+        </div>
 
-    <div className="bg-section-cream">
-      <RSVPSection />
-    </div>
+        {/* Cream: Contact */}
+        <div className="bg-section-cream">
+          <ContactSection />
+        </div>
 
-    <div className="bg-section-burgundy">
-      <AccommodationsSection />
-      <ConditionsSection />
-    </div>
-
-    <div className="bg-section-cream">
-      <ContactSection />
-    </div>
-
-    <ThankYouSection />
-  </main>
-
+        {/* Photo bg: Thank You */}
+        <ThankYouSection />
+      </main>
     </>
   );
 }
