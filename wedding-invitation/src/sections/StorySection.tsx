@@ -40,7 +40,7 @@ export default function StorySection() {
 
         {/* ── Section heading ─────────────────────────────────── */}
         <ScrollReveal className="flex justify-center mb-14">
-          <SectionHeading variant="dark">Nuestra Historia</SectionHeading>
+          <SectionHeading variant="dark" className="text-center">Nuestra Historia</SectionHeading>
         </ScrollReveal>
 
         {/* ── Story blocks ────────────────────────────────────── */}
