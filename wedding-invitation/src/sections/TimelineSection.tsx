@@ -63,9 +63,32 @@ export default function TimelineSection() {
   const [isAutoScrolling, setIsAutoScrolling] = useState(false);
   const isInViewRef = useRef(false);
 
-  // Sync line width to match the inner content width
+  const isDesktopRef = useRef(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    isDesktopRef.current = mq.matches;
+    const handler = (e: MediaQueryListEvent) => {
+      isDesktopRef.current = e.matches;
+      if (e.matches) {
+        // Cancel any running animation when switching to desktop
+        if (animRef.current) {
+          cancelAnimationFrame(animRef.current);
+          animRef.current = null;
+        }
+        setIsAutoScrolling(false);
+        // Clear the JS-set inline width so CSS 100% wins
+        if (lineRef.current) lineRef.current.style.width = "";
+      }
+    };
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  // Sync line width to match the inner content width (mobile only)
   const lineRef = useRef<HTMLDivElement>(null);
   const syncLineWidth = useCallback(() => {
+    if (isDesktopRef.current) return;
     const inner = innerRef.current;
     const line = lineRef.current;
     if (inner && line) {
@@ -99,7 +122,7 @@ export default function TimelineSection() {
     animRef.current = requestAnimationFrame(tick);
   }, []);
 
-  // Start auto-scroll when section enters viewport
+  // Start auto-scroll when section enters viewport (mobile only)
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
@@ -107,7 +130,7 @@ export default function TimelineSection() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         isInViewRef.current = entry.isIntersecting;
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting && !isDesktopRef.current) {
           setIsAutoScrolling(true);
         } else {
           setIsAutoScrolling(false);
@@ -133,8 +156,9 @@ export default function TimelineSection() {
     };
   }, [isAutoScrolling, tick]);
 
-  // Pause on user interaction, resume after 1s of inactivity
+  // Pause on user interaction, resume after 1s of inactivity (mobile only)
   const handleInteractionStart = () => {
+    if (isDesktopRef.current) return;
     // Stop the animation
     if (animRef.current) {
       cancelAnimationFrame(animRef.current);
