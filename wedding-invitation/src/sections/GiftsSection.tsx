@@ -5,7 +5,6 @@ import { eventConfig } from "@/config/eventConfig";
 import ScrollReveal from "@/components/ScrollReveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Container from "@/components/ui/Container";
-import Button from "@/components/ui/Button";
 import styles from "./GiftsSection.module.css";
 
 export default function GiftsSection() {
@@ -13,14 +12,25 @@ export default function GiftsSection() {
   const [showBank, setShowBank] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const handleCopyIban = async () => {
+  const handleCopyIban = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const text = gifts.bankDetails.iban;
     try {
-      await navigator.clipboard.writeText(gifts.bankDetails.iban);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2200);
+      await navigator.clipboard.writeText(text);
     } catch {
-      // Clipboard API unavailable — silently ignore
+      // Fallback for browsers without Clipboard API
+      const el = document.createElement("textarea");
+      el.value = text;
+      el.style.position = "fixed";
+      el.style.opacity = "0";
+      document.body.appendChild(el);
+      el.focus();
+      el.select();
+      document.execCommand("copy");
+      document.body.removeChild(el);
     }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
   };
 
   const rows = [
@@ -50,41 +60,28 @@ export default function GiftsSection() {
 
         {/* Intro message */}
         <ScrollReveal delay={160}>
-          <p className="font-Cinzel italic text-burgundy/80 text-story-body leading-relaxed max-w-lg mt-6 mb-10">
+          <p className="font-cinzel italic text-burgundy/80 text-story-body leading-relaxed max-w-lg mt-6 mb-10">
             {gifts.message}
           </p>
         </ScrollReveal>
 
-        {/* Primary CTA: Wishlist */}
+        {/* Bank details disclosure */}
         <ScrollReveal delay={240}>
-          <a
-            href={gifts.wishlistUrl ?? "#"}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block"
-            aria-label="Ver lista de deseos"
-          >
-            <Button variant="primary" size="lg" className="min-h-[44px] min-w-[10rem]">
-              Wishlist
-            </Button>
-          </a>
-        </ScrollReveal>
-
-        {/* Secondary: bank details disclosure */}
-        <ScrollReveal delay={320}>
           <div className={styles.bankDisclosure}>
             <button
               type="button"
               onClick={() => setShowBank((v) => !v)}
               aria-expanded={showBank}
               className="
-                font-cinzel text-[10px] tracking-[0.3em] uppercase text-burgundy/50
-                hover:text-burgundy active:text-burgundy
-                underline underline-offset-4 decoration-dotted
-                transition-colors duration-200 mt-8 min-h-[44px]
+                font-cinzel text-[10px] tracking-[0.3em] uppercase text-burgundy
+                border border-burgundy/40 rounded-full
+                px-6 py-3 min-h-[44px]
+                hover:bg-burgundy/8 hover:border-burgundy/70
+                active:scale-95
+                transition-all duration-200
               "
             >
-              {showBank ? "Ocultar datos bancarios" : "Ver datos bancarios"}
+              {showBank ? "Ocultar datos bancarios" : "¿Prefieres transferencia? Ver datos bancarios"}
             </button>
 
             {showBank && (
@@ -114,12 +111,13 @@ export default function GiftsSection() {
                       {gifts.bankDetails.iban}
                     </span>
                     <button
+                      type="button"
                       onClick={handleCopyIban}
                       aria-label="Copiar IBAN al portapapeles"
                       className={`
                         ${styles.copyBtn}
                         font-cinzel text-[0.58rem] tracking-[0.15em] uppercase
-                        ${copied ? `${styles.copyBtnConfirmed} text-sage-light` : "text-burgundy/45"}
+                        ${copied ? styles.copyBtnConfirmed : styles.copyBtnIdle}
                       `}
                     >
                       {copied ? "✓ Copiado" : "Copiar"}

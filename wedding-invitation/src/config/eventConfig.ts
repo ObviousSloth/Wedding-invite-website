@@ -103,8 +103,8 @@ export const eventConfig: EventConfig = {
   // TODO: Replace with real bank details before launch
   gifts: {
     message:
-      "El mejor regalo es tu presencia. Sin embargo, si deseas hacernos un detalle, " +
-      "puedes realizar una transferencia a la cuenta indicada a continuación.",
+      "Tu presencia es el mejor regalo. Si quieres hacernos un detalle, " +
+      "agradecemos una contribución en efectivo o una transferencia.",
     wishlistUrl: "#", // TODO: replace with real wishlist URL
     bankDetails: {
       accountHolder: "Jessika & Randy",

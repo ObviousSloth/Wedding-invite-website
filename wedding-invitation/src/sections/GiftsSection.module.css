@@ -68,7 +68,12 @@
   border-color: rgba(94, 8, 19, 0.4);
 }
 
+.copyBtnIdle {
+  color: rgba(94, 8, 19, 0.45);
+}
+
 .copyBtnConfirmed {
   border-color: rgba(138, 154, 91, 0.6);
-  color: #a8b878;
+  color: #7a9a40;
+  background: rgba(138, 154, 91, 0.08);
 }

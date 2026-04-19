@@ -84,3 +84,6 @@ Follow these rules:
 
 
 you can find the mobile design images in @"Image Temp\Mobile\" . you can find the desktop design images at @"Image Temp\desktop\"
+
+
+
