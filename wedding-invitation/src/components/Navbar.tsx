@@ -43,14 +43,18 @@ export default function Navbar() {
       <nav className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 h-16 flex items-center justify-between">
         {/* Monogram */}
         <button
-          onClick={() => handleNav("hero")}
-          className={cn(
-            "font-icon text-2xl transition-colors",
-            scrolled ? "text-burgundy" : "text-cream"
-          )}
+          onClick={() => handleNav("inicio")}
+          className="flex items-center"
           aria-label="Ir al inicio"
         >
-          {eventConfig.couple.monogram}
+          <img
+            src="/svgs/monogram.svg"
+            alt={eventConfig.couple.monogram}
+            className={cn(
+              "h-10 w-auto transition-all duration-300",
+              scrolled ? "brightness-0" : "brightness-0 invert"
+            )}
+          />
         </button>
 
         {/* Desktop Links */}

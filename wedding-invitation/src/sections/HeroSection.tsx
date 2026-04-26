@@ -1,9 +1,11 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { eventConfig } from "@/config/eventConfig";
 import styles from "./HeroSection.module.css";
+import { useAudio } from "@/context/AudioContext";
+import { useHeroAudio } from "@/hooks/useHeroAudio";
 
 const CAROUSEL_IMAGES = [
   "/images/Hero/9B1EC8BB-77AF-4D72-AA90-375398ABCECC.png",
@@ -27,6 +29,9 @@ const INTERVAL_MS = 4500;
 export default function HeroSection() {
   const { couple, hero } = eventConfig;
   const [current, setCurrent] = useState(0);
+  const heroRef = useRef<HTMLElement>(null);
+  const { enabled } = useAudio();
+  useHeroAudio(enabled, heroRef);
 
   const next = useCallback(() => {
     setCurrent((c) => (c + 1) % CAROUSEL_IMAGES.length);
@@ -40,6 +45,7 @@ export default function HeroSection() {
   return (
     <section
       id="inicio"
+      ref={heroRef}
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
       aria-label="Sección principal"
     >

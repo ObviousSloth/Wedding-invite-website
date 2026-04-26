@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import localFont from 'next/font/local';
+import { AudioProvider } from "@/context/AudioContext";
  
 
 
@@ -45,6 +46,11 @@ import localFont from 'next/font/local';
 export const metadata: Metadata = {
   title: "Jessika & Randy — 19 Diciembre 2026",
   description: "Nos alegra invitarlos a la boda de Jessika y Randy el 19 de diciembre del 2026 en Madrid, España.",
+  icons: {
+    icon: "/svgs/monogram.svg",
+    shortcut: "/svgs/monogram.svg",
+    apple: "/svgs/monogram.svg",
+  },
   openGraph: {
     title: "Jessika & Randy — 19 Diciembre 2026",
     description: "Nos alegra invitarlos a nuestra boda",
@@ -69,7 +75,9 @@ export default function RootLayout({
   return (
     <html lang="es" className={`scroll-smooth ${fonts}`}>
       <body className="font-cinzel bg-cream text-burgundy antialiased">
-        {children}
+        <AudioProvider>
+          {children}
+        </AudioProvider>
       </body>
     </html>
   );
