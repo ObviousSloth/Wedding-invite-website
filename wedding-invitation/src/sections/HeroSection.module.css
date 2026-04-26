@@ -1,0 +1,40 @@
+/* ── Carousel slide ──────────────────────────────────────── */
+.slide {
+  object-fit: cover;
+  transition: opacity 1s ease;
+  filter: grayscale(100%);
+}
+
+.slideVisible {
+  opacity: 1;
+}
+
+.slideHidden {
+  opacity: 0;
+}
+
+/* ── Dark overlay for text legibility ───────────────────── */
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+/* ── Dot indicator ───────────────────────────────────────── */
+.dot {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 9999px;
+  background-color: rgba(244, 242, 235, 0.4);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+}
+
+.dotActive {
+  background-color: #f4f2eb;
+  transform: scale(1.25);
+}

@@ -1,11 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { eventConfig } from "@/config/eventConfig";
+import styles from "./HeroSection.module.css";
+
+const CAROUSEL_IMAGES = [
+  "/images/Hero/9B1EC8BB-77AF-4D72-AA90-375398ABCECC.png",
+  "/images/Hero/BC305A12-0D80-45CD-9C5F-BA817E143B03.png",
+  "/images/Hero/E6C35C48-DA40-4EE0-8856-C9F6D88C4207.png",
+  "/images/Hero/E6C3442D-92AA-4211-A0BB-D11C3DC89F32.png",
+];
+
+const INTERVAL_MS = 4500;
 
 export default function HeroSection() {
-  const [videoError, setVideoError] = useState(false);
   const { couple, hero } = eventConfig;
+  const [current, setCurrent] = useState(0);
+
+  const next = useCallback(() => {
+    setCurrent((c) => (c + 1) % CAROUSEL_IMAGES.length);
+  }, []);
+
+  useEffect(() => {
+    const id = setInterval(next, INTERVAL_MS);
+    return () => clearInterval(id);
+  }, [next]);
 
   return (
     <section
@@ -14,32 +34,27 @@ export default function HeroSection() {
       aria-label="Sección principal"
     >
 
-      {/* ── Background: video → gradient fallback ──────────────── */}
-      {!videoError ? (
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster={hero.fallbackImageUrl}
-          onError={() => setVideoError(true)}
-          className="absolute inset-0 w-full h-full object-cover z-0"
+      {/* ── Carousel images ────────────────────────────────────── */}
+      {CAROUSEL_IMAGES.map((src, i) => (
+        <Image
+          key={src}
+          src={src}
+          alt=""
           aria-hidden="true"
-        >
-          <source src={hero.videoUrl} type="video/mp4" />
-        </video>
-      ) : (
-        <div
-          className="absolute inset-0 bg-gradient-to-b from-burgundy-dark via-burgundy to-burgundy-dark z-0"
-          aria-hidden="true"
+          fill
+          priority={i === 0}
+          className={`${styles.slide} ${i === current ? styles.slideVisible : styles.slideHidden}`}
+          sizes="100vw"
         />
-      )}
+      ))}
 
-      {/* ── Top + bottom fade gradient (not a full wash) ─────── */}
+      {/* ── Gray overlay for text legibility ──────────────────── */}
+      <div className={styles.overlay} aria-hidden="true" />
+
+      {/* ── Top + bottom fade gradient ─────────────────────────── */}
       <div
         className="absolute inset-0 z-10 pointer-events-none"
         style={{
-          // inline style: complex multi-stop gradient not expressible as a single Tailwind class
           background:
             "linear-gradient(to bottom, rgba(61,5,9,0.65) 0%, transparent 35%, transparent 65%, rgba(61,5,9,0.55) 100%)",
         }}
@@ -80,6 +95,17 @@ export default function HeroSection() {
         <p className="font-seasons italic text-cream/70 text-sm sm:text-base">
           {hero.subTagline}
         </p>
+
+        {/* ── Dot indicators ──────────────────────────────────── */}
+        <div className="flex gap-2 mt-4" aria-hidden="true">
+          {CAROUSEL_IMAGES.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              className={`${styles.dot} ${i === current ? styles.dotActive : ""}`}
+            />
+          ))}
+        </div>
 
       </div>
 

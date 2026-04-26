@@ -128,97 +128,18 @@ body {
 
 /* ─── 8. Background Utilities ───────────────────────────────────────────── */
 @layer utilities {
-  /* ── Cream section background ─────────────────────────────
-     Three layers:
-     1. Repeating linen grid — horizontal + vertical 4px
-        threads in warm tan, simulating woven paper/linen.
-     2. Diagonal crosshatch — 45° fine lines for depth.
-     3. Two soft edge radials for gentle botanical depth —
-        no dark edges so adjacent cream sections blend.
-     All layers tile/scale perfectly, no stretching.
-  ────────────────────────────────────────────────────────── */
   .bg-section-cream {
+    
     background-color: #f4f2eb;
-    background-image:
-      /* Fractal noise — grain on top of everything else */
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.35' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E"),
-      /* Linen warp threads — horizontal */
-      repeating-linear-gradient(
-        0deg,
-        transparent 0px, transparent 3px,
-        rgba(148, 128, 105, 0.09) 3px, rgba(148, 128, 105, 0.09) 4px
-      ),
-      /* Linen weft threads — vertical */
-      repeating-linear-gradient(
-        90deg,
-        transparent 0px, transparent 3px,
-        rgba(148, 128, 105, 0.07) 3px, rgba(148, 128, 105, 0.07) 4px
-      ),
-      /* Diagonal crosshatch for texture depth */
-      repeating-linear-gradient(
-        135deg,
-        transparent 0px, transparent 5px,
-        rgba(148, 128, 105, 0.04) 5px, rgba(148, 128, 105, 0.04) 6px
-      ),
-      /* Soft botanical depth — sides only, no top/bottom dark edges */
-      radial-gradient(ellipse 40% 100% at   0% 50%, rgba(155, 135, 112, 0.18) 0%, transparent 100%),
-      radial-gradient(ellipse 40% 100% at 100% 50%, rgba(155, 135, 112, 0.16) 0%, transparent 100%);
-    background-size: 200px 200px, auto, auto, auto, auto, auto;
-    background-repeat: repeat, repeat, repeat, repeat, no-repeat, no-repeat;
     color: var(--color-burgundy);
   }
 
-  /* ── Burgundy section background ──────────────────────────
-     Three layers:
-     1. Repeating fine velvet weave — diagonal threads at
-        ±30° simulating crushed fabric.
-     2. Micro horizontal cord lines for velvet ribbing.
-     3. Single center radial sheen — lighter centre only,
-        NO dark top/bottom so adjacent sections don't show
-        a seam where two gradients' dark edges stack.
-  ────────────────────────────────────────────────────────── */
   .bg-section-burgundy {
     background-color: var(--color-burgundy);
-    background-image:
-      /* Fractal noise — grain on top of everything else */
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.30' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.50'/%3E%3C/svg%3E"),
-      /* Velvet diagonal threads — light warp */
-      repeating-linear-gradient(
-        30deg,
-        transparent 0px, transparent 2px,
-        rgba(255, 255, 255, 0.028) 2px, rgba(255, 255, 255, 0.028) 3px
-      ),
-      /* Velvet diagonal threads — dark weft */
-      repeating-linear-gradient(
-        -30deg,
-        transparent 0px, transparent 2px,
-        rgba(0, 0, 0, 0.055) 2px, rgba(0, 0, 0, 0.055) 3px
-      ),
-      /* Horizontal velvet ribbing */
-      repeating-linear-gradient(
-        0deg,
-        transparent 0px, transparent 5px,
-        rgba(0, 0, 0, 0.035) 5px, rgba(0, 0, 0, 0.035) 6px
-      ),
-      /* Centre sheen — light hits velvet at mid-height, no dark edges */
-      radial-gradient(ellipse 100% 50% at 50% 50%, rgba(145, 22, 38, 0.50) 0%, transparent 70%);
-    background-size: 200px 200px, auto, auto, auto, auto;
-    background-repeat: repeat, repeat, repeat, repeat, no-repeat;
     color: var(--color-cream);
   }
 }
 
-/* ── Section seam prevention ──────────────────────────────
-   Pull each bg-section-* element up by 1px so adjacent
-   sections overlap at their boundary — eliminates the
-   antialiasing gap the browser renders between elements.
-────────────────────────────────────────────────────────── */
-.bg-section-cream + .bg-section-cream,
-.bg-section-burgundy + .bg-section-burgundy,
-.bg-section-cream + .bg-section-burgundy,
-.bg-section-burgundy + .bg-section-cream {
-  margin-top: -1px;
-}
 
 /* ─── 9. Divider ─────────────────────────────────────────────────────────── */
 .divider {

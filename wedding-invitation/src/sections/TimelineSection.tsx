@@ -203,7 +203,7 @@ export default function TimelineSection() {
         className="absolute top-0 right-0 h-full w-14 md:w-20 object-cover object-right pointer-events-none opacity-25 scale-x-[-1]"
       />
 
-      <Container className="flex flex-col items-center">
+      <Container size="lg" className="flex flex-col items-center">
         <ScrollReveal>
           <SectionHeading>Itinerario de actividades</SectionHeading>
         </ScrollReveal>

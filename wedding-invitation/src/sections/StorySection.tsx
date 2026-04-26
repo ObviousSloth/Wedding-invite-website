@@ -36,7 +36,7 @@ export default function StorySection() {
         className={`${styles.corner} ${styles.cornerBottomRight}`}
       />
 
-      <Container>
+      <Container size="lg">
 
         {/* ── Section heading ─────────────────────────────────── */}
         <ScrollReveal className="flex justify-center mb-14">

@@ -9,14 +9,14 @@ interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
 export default function Container({ className, size = "md", children, ...props }: ContainerProps) {
   const sizes = {
     sm: "max-w-xl",
-    md: "max-w-2xl",
-    lg: "max-w-4xl",
-    xl: "max-w-6xl",
+    md: "max-w-2xl md:max-w-3xl lg:max-w-4xl",
+    lg: "max-w-4xl lg:max-w-5xl xl:max-w-6xl",
+    xl: "max-w-6xl lg:max-w-7xl",
   };
 
   return (
     <div
-      className={cn("mx-auto w-full px-5 sm:px-8", sizes[size], className)}
+      className={cn("mx-auto w-full px-5 sm:px-8 lg:px-12", sizes[size], className)}
       {...props}
     >
       {children}

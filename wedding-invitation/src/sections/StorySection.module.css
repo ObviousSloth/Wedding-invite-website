@@ -4,8 +4,6 @@
   flex-direction: column;
   gap: 3.5rem;
   width: 100%;
-  max-width: 48rem;
-  margin: 0 auto;
 }
 
 /* ── Individual story block ──────────────────────────────── */
@@ -28,8 +26,8 @@
 
 /* ── Block icon ──────────────────────────────────────────── */
 .blockIcon {
-  width: 5rem;
-  height: 5rem;
+  width: 8rem;
+  height: 8rem;
   object-fit: contain;
   flex-shrink: 0;
   opacity: 0.85;
@@ -37,8 +35,8 @@
 
 @media (min-width: 768px) {
   .blockIcon {
-    width: 7rem;
-    height: 7rem;
+    width: 11rem;
+    height: 11rem;
   }
 }
 

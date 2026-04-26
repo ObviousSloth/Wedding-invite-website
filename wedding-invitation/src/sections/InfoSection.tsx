@@ -29,7 +29,7 @@ function VenueCard({
           src={`/svgs/decorative/${iconName}.svg`}
           alt=""
           aria-hidden="true"
-          className="w-16 md:w-24 object-contain opacity-90 pointer-events-none"
+          className="w-28 md:w-40 object-contain opacity-90 pointer-events-none brightness-0 invert"
         />
       )}
 
@@ -98,16 +98,16 @@ export default function InfoSection() {
         src="/svgs/decorative/vine1.svg"
         alt=""
         aria-hidden="true"
-        className="absolute top-0 left-0 h-full w-16 md:w-24 object-cover object-left pointer-events-none opacity-30"
+        className="absolute top-0 left-0 h-full w-16 md:w-24 object-cover object-left pointer-events-none opacity-30 brightness-0 invert"
       />
       <img
         src="/svgs/decorative/vine2.svg"
         alt=""
         aria-hidden="true"
-        className="absolute top-0 right-0 h-full w-16 md:w-24 object-cover object-right pointer-events-none opacity-30 scale-x-[-1]"
+        className="absolute top-0 right-0 h-full w-16 md:w-24 object-cover object-right pointer-events-none opacity-30 brightness-0 invert scale-x-[-1]"
       />
 
-      <Container className="flex flex-col items-center text-center">
+      <Container size="lg" className="flex flex-col items-center text-center">
 
         {/* ── Ceremony + Reception heading ─────────────────────── */}
         <ScrollReveal>
@@ -182,7 +182,7 @@ export default function InfoSection() {
             src="/svgs/decorative/dresscode.svg"
             alt=""
             aria-hidden="true"
-            className="w-28 md:w-36 object-contain opacity-80 mt-8 pointer-events-none"
+            className="w-40 md:w-56 object-contain opacity-80 mt-8 pointer-events-none brightness-0 invert"
           />
         </ScrollReveal>
 

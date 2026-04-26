@@ -6,10 +6,12 @@ import { scrollToSection } from "@/lib/utils";
 import { eventConfig } from "@/config/eventConfig";
 
 const navLinks = [
-  { label: "Inicio",      id: "hero" },
-  { label: "Nuestra Historia", id: "historia" },
-  { label: "Info",        id: "info" },
+  { label: "Inicio",      id: "inicio" },
+  { label: "Fecha",       id: "fecha" },
+  { label: "Historia",    id: "historia" },
   { label: "Itinerario",  id: "itinerario" },
+  { label: "Info",        id: "info" },
+  { label: "Regalo",      id: "regalo" },
   { label: "RSVP",        id: "rsvp" },
   { label: "Contacto",    id: "contacto" },
 ];
@@ -38,7 +40,7 @@ export default function Navbar() {
           : "bg-transparent"
       )}
     >
-      <nav className="mx-auto max-w-6xl px-5 sm:px-8 h-16 flex items-center justify-between">
+      <nav className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 h-16 flex items-center justify-between">
         {/* Monogram */}
         <button
           onClick={() => handleNav("hero")}
