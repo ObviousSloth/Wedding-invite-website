@@ -10,6 +10,16 @@ const CAROUSEL_IMAGES = [
   "/images/Hero/BC305A12-0D80-45CD-9C5F-BA817E143B03.png",
   "/images/Hero/E6C35C48-DA40-4EE0-8856-C9F6D88C4207.png",
   "/images/Hero/E6C3442D-92AA-4211-A0BB-D11C3DC89F32.png",
+  "/images/Hero/IMG_8332.png",
+  "/images/Hero/IMG_8335.png",
+  "/images/Hero/IMG_8337.png",
+  "/images/Hero/IMG_8374.png",
+  "/images/Hero/IMG_8375.png",
+  "/images/Hero/IMG_8377.png",
+  "/images/Hero/IMG_8423.png",
+  "/images/Hero/IMG_8430.png",
+  "/images/Hero/IMG_8433.png",
+  "/images/Hero/IMG_8440.png",
 ];
 
 const INTERVAL_MS = 4500;
@@ -95,17 +105,6 @@ export default function HeroSection() {
         <p className="font-seasons italic text-cream/70 text-sm sm:text-base">
           {hero.subTagline}
         </p>
-
-        {/* ── Dot indicators ──────────────────────────────────── */}
-        <div className="flex gap-2 mt-4" aria-hidden="true">
-          {CAROUSEL_IMAGES.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrent(i)}
-              className={`${styles.dot} ${i === current ? styles.dotActive : ""}`}
-            />
-          ))}
-        </div>
 
       </div>
 
