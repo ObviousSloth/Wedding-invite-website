@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(npm run *)",
-      "Bash(grep -v \"import\\\\|//\")"
+      "Bash(grep -v \"import\\\\|//\")",
+      "Bash(npx tsc *)"
     ]
   }
 }

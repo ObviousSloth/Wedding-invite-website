@@ -93,19 +93,6 @@ export default function InfoSection() {
   return (
     <section id="info" className="bg-section-burgundy py-24 sm:py-32 relative overflow-hidden">
 
-      {/* ── Vine side decorations ────────────────────────────── */}
-      <img
-        src="/svgs/decorative/vine1.svg"
-        alt=""
-        aria-hidden="true"
-        className="absolute top-0 left-0 h-full w-16 md:w-24 object-cover object-left pointer-events-none opacity-30 brightness-0 invert"
-      />
-      <img
-        src="/svgs/decorative/vine2.svg"
-        alt=""
-        aria-hidden="true"
-        className="absolute top-0 right-0 h-full w-16 md:w-24 object-cover object-right pointer-events-none opacity-30 brightness-0 invert scale-x-[-1]"
-      />
 
       <Container size="lg" className="flex flex-col items-center text-center">
 

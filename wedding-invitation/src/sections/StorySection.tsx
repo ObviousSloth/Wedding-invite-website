@@ -10,31 +10,6 @@ export default function StorySection() {
   return (
     <section id="historia" className="relative py-24 sm:py-32 overflow-hidden">
 
-      {/* ── Corner floral decorations ──────────────────────── */}
-      <img
-        src="/svgs/decorative/vine1.svg"
-        alt=""
-        aria-hidden="true"
-        className={`${styles.corner} ${styles.cornerTopLeft}`}
-      />
-      <img
-        src="/svgs/decorative/greenflower1.svg"
-        alt=""
-        aria-hidden="true"
-        className={`${styles.corner} ${styles.cornerTopRight}`}
-      />
-      <img
-        src="/svgs/decorative/pinkflower.svg"
-        alt=""
-        aria-hidden="true"
-        className={`${styles.corner} ${styles.cornerBottomLeft}`}
-      />
-      <img
-        src="/svgs/decorative/vine2.svg"
-        alt=""
-        aria-hidden="true"
-        className={`${styles.corner} ${styles.cornerBottomRight}`}
-      />
 
       <Container size="lg">
 
