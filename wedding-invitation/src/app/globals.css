@@ -91,6 +91,11 @@
 }
 
 /* ─── 4. Base Styles ─────────────────────────────────────────────────────── */
+html,
+body {
+  overflow-x: hidden;
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 64px;
@@ -116,9 +121,11 @@ body {
 }
 
 /* ─── 6. Custom Scrollbar ────────────────────────────────────────────────── */
-::-webkit-scrollbar       { width: 6px; }
-::-webkit-scrollbar-track { background: var(--color-cream); }
-::-webkit-scrollbar-thumb { background: var(--color-burgundy); border-radius: 3px; }
+@media (pointer: fine) {
+  ::-webkit-scrollbar       { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--color-cream); }
+  ::-webkit-scrollbar-thumb { background: var(--color-burgundy); border-radius: 3px; }
+}
 
 /* ─── 7. Selection ───────────────────────────────────────────────────────── */
 ::selection {

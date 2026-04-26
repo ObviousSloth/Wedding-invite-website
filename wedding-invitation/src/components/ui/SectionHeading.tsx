@@ -18,7 +18,7 @@ export default function SectionHeading({
   return (
     <h2
       className={`
-        font-slight text-section-title leading-tight tracking-wide
+        font-slight text-section-title leading-tight tracking-wide text-center w-full
         ${color} ${className}
       `}
     >

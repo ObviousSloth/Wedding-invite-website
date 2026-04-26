@@ -7,6 +7,13 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import Container from "@/components/ui/Container";
 import styles from "./GiftsSection.module.css";
 
+const bank = {
+  accountHolder: process.env.NEXT_PUBLIC_BANK_HOLDER ?? "",
+  name:          process.env.NEXT_PUBLIC_BANK_NAME  ?? "",
+  iban:          process.env.NEXT_PUBLIC_BANK_IBAN  ?? "",
+  bic:           process.env.NEXT_PUBLIC_BANK_BIC   ?? "",
+};
+
 export default function GiftsSection() {
   const { gifts } = eventConfig;
   const [showBank, setShowBank] = useState(false);
@@ -14,7 +21,7 @@ export default function GiftsSection() {
 
   const handleCopyIban = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    const text = gifts.bankDetails.iban;
+    const text = bank.iban;
     try {
       await navigator.clipboard.writeText(text);
     } catch {
@@ -34,9 +41,9 @@ export default function GiftsSection() {
   };
 
   const rows = [
-    { label: "Titular",     value: gifts.bankDetails.accountHolder },
-    { label: "Banco",       value: gifts.bankDetails.bank },
-    { label: "BIC / SWIFT", value: gifts.bankDetails.bic },
+    { label: "Titular",     value: bank.accountHolder },
+    { label: "Banco",       value: bank.name },
+    { label: "BIC / SWIFT", value: bank.bic },
   ];
 
   return (
@@ -108,7 +115,7 @@ export default function GiftsSection() {
                   </span>
                   <div className={styles.ibanValue}>
                     <span className="font-cinzel text-burgundy/85 text-[0.8rem] tracking-wider">
-                      {gifts.bankDetails.iban}
+                      {bank.iban}
                     </span>
                     <button
                       type="button"

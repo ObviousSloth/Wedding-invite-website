@@ -32,15 +32,14 @@ export const eventConfig: EventConfig = {
   },
 
   // ── Story ───────────────────────────────────────────────────────────────
-  // TODO: Replace placeholder text with real story blocks
   story: {
     blocks: [
       {
-        text: "Nos conocimos bajo el sol del Caribe, en la mágica isla de Curaçao, donde dos mundos se cruzaron por primera vez.",
+        text: "Todo comenzó en la mágica isla de Curaçao, donde el sol, el mar y el destino hicieron que nuestros caminos se cruzaran. Lo que empezó como una conversación a orillas del Caribe se convirtió rápidamente en algo que ninguno de los dos esperaba — una conexión que nos cambió la vida para siempre.",
         icon: "curacao",
       },
       {
-        text: "Lo que empezó con una mirada cargada de curiosidad se convirtió, sin que nos diéramos cuenta, en la historia de amor más bonita de nuestras vidas.",
+        text: "Años después, bajo las luces de París, Randy se arrodilló y le preguntó a Jessika si quería ser su compañera de vida. Entre lágrimas y risas, con la Torre Eiffel de testigo, ella dijo que sí. Ahora, rodeados de las personas que más amamos, estamos listos para dar el paso más importante de nuestras vidas.",
         icon: "paris",
       },
     ],
@@ -72,7 +71,7 @@ export const eventConfig: EventConfig = {
   // ── Dress Code ──────────────────────────────────────────────────────────
   dressCode: {
     code: "Elegante",
-    note: "La recepción tendrá una parte al aire libre, ¡abrígate!",
+    note: "La ceremonia religiosa es en interiores, pero la recepción incluye una zona al aire libre. Diciembre en Madrid puede ser frío por la noche — te recomendamos llevar un abrigo o chal elegante. Evita el blanco, el marfil y el negro puro, y recuerda que los tacones en exteriores pueden ser incómodos sobre el césped.",
     suggestedColors: [
       { name: "Rosa",          hex: "#E8A0B0" },
       { name: "Lavanda",       hex: "#A090C8" },
@@ -107,29 +106,29 @@ export const eventConfig: EventConfig = {
       "Tu presencia es el mejor regalo. Si quieres hacernos un detalle, " +
       "agradecemos una contribución en efectivo o una transferencia.",
     wishlistUrl: "#", // TODO: replace with real wishlist URL
-    bankDetails: {
-      accountHolder: "Jessika & Randy",
-      bank:          "Nombre del Banco",
-      iban:          "ES00 0000 0000 0000 0000 0000",
-      bic:           "XXXXXXXX",
-    },
+    // Bank details are kept out of the repo — set NEXT_PUBLIC_BANK_* in .env.local
   },
 
   // ── Accommodations ──────────────────────────────────────────────────────
-  // TODO: Add real hotel recommendations before launch
   accommodations: {
     text:
-      "Madrid ofrece una amplia variedad de alojamientos para todos los gustos y presupuestos. " +
-      "Os recomendamos reservar con antelación, ya que diciembre es temporada alta en la ciudad. " +
-      "Pronto añadiremos una lista de hoteles recomendados cercanos a los lugares del evento.",
+      "El Complejo La Cigüeña dispone de habitaciones para que puedas quedarte a pasar la noche " +
+      "sin preocuparte por el regreso. Las habitaciones tienen un coste aproximado de XX€ por noche " +
+      "e incluyen desayuno. Si te interesa reservar, indícalo en el campo de notas de tu RSVP y te " +
+      "enviaremos los detalles directamente. Para quienes prefieran alojarse en Madrid ciudad, " +
+      "recomendamos reservar con antelación ya que diciembre es temporada alta.",
     hotels: [],
   },
 
   // ── Suggestions & Conditions ────────────────────────────────────────────
-  // TODO: Add real suggestions & conditions before launch
   suggestionsAndConditions: {
     items: [
-      "Próximamente añadiremos las sugerencias y condiciones del evento.",
+      "Por favor confirma tu asistencia antes del 30 de noviembre de 2026. Pasada esa fecha no podremos garantizar tu lugar.",
+      "El evento es solo para adultos. Agradecemos tu comprensión y esperamos que disfrutes de una noche sin preocupaciones.",
+      "Si tienes alguna alergia o intolerancia alimentaria, indícala en tu RSVP para que podamos coordinarlo con el catering.",
+      "La ceremonia religiosa dará comienzo puntualmente a las 6:00 pm. Te pedimos llegar con al menos 15 minutos de antelación.",
+      "El Complejo La Cigüeña dispone de aparcamiento gratuito para los invitados que vengan en coche.",
+      "Si necesitas información sobre cómo llegar al complejo o sobre opciones de transporte compartido, no dudes en escribirnos.",
     ],
   },
 

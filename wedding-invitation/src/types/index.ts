@@ -82,8 +82,8 @@ export interface BankDetails {
 
 export interface Gifts {
   message: string;
-  bankDetails: BankDetails;
   wishlistUrl?: string;
+  // Bank details are loaded from NEXT_PUBLIC_BANK_* env vars — not stored in config
 }
 
 // ─── Accommodations ────────────────────────────────────────────────────────
