@@ -93,10 +93,9 @@ export default function RSVPSection() {
   const [loading,       setLoading]       = useState(false)
   const [isClosed,      setIsClosed]      = useState(false)
   const [showPartialModal, setShowPartialModal] = useState(false)
-  const [email, setEmail] = useState('');
+  const [email,            setEmail]            = useState('')
 
-
- const [form, setForm] = useState<FormState>({
+  const [form, setForm] = useState<FormState>({
   invitation:   null,
   existingRsvp: null,
   attending:    null,
@@ -109,6 +108,7 @@ export default function RSVPSection() {
   useEffect(() => {
     setIsClosed(isDeadlinePassed())
   }, [])
+
 
   // ─── Lookup ──────────────────────────────────────────────────────────────────
 
@@ -193,6 +193,14 @@ export default function RSVPSection() {
     setForm((prev) => {
       const updated = [...prev.attendees]
       updated[index] = { ...updated[index], [field]: value }
+      return { ...prev, attendees: updated }
+    })
+  }
+
+  function updateAttendeeTransport(index: number, transport: boolean) {
+    setForm((prev) => {
+      const updated = [...prev.attendees]
+      updated[index] = { ...updated[index], transport }
       return { ...prev, attendees: updated }
     })
   }
@@ -483,6 +491,19 @@ export default function RSVPSection() {
                               {option.charAt(0).toUpperCase() + option.slice(1)}
                             </button>
                           ))}
+                        </div>
+                      )}
+                      {/* Transport toggle — shown per filled attendee */}
+                      {(att.firstName.trim() || att.lastName.trim()) && (
+                        <div className={styles.transportRow}>
+                          <button
+                            type="button"
+                            onClick={() => updateAttendeeTransport(i, !att.transport)}
+                            className={`${styles.transportBtn} ${att.transport ? styles.transportBtnActive : ''}`}
+                            aria-pressed={att.transport ?? false}
+                          >
+                            🚌 Necesito transporte
+                          </button>
                         </div>
                       )}
                     </div>

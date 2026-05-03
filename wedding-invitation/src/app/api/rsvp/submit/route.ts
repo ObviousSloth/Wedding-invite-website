@@ -64,22 +64,26 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
     const isNewRsvp        = !existingRsvp;
     const wasAlreadyAttending = existingRsvp?.attending === true;
 
-    const attendeeCount = attending ? filledAttendees.length : 0;
+    const attendeeCount  = attending ? filledAttendees.length : 0;
+    const transportCount = attending
+      ? filledAttendees.filter((a) => a.transport === true).length
+      : 0;
 
     // 5 — Upsert RSVP
     const { data: rsvp, error: upsertError } = await supabase
       .from('rsvps')
       .upsert(
         {
-          invitation_id:  invitationId,
+          invitation_id:   invitationId,
           attending,
           email,
-          attendees:      filledAttendees,
-          attendee_count: attendeeCount,
-          phone:          phone  || null,
-          notes:          notes  || null,
-          allergies:      allergies || null,
-          updated_at:     new Date().toISOString(),
+          attendees:       filledAttendees,
+          attendee_count:  attendeeCount,
+          transport_count: transportCount,
+          phone:           phone  || null,
+          notes:           notes  || null,
+          allergies:       allergies || null,
+          updated_at:      new Date().toISOString(),
         },
         { onConflict: 'invitation_id' }
       )

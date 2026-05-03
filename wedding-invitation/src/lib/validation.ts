@@ -12,6 +12,7 @@ export const attendeeSchema = z.object({
   firstName: z.string().optional().transform((v) => v?.trim() ?? ''),
   lastName:  z.string().optional().transform((v) => v?.trim() ?? ''),
   meal: z.enum(['carne', 'pescado', 'vegetariano']).optional(),
+  transport: z.boolean().optional(),
 });
 
 export const rsvpSubmitSchema = z.object({

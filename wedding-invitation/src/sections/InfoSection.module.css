@@ -29,8 +29,15 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   justify-items: center;
-  max-width: 14rem;
+  max-width: 18rem;
   margin: 0 auto;
+}
+
+.swatchItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .swatchCircle {
@@ -40,4 +47,14 @@
   /* backgroundColor set via inline style — dynamic hex value from eventConfig */
   border: 2px solid rgba(244, 242, 235, 0.2);
   flex-shrink: 0;
+}
+
+.swatchLabel {
+  font-family: var(--font-cinzel);
+  font-size: 0.55rem;
+  letter-spacing: 0.05em;
+  color: rgba(244, 242, 235, 0.55);
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 1.2;
 }

@@ -192,7 +192,7 @@ export default function TimelineSection() {
 
       <Container size="lg" className="flex flex-col items-center">
         <ScrollReveal>
-          <SectionHeading>Itinerario de actividades</SectionHeading>
+          <SectionHeading>Itinerario de Actividades</SectionHeading>
         </ScrollReveal>
 
         <div className={styles.carousel}>

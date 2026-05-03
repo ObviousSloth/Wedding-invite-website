@@ -148,17 +148,18 @@ export default function InfoSection() {
             aria-label="Colores sugeridos para el código de vestimenta"
           >
             {dressCode.suggestedColors.map((color) => (
-              <div
-                key={color.name}
-                className={styles.swatchCircle}
-                role="listitem"
-                style={{ backgroundColor: color.hex }}
-                /*
-                  ↑ Inline style intentional: backgroundColor is a dynamic
-                  hex value from eventConfig — cannot be a static Tailwind class.
-                */
-                aria-label={color.name}
-              />
+              <div key={color.name} className={styles.swatchItem} role="listitem">
+                <div
+                  className={styles.swatchCircle}
+                  style={{ backgroundColor: color.hex }}
+                  /*
+                    ↑ Inline style intentional: backgroundColor is a dynamic
+                    hex value from eventConfig — cannot be a static Tailwind class.
+                  */
+                  aria-hidden="true"
+                />
+                <span className={styles.swatchLabel}>{color.name}</span>
+              </div>
             ))}
           </div>
         </ScrollReveal>

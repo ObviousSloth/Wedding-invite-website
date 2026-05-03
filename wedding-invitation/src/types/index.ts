@@ -126,6 +126,7 @@ export interface Attendee {
   firstName: string;
   lastName: string;
   meal?: MealChoice;
+  transport?: boolean;
 }
 
 export interface Invitation {
@@ -143,16 +144,31 @@ export interface Rsvp {
   attending: boolean;
   attendees: Attendee[];
   attendee_count: number;
-  email?: string; 
+  transport_count: number;
+  email?: string;
   phone: string | null;
   notes: string | null;
-   allergies?: string;
+  allergies?: string;
   updated_at: string;
 }
 
 export interface RsvpLookupResponse {
   invitation: Invitation;
   rsvp: Rsvp | null;
+}
+
+// ─── Transport ─────────────────────────────────────────────────────────────
+export interface TransportPickup {
+  location: string;
+  address: string;
+  departureTime: string;
+}
+
+export interface Transport {
+  description: string;
+  pickup: TransportPickup;
+  returnTime: string;
+  note: string;
 }
 
 // ─── Root Config ───────────────────────────────────────────────────────────
@@ -174,6 +190,7 @@ export interface EventConfig {
     ceremony: CalendarEvent;
     reception: CalendarEvent;
   };
+  transport: Transport;
   rsvp: {
     deadline: string;
     closedMessage: string;

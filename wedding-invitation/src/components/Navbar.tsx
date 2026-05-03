@@ -51,7 +51,7 @@ export default function Navbar() {
             src="/svgs/monogram.svg"
             alt={eventConfig.couple.monogram}
             className={cn(
-              "h-10 w-auto transition-all duration-300",
+              "h-14 w-auto transition-all duration-300",
               scrolled ? "brightness-0" : "brightness-0 invert"
             )}
           />

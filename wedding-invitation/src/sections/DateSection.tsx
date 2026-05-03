@@ -48,13 +48,13 @@ export default function DateSection() {
 
             {/* Month */}
             <p className="font-cinzel text-burgundy/60 text-xs sm:text-sm tracking-[0.45em] uppercase mb-2">
-              {date.displayMonth}
+              {date.displayDayOfWeek}
             </p>
 
             {/* Sábado — 19 — 2026 row */}
             <div className={styles.dateRow}>
               <span className="font-cinzel text-burgundy/50 text-xs sm:text-sm tracking-[0.3em] uppercase text-right">
-                {date.displayDayOfWeek}
+                {date.displayMonth}
               </span>
               <span className="font-icon text-burgundy text-date-number leading-none select-none">
                 {date.displayDay}

@@ -73,30 +73,29 @@ export const eventConfig: EventConfig = {
     code: "Elegante",
     note: "La ceremonia religiosa es en interiores, pero la recepción incluye una zona al aire libre. Diciembre en Madrid puede ser frío por la noche — te recomendamos llevar un abrigo o chal elegante. Evita el blanco, el marfil y el negro puro, y recuerda que los tacones en exteriores pueden ser incómodos sobre el césped.",
     suggestedColors: [
-      { name: "Rosa",          hex: "#E8A0B0" },
-      { name: "Lavanda",       hex: "#A090C8" },
-      { name: "Púrpura",       hex: "#784870" },
-      { name: "Verde oscuro",  hex: "#2C4840" },
-      { name: "Verde oliva",   hex: "#788C50" },
-      { name: "Magenta",       hex: "#C02878" },
-      { name: "Azul gris",     hex: "#7D8FA8" },
-      { name: "Azul marino",   hex: "#283860" },
-      { name: "Vino oscuro",   hex: "#501828" },
+      { name: "Rosa",          hex: "#c77d8a" },
+      { name: "Lavanda",       hex: "#8d77a8" },
+      { name: "Púrpura",       hex: "#361540" },
+      { name: "Verde oscuro",  hex: "#1a4017" },
+      { name: "Verde oliva",   hex: "#688c65" },
+      { name: "Magenta",       hex: "#9a1156" },
+      { name: "Azul gris",     hex: "#527082" },
+      { name: "Azul marino",   hex: "#152b42" },
+      { name: "Marrón oscuro", hex: "#3a1808" },
     ],
   },
 
   // ── Timeline ────────────────────────────────────────────────────────────
-  // TODO: Replace XX:XX with real times once confirmed
   // icon → filename stem, place SVGs at: public/svgs/timeline/{icon}.svg
   timeline: [
-    { time: "6:00 pm",  event: "Iglesia",               icon: "church",    iconSize: "7rem" },
-    { time: "XX:XX pm", event: "Partida al Salón",       icon: "car",       iconSize: "6.5rem" },
-    { time: "XX:XX pm", event: "Cóctel de Bienvenida",   icon: "drinks",  iconSize: "9rem" },
-    { time: "XX:XX pm", event: "Primer Baile y Brindis", icon: "swans",     iconSize: "10rem" },
-    { time: "XX:XX pm", event: "Cena",                   icon: "menu",    iconSize: "7rem" },
-    { time: "XX:XX pm", event: "Picar Torta",            icon: "cake",      iconSize: "7rem" },
-    { time: "XX:XX pm", event: "Fiesta",                 icon: "disco",     iconSize: "7rem" },
-    { time: "XX:XX pm", event: "Fin",                    icon: "clock",       iconSize: "7rem" },
+    { time: "5:00 pm",  event: "Iglesia",               icon: "church",  iconSize: "7rem"   },
+    { time: "6:30 pm",  event: "Partida al Salón",       icon: "car",     iconSize: "6.5rem" },
+    { time: "7:00 pm",  event: "Cóctel de Bienvenida",   icon: "drinks",  iconSize: "9rem"   },
+    { time: "7:30 pm",  event: "Primer Baile y Brindis", icon: "swans",   iconSize: "10rem"  },
+    { time: "8:00 pm",  event: "Cena",                   icon: "menu",    iconSize: "7rem"   },
+    { time: "10:30 pm", event: "Cortar la Tarta",         icon: "cake",    iconSize: "7rem"   },
+    { time: "11:00 pm", event: "Fiesta",                 icon: "disco",   iconSize: "7rem"   },
+    { time: "",         event: "Fin",                    icon: "clock",   iconSize: "7rem"   },
   ],
 
   // ── Gifts ───────────────────────────────────────────────────────────────
@@ -126,7 +125,7 @@ export const eventConfig: EventConfig = {
       "Por favor confirma tu asistencia antes del 30 de noviembre de 2026. Pasada esa fecha no podremos garantizar tu lugar.",
       "El evento es solo para adultos. Agradecemos tu comprensión y esperamos que disfrutes de una noche sin preocupaciones.",
       "Si tienes alguna alergia o intolerancia alimentaria, indícala en tu RSVP para que podamos coordinarlo con el catering.",
-      "La ceremonia religiosa dará comienzo puntualmente a las 6:00 pm. Te pedimos llegar con al menos 15 minutos de antelación.",
+      "La ceremonia religiosa dará comienzo puntualmente a las 5:00 pm. Te pedimos llegar con al menos 30 minutos de antelación.",
       "El Complejo La Cigüeña dispone de aparcamiento gratuito para los invitados que vengan en coche.",
       "Si necesitas información sobre cómo llegar al complejo o sobre opciones de transporte compartido, no dudes en escribirnos.",
     ],
@@ -155,6 +154,22 @@ export const eventConfig: EventConfig = {
       location:    "Complejo La Cigüeña, Ctra. de Arganda a Chinchón Km 2,5, Arganda del Rey",
       description: "¡La boda de Jessika & Randy! Te esperamos en Complejo La Cigüeña para la recepción, cena y fiesta.\n\nDirección: Ctra. de Arganda a Chinchón Km 2,5, Arganda del Rey\n\nMás info: https://www.bodaayubidefaria.eu",
     },
+  },
+
+  // ── Transport ───────────────────────────────────────────────────────────────
+  // TODO: Confirm exact pickup point before the event
+  transport: {
+    description:
+      "Para que el desplazamiento al Complejo La Cigüeña no sea una preocupación, " +
+      "hemos organizado un autobús privado desde Madrid. El servicio es gratuito " +
+      "para todos los invitados.",
+    pickup: {
+      location: "Puerta del Sol",
+      address: "Pl. de la Puerta del Sol, 28013 Madrid",
+      departureTime: "19:00 h",
+    },
+    returnTime: "aprox. 02:30 h",
+    note: "Si necesitas transporte, márcalo en tu confirmación de asistencia.",
   },
 
   rsvp: {

@@ -6,6 +6,7 @@ import InfoSection from "@/sections/InfoSection";
 import TimelineSection from "@/sections/TimelineSection";
 import GiftsSection from "@/sections/GiftsSection";
 import RSVPSection from "@/sections/RSVPSection";
+import TransportSection from "@/sections/TransportSection";
 import AccommodationsSection from "@/sections/AccommodationsSection";
 import ConditionsSection from "@/sections/ConditionsSection";
 import ThankYouSection from "@/sections/ThankYouSection";
@@ -36,6 +37,7 @@ export default function Home() {
           </div>
 
           <InfoSection />
+          <TransportSection />
           <RSVPSection />
 
           <div className="bg-section-burgundy">

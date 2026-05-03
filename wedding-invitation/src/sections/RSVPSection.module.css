@@ -173,6 +173,37 @@
   color: var(--color-burgundy) !important;
 }
 
+/* ─── Transport Toggle ────────────────────────────────────────────────────── */
+.transportRow {
+  display: flex;
+}
+
+.transportBtn {
+  font-family: var(--font-cinzel);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(244, 242, 235, 0.35);
+  color: var(--color-cream);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.transportBtn:hover {
+  border-color: rgba(244, 242, 235, 0.7);
+  background: rgba(244, 242, 235, 0.1);
+}
+
+.transportBtnActive {
+  background: var(--color-cream) !important;
+  border-color: var(--color-cream) !important;
+  color: var(--color-burgundy) !important;
+}
+
 /* ─── Confirmation Card (cream card on burgundy bg) ───────────────────────── */
 .confirmationCard {
   display: flex;
