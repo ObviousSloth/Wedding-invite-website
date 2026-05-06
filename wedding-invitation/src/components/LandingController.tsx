@@ -4,16 +4,35 @@ import { useEffect, useState } from "react";
 import EnvelopeLanding from "@/components/envelope/EnvelopeLanding";
 import { useAudio } from "@/context/AudioContext";
 
-const SESSION_KEY = "jr-envelope-seen";
+const STORAGE_KEY  = "jr-envelope-seen-at";
+const EXPIRY_MS    = 15 * 60 * 1000; // 15 minutes
+
+function hasSeenRecently(): boolean {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return false;
+    return Date.now() - Number(raw) < EXPIRY_MS;
+  } catch {
+    return false;
+  }
+}
+
+function markSeen() {
+  try {
+    localStorage.setItem(STORAGE_KEY, String(Date.now()));
+  } catch {
+    // ignore — private browsing may block localStorage
+  }
+}
 
 export default function LandingController() {
   const [visible, setVisible] = useState(true);
   const { enable } = useAudio();
 
   useEffect(() => {
-    if (sessionStorage.getItem(SESSION_KEY) === "true") {
+    if (hasSeenRecently()) {
       setVisible(false);
-      enable(); // already past envelope — enable audio immediately
+      enable();
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -22,7 +41,7 @@ export default function LandingController() {
   return (
     <EnvelopeLanding
       onComplete={() => {
-        sessionStorage.setItem(SESSION_KEY, "true");
+        markSeen();
         setVisible(false);
         enable();
       }}

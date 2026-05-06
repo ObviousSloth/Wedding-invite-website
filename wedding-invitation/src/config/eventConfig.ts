@@ -112,11 +112,42 @@ export const eventConfig: EventConfig = {
   accommodations: {
     text:
       "El Complejo La Cigüeña dispone de habitaciones para que puedas quedarte a pasar la noche " +
-      "sin preocuparte por el regreso. Las habitaciones tienen un coste aproximado de XX€ por noche " +
+      "sin preocuparte por el regreso. Las habitaciones tienen un coste desde 99 € por noche " +
       "e incluyen desayuno. Si te interesa reservar, indícalo en el campo de notas de tu RSVP y te " +
       "enviaremos los detalles directamente. Para quienes prefieran alojarse en Madrid ciudad, " +
       "recomendamos reservar con antelación ya que diciembre es temporada alta.",
-    hotels: [],
+    hotels: [
+      {
+        name:       "Complejo La Cigüeña",
+        address:    "Ctra. de Arganda a Chinchón Km 2,5, Arganda del Rey, Madrid",
+        priceRange: "Desde 99 € / noche",
+        url:        "https://maps.app.goo.gl/AwBbgLUUCmEiuhGt8",
+      },
+      {
+        name:       "Truliving Vallecas by Habyt",
+        address:    "C. de José Antonio Rebolledo y Palma, 23, 28051 Madrid",
+        priceRange: "Desde 90 €/noche",
+        url:        "https://maps.app.goo.gl/Dkt2BGEWGYs1iKqn9",
+      },
+      {
+        name:       "Espahotel Plaza de España",
+        address:    "Plaza de España, 7, 28008 Madrid",
+        priceRange: "★★★ · Desde 97 €/noche",
+        url:        "https://www.booking.com/hotel/es/espahotel-plaza-de-espana.es.html",
+      },
+      {
+        name:       "Hostal La Rúa Rooms",
+        address:    "C. de la Montera, 21, 28013 Madrid",
+        priceRange: "Desde 100 €/noche",
+        url:        "https://www.booking.com/hotel/es/hostal-la-rua-rooms.es.html",
+      },
+      {
+        name:       "Pensión Enebral",
+        address:    "C. Velarde, 22, Madrid",
+        priceRange: "Desde 110 €/noche",
+        url:        "https://www.booking.com/hotel/es/pension-enebral.es.html",
+      },
+    ],
   },
 
   // ── Suggestions & Conditions ────────────────────────────────────────────

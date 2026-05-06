@@ -39,14 +39,6 @@ export default function StorySection() {
           ))}
         </div>
 
-        {/* ── Monogram divider ────────────────────────────────── */}
-        <div className="flex items-center gap-4 mt-14" aria-hidden="true">
-          <div className="h-px flex-1 bg-burgundy/15" />
-          <span className="font-icon text-burgundy/30 text-2xl select-none">
-            {couple.monogram}
-          </span>
-          <div className="h-px flex-1 bg-burgundy/15" />
-        </div>
 
       </Container>
     </section>

@@ -13,6 +13,7 @@ import ThankYouSection from "@/sections/ThankYouSection";
 import LandingController from "@/components/LandingController";
 import ContactSection from "@/sections/ContactSection";
 import SideFlorals from "@/components/florals/SideFlorals";
+import SectionDivider from "@/components/SectionDivider";
 
 export default function Home() {
   return (
@@ -22,30 +23,27 @@ export default function Home() {
       <main>
         <HeroSection />
 
-        {/*
-          Single relative wrapper for all middle sections.
-          SideFlorals is placed last so it paints on top of backgrounds
-          but stays invisible to pointer events (pointer-events: none is
-          set inside SideFlorals). Opacity keeps it purely decorative.
-        */}
         <div className="relative">
           <div className="bg-section-cream">
             <DateSection />
+            <SectionDivider tone="cream" />
             <StorySection />
+            <SectionDivider tone="cream" />
             <TimelineSection />
+            <SectionDivider tone="cream" />
             <GiftsSection />
           </div>
-
-          <InfoSection />
-          <TransportSection />
-          <RSVPSection />
-
           <div className="bg-section-burgundy">
-            <AccommodationsSection />
-            <ConditionsSection />
+          <InfoSection />
           </div>
-
+          <TransportSection />
+          <div className="bg-section-burgundy">
+            <RSVPSection />
+             <SectionDivider tone="burgundy" />
+            <AccommodationsSection />
+           </div>
           <div className="bg-section-cream">
+            <ConditionsSection />
             <ContactSection />
           </div>
 
