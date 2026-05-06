@@ -14,7 +14,7 @@ export default function TransportSection() {
         {/* Bus icon */}
         <ScrollReveal>
           <img
-            src="/svgs/timeline/car.svg"
+            src="/svgs/decorative/bus.svg"
             alt=""
             aria-hidden="true"
             className="w-20 md:w-24 object-contain mb-6 opacity-75 pointer-events-none"

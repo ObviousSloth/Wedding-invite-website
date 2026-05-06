@@ -4,15 +4,14 @@ import { cn } from "@/lib/utils";
 import { HTMLAttributes } from "react";
 
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
-  variant?: "cream" | "burgundy" | "sage" | "outline";
+  variant?: "cream" | "burgundy" | "outline";
 }
 
 export default function Card({ className, variant = "cream", children, ...props }: CardProps) {
   const variants = {
     cream:    "bg-cream border border-burgundy/20",
     burgundy: "bg-burgundy text-cream border border-burgundy-light/30",
-    sage:     "bg-sage text-cream border border-sage-light/30",
-    outline:  "bg-transparent border border-burgundy/40",
+outline:  "bg-transparent border border-burgundy/40",
   };
 
   return (

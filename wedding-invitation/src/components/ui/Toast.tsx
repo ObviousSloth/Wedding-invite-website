@@ -21,7 +21,7 @@ function Toast({ toast, onDismiss }: ToastProps) {
   }, [toast.id, onDismiss]);
 
   const styles = {
-    success: "bg-sage text-cream border-sage-light/40",
+    success: "bg-cream text-burgundy border-burgundy/40",
     error:   "bg-burgundy text-cream border-burgundy-light/40",
     info:    "bg-cream text-burgundy border-burgundy/20",
   };
