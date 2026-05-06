@@ -48,7 +48,7 @@ export const eventConfig: EventConfig = {
   // ── Ceremony ────────────────────────────────────────────────────────────
   ceremony: {
     name:        "Basílica parroquia Virgen Milagrosa",
-    time:        "6:00 pm",
+    time:        "5:00 pm",
     location:    "Madrid, España",
     address:     "García de Paredes, 45, 28010 Madrid",
     coordinates: { lat: 40.4356, lng: -3.6944 },
@@ -59,7 +59,7 @@ export const eventConfig: EventConfig = {
   // ── Reception ───────────────────────────────────────────────────────────
   reception: {
     name:        "Complejo La Cigüeña",
-    time:        "8:00 pm",
+    time:        "7:00 pm",
     endTime:     "2:00 am",             
     location:    "Arganda del Rey, Madrid",
     address:     "Ctra. de Arganda a Chinchón Km 2,5, Arganda del Rey",
@@ -153,7 +153,7 @@ export const eventConfig: EventConfig = {
   // ── Suggestions & Conditions ────────────────────────────────────────────
   suggestionsAndConditions: {
     items: [
-      "Por favor confirma tu asistencia antes del 30 de noviembre de 2026. Pasada esa fecha no podremos garantizar tu lugar.",
+      "Por favor confirma tu asistencia antes del 30 de septiembre de 2026. Pasada esa fecha no podremos garantizar tu lugar.",
       "El evento es solo para adultos. Agradecemos tu comprensión y esperamos que disfrutes de una noche sin preocupaciones.",
       "Si tienes alguna alergia o intolerancia alimentaria, indícala en tu RSVP para que podamos coordinarlo con el catering.",
       "La ceremonia religiosa dará comienzo puntualmente a las 5:00 pm. Te pedimos llegar con al menos 30 minutos de antelación.",
@@ -163,7 +163,7 @@ export const eventConfig: EventConfig = {
   },
 
   // ── Contact ─────────────────────────────────────────────────────────────
-  // TODO: Replace with real contact email before launch
+
   contact: {
     message: "¿Tienes alguna pregunta? No dudes en escribirnos.",
     email:   "bodaayubidefaria@gmail.com",
