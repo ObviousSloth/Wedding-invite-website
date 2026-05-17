@@ -37,18 +37,28 @@ export default function TransportSection() {
 
             {/* Pickup */}
             <div className={styles.card}>
-              <p className="font-cinzel text-burgundy/35 text-[0.62rem] tracking-[0.4em] uppercase mb-2">
+              <p className="font-cinzel text-burgundy/35 text-[0.62rem] tracking-[0.4em] uppercase mb-3">
                 Salida
               </p>
-              <p className="font-cinzel text-burgundy text-base font-medium tracking-wide">
-                {transport.pickup.location}
-              </p>
-              <p className="font-oldstandard italic text-burgundy/55 text-sm mt-1 leading-snug">
-                {transport.pickup.address}
-              </p>
-              <p className="font-cinzel text-burgundy/70 text-sm tracking-widest mt-3">
+              <p className="font-cinzel text-burgundy/70 text-sm tracking-widest mb-4">
                 {transport.pickup.time}
               </p>
+
+              <ol className={styles.stopsList}>
+                <li className={styles.stop}>
+                  <span className={styles.stopNumber}>1</span>
+                  <div className={styles.stopInfo}>
+                    <p className="font-cinzel text-burgundy text-sm font-medium tracking-wide">
+                      {transport.pickup.location}
+                    </p>
+                    {transport.pickup.address && (
+                      <p className="font-oldstandard italic text-burgundy/55 text-[0.8rem] mt-0.5 leading-snug">
+                        {transport.pickup.address}
+                      </p>
+                    )}
+                  </div>
+                </li>
+              </ol>
             </div>
 
             <div className={styles.divider} aria-hidden="true" />

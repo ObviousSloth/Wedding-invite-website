@@ -106,7 +106,7 @@ export default function HeroSection() {
 
         {/* Sub-tagline */}
         <div className="w-px h-8 bg-cream/25 my-1" aria-hidden="true" />
-        <p className="font-seasons italic text-cream/70 text-sm sm:text-base">
+        <p className="font-oldstandard italic text-cream/70 text-sm sm:text-base">
           {hero.subTagline}
         </p>
 

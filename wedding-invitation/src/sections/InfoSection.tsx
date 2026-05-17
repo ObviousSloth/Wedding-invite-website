@@ -52,7 +52,7 @@ function VenueCard({
       </p>
 
       {/* Location */}
-      <p className="font-seasons italic text-cream/55 text-sm leading-relaxed">
+      <p className="font-oldstandard italic text-cream/55 text-sm leading-relaxed">
         {venue.location}
       </p>
 

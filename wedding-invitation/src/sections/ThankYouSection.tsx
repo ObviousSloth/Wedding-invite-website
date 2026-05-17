@@ -49,7 +49,7 @@ export default function ThankYouSection() {
 
         {/* ── Sub message ─────────────────────────────────────── */}
         <ScrollReveal delay={150}>
-          <p className="font-seasons italic text-cream/75 text-base sm:text-xl mt-5 max-w-sm">
+          <p className="font-oldstandard italic text-cream/75 text-base sm:text-xl mt-5 max-w-sm">
             Esperamos contar con tu presencia
           </p>
         </ScrollReveal>

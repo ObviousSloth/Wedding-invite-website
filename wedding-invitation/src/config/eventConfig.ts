@@ -65,7 +65,7 @@ export const eventConfig: EventConfig = {
 
   // ── Dress Code ──────────────────────────────────────────────────────────
   dressCode: {
-    code: "Romance en Invierno",
+    code: "Romance en Invierno : Elegante",
     note: "La ceremonia religiosa es en interiores, pero la recepción incluye una zona al aire libre. Diciembre en Madrid puede ser frío por la noche, te recomendamos llevar un abrigo o chal elegante. Evita el blanco, el marfil y el negro puro, y recuerda que los tacones en exteriores pueden ser incómodos sobre el césped.",
     suggestedColors: [
       { name: "Rosa",          hex: "#c77d8a" },
@@ -79,9 +79,8 @@ export const eventConfig: EventConfig = {
       { name: "Marrón oscuro", hex: "#3a1808" },
     ],
   },
-
+ 
   // ── Timeline ────────────────────────────────────────────────────────────
-  // icon → filename stem, place SVGs at: public/svgs/timeline/{icon}.svg
   timeline: [
     { time: "5:00 pm",  event: "Iglesia",               icon: "church",  iconSize: "7rem"   },
     { time: "6:30 pm",  event: "Partida al Salón",       icon: "car",     iconSize: "6.5rem" },

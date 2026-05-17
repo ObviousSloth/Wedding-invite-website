@@ -179,7 +179,7 @@ export default function GiftsSection() {
                       Email
                     </span>
                     <div className={styles.ibanValue}>
-                      <span className="font-cinzel text-burgundy/85 text-[0.8rem] tracking-wider">
+                      <span className="font-cinzel text-burgundy/85 text-[0.8rem]">
                         {zelle.email}
                       </span>
                       <button
