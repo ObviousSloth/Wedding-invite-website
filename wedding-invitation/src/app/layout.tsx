@@ -44,7 +44,7 @@ import { AudioProvider } from "@/context/AudioContext";
 });
 
 export const metadata: Metadata = {
-  title: "Jessika & Randy — 19 Diciembre 2026",
+  title: "Jessika & Randy",
   description: "Nos alegra invitarlos a la boda de Jessika y Randy el 19 de diciembre del 2026 en Madrid, España.",
   icons: {
     icon: "/svgs/monogram.svg",
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     apple: "/svgs/monogram.svg",
   },
   openGraph: {
-    title: "Jessika & Randy — 19 Diciembre 2026",
+    title: "Jessika & Randy",
     description: "Nos alegra invitarlos a nuestra boda",
     type: "website",
   },
