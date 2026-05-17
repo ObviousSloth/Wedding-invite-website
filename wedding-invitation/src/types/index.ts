@@ -158,15 +158,15 @@ export interface RsvpLookupResponse {
 }
 
 // ─── Transport ─────────────────────────────────────────────────────────────
-export interface TransportPickup {
+export interface TransportStop {
   location: string;
-  address: string;
-  departureTime: string;
+  address?: string;
 }
 
 export interface Transport {
   description: string;
-  pickup: TransportPickup;
+  pickup: TransportStop & { time: string };
+  returnStops: TransportStop[];
   returnTime: string;
   note: string;
 }
@@ -193,6 +193,7 @@ export interface EventConfig {
   transport: Transport;
   rsvp: {
     deadline: string;
+    deadlineDisplay: string;
     closedMessage: string;
   };
 }

@@ -31,10 +31,11 @@ export default function TransportSection() {
           </p>
         </ScrollReveal>
 
-        {/* Info cards */}
+        {/* Salida + Regreso cards */}
         <ScrollReveal delay={240}>
           <div className={styles.cards}>
 
+            {/* Pickup */}
             <div className={styles.card}>
               <p className="font-cinzel text-burgundy/35 text-[0.62rem] tracking-[0.4em] uppercase mb-2">
                 Salida
@@ -46,25 +47,38 @@ export default function TransportSection() {
                 {transport.pickup.address}
               </p>
               <p className="font-cinzel text-burgundy/70 text-sm tracking-widest mt-3">
-                {transport.pickup.departureTime}
+                {transport.pickup.time}
               </p>
             </div>
 
             <div className={styles.divider} aria-hidden="true" />
 
+            {/* Return — two drop-off stops */}
             <div className={styles.card}>
-              <p className="font-cinzel text-burgundy/35 text-[0.62rem] tracking-[0.4em] uppercase mb-2">
+              <p className="font-cinzel text-burgundy/35 text-[0.62rem] tracking-[0.4em] uppercase mb-3">
                 Regreso
               </p>
-              <p className="font-cinzel text-burgundy text-base font-medium tracking-wide">
-                Madrid
-              </p>
-              <p className="font-seasons italic text-burgundy/55 text-sm mt-1 leading-snug">
-                Mismo punto de recogida
-              </p>
-              <p className="font-cinzel text-burgundy/70 text-sm tracking-widest mt-3">
+              <p className="font-cinzel text-burgundy/70 text-sm tracking-widest mb-4">
                 {transport.returnTime}
               </p>
+
+              <ol className={styles.stopsList}>
+                {transport.returnStops.map((stop, i) => (
+                  <li key={i} className={styles.stop}>
+                    <span className={styles.stopNumber}>{i + 1}</span>
+                    <div className={styles.stopInfo}>
+                      <p className="font-cinzel text-burgundy text-sm font-medium tracking-wide">
+                        {stop.location}
+                      </p>
+                      {stop.address && (
+                        <p className="font-seasons italic text-burgundy/55 text-[0.8rem] mt-0.5 leading-snug">
+                          {stop.address}
+                        </p>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ol>
             </div>
 
           </div>

@@ -46,23 +46,19 @@ export default function DateSection() {
         <ScrollReveal delay={200}>
           <div className={styles.dateBlock}>
 
-            {/* Month */}
-            <p className="font-cinzel text-burgundy/60 text-xs sm:text-sm tracking-[0.45em] uppercase mb-2">
+            {/* Vertical date stack: Sábado / 19 / Diciembre / 2026 */}
+            <p className="font-cinzel text-burgundy/50 text-xs sm:text-sm tracking-[0.45em] uppercase mb-4">
               {date.displayDayOfWeek}
             </p>
-
-            {/* Sábado — 19 — 2026 row */}
-            <div className={styles.dateRow}>
-              <span className="font-cinzel text-burgundy/50 text-xs sm:text-sm tracking-[0.3em] uppercase text-right">
-                {date.displayMonth}
-              </span>
-              <span className="font-icon text-burgundy text-date-number leading-none select-none">
-                {date.displayDay}
-              </span>
-              <span className="font-cinzel text-burgundy/50 text-xs sm:text-sm tracking-[0.3em] uppercase text-left">
-                {date.displayYear}
-              </span>
-            </div>
+            <span className="font-icon text-burgundy text-date-number leading-none select-none">
+              {date.displayDay}
+            </span>
+            <p className="font-cinzel text-burgundy/50 text-xs sm:text-sm tracking-[0.45em] uppercase mt-1">
+              {date.displayMonth}
+            </p>
+            <p className="font-cinzel text-burgundy/50 text-xs sm:text-sm tracking-[0.45em] uppercase mt-1">
+              {date.displayYear}
+            </p>
 
           </div>
         </ScrollReveal>

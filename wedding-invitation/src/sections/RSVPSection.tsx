@@ -327,12 +327,7 @@ export default function RSVPSection() {
           </ScrollReveal>
           {/* Deadline line */}
           <p className="font-cinzel text-cream/50 text-[10px] tracking-[0.35em] uppercase text-center mb-10">
-            Hasta el{" "}
-            {new Date(eventConfig.rsvp.deadline).toLocaleDateString("es-ES", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            })}
+            Hasta el {eventConfig.rsvp.deadlineDisplay}
           </p>
 
           {/* ── RSVP Closed ───────────────────────────────────────────────── */}

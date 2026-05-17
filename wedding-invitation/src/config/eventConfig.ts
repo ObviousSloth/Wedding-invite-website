@@ -70,7 +70,7 @@ export const eventConfig: EventConfig = {
 
   // ── Dress Code ──────────────────────────────────────────────────────────
   dressCode: {
-    code: "Elegante",
+    code: "Romance en Invierno",
     note: "La ceremonia religiosa es en interiores, pero la recepción incluye una zona al aire libre. Diciembre en Madrid puede ser frío por la noche — te recomendamos llevar un abrigo o chal elegante. Evita el blanco, el marfil y el negro puro, y recuerda que los tacones en exteriores pueden ser incómodos sobre el césped.",
     suggestedColors: [
       { name: "Rosa",          hex: "#c77d8a" },
@@ -188,24 +188,34 @@ export const eventConfig: EventConfig = {
   },
 
   // ── Transport ───────────────────────────────────────────────────────────────
-  // TODO: Confirm exact pickup point before the event
   transport: {
     description:
       "Para que el desplazamiento al Complejo La Cigüeña no sea una preocupación, " +
       "hemos organizado un autobús privado desde Madrid. El servicio es gratuito " +
       "para todos los invitados.",
     pickup: {
-      location: "Puerta del Sol",
-      address: "Pl. de la Puerta del Sol, 28013 Madrid",
-      departureTime: "19:00 h",
+      location: "Martínez Campos",
+      address: "C/ Martínez Campos (esq. Fernández de la Hoz), Madrid",
+      time: "18:30 h",
     },
+    returnStops: [
+      {
+        location: "Avenida de América",
+        address: "Intercambiador de Avenida de América, Madrid",
+      },
+      {
+        location: "Martínez Campos / Iglesia",
+        address: "C/ Martínez Campos (Basílica Virgen Milagrosa), Madrid",
+      },
+    ],
     returnTime: "aprox. 02:30 h",
     note: "Si necesitas transporte, márcalo en tu confirmación de asistencia.",
   },
 
   rsvp: {
-    deadline:      '2026-11-30T23:59:59+01:00',
-    closedMessage: 'El plazo para confirmar asistencia ha cerrado. Si tienes alguna pregunta, contáctanos por correo.',
+    deadline:        '2026-09-30T23:59:59+02:00',
+    deadlineDisplay: '30 de septiembre de 2026',
+    closedMessage:   'El plazo para confirmar asistencia ha cerrado. Si tienes alguna pregunta, contáctanos por correo.',
   }
 
 };

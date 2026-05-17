@@ -14,18 +14,21 @@ const bank = {
   bic:           process.env.NEXT_PUBLIC_BANK_BIC   ?? "",
 };
 
+const zelle = {
+  holder: process.env.NEXT_PUBLIC_ZELLE_HOLDER ?? "",
+  email:  process.env.NEXT_PUBLIC_ZELLE_EMAIL  ?? "",
+};
+
 export default function GiftsSection() {
   const { gifts } = eventConfig;
   const [showBank, setShowBank] = useState(false);
-  const [copied, setCopied] = useState(false);
+  const [copiedIban, setCopiedIban] = useState(false);
+  const [copiedZelle, setCopiedZelle] = useState(false);
 
-  const handleCopyIban = async (e: React.MouseEvent) => {
-    e.stopPropagation();
-    const text = bank.iban;
+  async function copyToClipboard(text: string, onDone: () => void) {
     try {
       await navigator.clipboard.writeText(text);
     } catch {
-      // Fallback for browsers without Clipboard API
       const el = document.createElement("textarea");
       el.value = text;
       el.style.position = "fixed";
@@ -36,18 +39,36 @@ export default function GiftsSection() {
       document.execCommand("copy");
       document.body.removeChild(el);
     }
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
+    onDone();
+  }
+
+  const handleCopyIban = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    copyToClipboard(bank.iban, () => {
+      setCopiedIban(true);
+      setTimeout(() => setCopiedIban(false), 2500);
+    });
   };
 
-  const rows = [
+  const handleCopyZelle = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    copyToClipboard(zelle.email, () => {
+      setCopiedZelle(true);
+      setTimeout(() => setCopiedZelle(false), 2500);
+    });
+  };
+
+  const bankRows = [
     { label: "Titular",     value: bank.accountHolder },
     { label: "Banco",       value: bank.name },
     { label: "BIC / SWIFT", value: bank.bic },
   ];
 
+  const zelleRows = [
+    { label: "Titular", value: zelle.holder },
+  ];
+
   return (
-    // Background inherited from the bg-section-cream wrapper in page.tsx
     <section id="regalo" className="py-24 sm:py-32">
       <Container className="flex flex-col items-center text-center">
 
@@ -65,14 +86,13 @@ export default function GiftsSection() {
           <SectionHeading variant="dark">Sugerencia de Regalo</SectionHeading>
         </ScrollReveal>
 
-        {/* Intro message */}
         <ScrollReveal delay={160}>
           <p className="font-cinzel italic text-burgundy/80 text-story-body leading-relaxed max-w-lg mt-6 mb-10">
             {gifts.message}
           </p>
         </ScrollReveal>
 
-        {/* Bank details disclosure */}
+        {/* Transfer disclosure — opens both cards */}
         <ScrollReveal delay={240}>
           <div className={styles.bankDisclosure}>
             <button
@@ -88,49 +108,96 @@ export default function GiftsSection() {
                 transition-all duration-200
               "
             >
-              {showBank ? "Ocultar datos bancarios" : "¿Prefieres transferencia? Ver datos bancarios"}
+              {showBank ? "Ocultar datos de transferencia" : "¿Prefieres transferencia? Ver opciones"}
             </button>
 
             {showBank && (
-              <div className={styles.bankCard}>
-                <p className="font-cinzel text-burgundy/35 text-[10px] tracking-[0.5em] uppercase mb-5">
-                  Datos Bancarios
-                </p>
+              <div className={styles.cardsRow}>
 
-                {rows.map(({ label, value }) => (
-                  <div key={label} className={styles.row}>
+                {/* Bank transfer card */}
+                <div className={styles.bankCard}>
+                  <p className="font-cinzel text-burgundy/35 text-[10px] tracking-[0.5em] uppercase mb-5">
+                    Transferencia Bancaria
+                  </p>
+
+                  {bankRows.map(({ label, value }) => (
+                    <div key={label} className={styles.row}>
+                      <span className="font-cinzel text-burgundy/40 text-[0.65rem] tracking-[0.18em] uppercase flex-shrink-0">
+                        {label}
+                      </span>
+                      <span className="font-cinzel text-burgundy/85 text-[0.8rem] text-right">
+                        {value}
+                      </span>
+                    </div>
+                  ))}
+
+                  {/* IBAN — copyable */}
+                  <div className={styles.row}>
                     <span className="font-cinzel text-burgundy/40 text-[0.65rem] tracking-[0.18em] uppercase flex-shrink-0">
-                      {label}
+                      IBAN
                     </span>
-                    <span className="font-cinzel text-burgundy/85 text-[0.8rem] text-right">
-                      {value}
-                    </span>
-                  </div>
-                ))}
-
-                {/* IBAN row — copyable */}
-                <div className={styles.row}>
-                  <span className="font-cinzel text-burgundy/40 text-[0.65rem] tracking-[0.18em] uppercase flex-shrink-0">
-                    IBAN
-                  </span>
-                  <div className={styles.ibanValue}>
-                    <span className="font-cinzel text-burgundy/85 text-[0.8rem] tracking-wider">
-                      {bank.iban}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={handleCopyIban}
-                      aria-label="Copiar IBAN al portapapeles"
-                      className={`
-                        ${styles.copyBtn}
-                        font-cinzel text-[0.58rem] tracking-[0.15em] uppercase
-                        ${copied ? styles.copyBtnConfirmed : styles.copyBtnIdle}
-                      `}
-                    >
-                      {copied ? "✓ Copiado" : "Copiar"}
-                    </button>
+                    <div className={styles.ibanValue}>
+                      <span className="font-cinzel text-burgundy/85 text-[0.8rem] tracking-wider">
+                        {bank.iban}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={handleCopyIban}
+                        aria-label="Copiar IBAN al portapapeles"
+                        className={`
+                          ${styles.copyBtn}
+                          font-cinzel text-[0.58rem] tracking-[0.15em] uppercase
+                          ${copiedIban ? styles.copyBtnConfirmed : styles.copyBtnIdle}
+                        `}
+                      >
+                        {copiedIban ? "✓ Copiado" : "Copiar"}
+                      </button>
+                    </div>
                   </div>
                 </div>
+
+                {/* Zelle card */}
+                <div className={styles.bankCard}>
+                  <p className="font-cinzel text-burgundy/35 text-[10px] tracking-[0.5em] uppercase mb-5">
+                    Zelle
+                  </p>
+
+                  {zelleRows.map(({ label, value }) => (
+                    <div key={label} className={styles.row}>
+                      <span className="font-cinzel text-burgundy/40 text-[0.65rem] tracking-[0.18em] uppercase flex-shrink-0">
+                        {label}
+                      </span>
+                      <span className="font-cinzel text-burgundy/85 text-[0.8rem] text-right">
+                        {value}
+                      </span>
+                    </div>
+                  ))}
+
+                  {/* Email — copyable */}
+                  <div className={styles.row}>
+                    <span className="font-cinzel text-burgundy/40 text-[0.65rem] tracking-[0.18em] uppercase flex-shrink-0">
+                      Email
+                    </span>
+                    <div className={styles.ibanValue}>
+                      <span className="font-cinzel text-burgundy/85 text-[0.8rem] tracking-wider">
+                        {zelle.email}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={handleCopyZelle}
+                        aria-label="Copiar email de Zelle al portapapeles"
+                        className={`
+                          ${styles.copyBtn}
+                          font-cinzel text-[0.58rem] tracking-[0.15em] uppercase
+                          ${copiedZelle ? styles.copyBtnConfirmed : styles.copyBtnIdle}
+                        `}
+                      >
+                        {copiedZelle ? "✓ Copiado" : "Copiar"}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             )}
           </div>

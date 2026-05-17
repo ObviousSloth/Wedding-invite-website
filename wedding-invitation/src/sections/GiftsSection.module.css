@@ -6,16 +6,34 @@
   width: 100%;
 }
 
-/* ── Bank details card (on cream bg) ─────────────────────── */
-.bankCard {
+/* ── Two-card row (bank + Zelle) ─────────────────────────── */
+.cardsRow {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1rem;
   width: 100%;
+  margin-top: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .cardsRow {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+  }
+}
+
+/* ── Bank / Zelle details card (on cream bg) ─────────────── */
+.bankCard {
+  flex: 1;
+  min-width: 0;
   max-width: 28rem;
   background: rgba(94, 8, 19, 0.04);
   border: 1px solid rgba(94, 8, 19, 0.15);
   border-radius: 1.25rem;
   padding: 2rem;
   text-align: left;
-  margin-top: 1.25rem;
 }
 
 @media (min-width: 640px) {
