@@ -87,7 +87,7 @@ export default function GiftsSection() {
         </ScrollReveal>
 
         <ScrollReveal delay={160}>
-          <p className="font-cinzel italic text-burgundy/80 text-story-body leading-relaxed max-w-lg mt-6 mb-10">
+          <p className="font-oldstandard italic text-burgundy/80 text-story-body leading-relaxed max-w-lg mt-6 mb-10">
             {gifts.message}
           </p>
         </ScrollReveal>

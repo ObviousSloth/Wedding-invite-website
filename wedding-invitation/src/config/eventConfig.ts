@@ -30,7 +30,7 @@ export const eventConfig: EventConfig = {
   story: {
     blocks: [
       {
-        text: "Todo comenzó en la mágica isla de Curaçao, donde el sol, el mar y el destino hicieron que nuestros caminos se cruzaran. Lo que empezó como una conversación a orillas del Caribe se convirtió rápidamente en algo que ninguno de los dos esperaba — una conexión que nos cambió la vida para siempre.",
+        text: "Todo comenzó en la mágica isla de Curaçao, donde el sol, el mar y el destino hicieron que nuestros caminos se cruzaran. Lo que empezó como una conversación a orillas del Caribe se convirtió rápidamente en algo que ninguno de los dos esperaba, una conexión que nos cambió la vida para siempre.",
         icon: "curacao",
       },
       {
@@ -66,7 +66,7 @@ export const eventConfig: EventConfig = {
   // ── Dress Code ──────────────────────────────────────────────────────────
   dressCode: {
     code: "Romance en Invierno",
-    note: "La ceremonia religiosa es en interiores, pero la recepción incluye una zona al aire libre. Diciembre en Madrid puede ser frío por la noche — te recomendamos llevar un abrigo o chal elegante. Evita el blanco, el marfil y el negro puro, y recuerda que los tacones en exteriores pueden ser incómodos sobre el césped.",
+    note: "La ceremonia religiosa es en interiores, pero la recepción incluye una zona al aire libre. Diciembre en Madrid puede ser frío por la noche, te recomendamos llevar un abrigo o chal elegante. Evita el blanco, el marfil y el negro puro, y recuerda que los tacones en exteriores pueden ser incómodos sobre el césped.",
     suggestedColors: [
       { name: "Rosa",          hex: "#c77d8a" },
       { name: "Lavanda",       hex: "#8d77a8" },

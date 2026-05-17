@@ -35,7 +35,7 @@ export default function ConditionsSection() {
                 </div>
 
                 {/* Item text */}
-                <p className="font-seasons italic text-burgundy/75 text-story-body leading-relaxed text-left">
+                <p className="font-oldstandard italic text-burgundy/75 text-story-body leading-relaxed text-left">
                   {item}
                 </p>
 

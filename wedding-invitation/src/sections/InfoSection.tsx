@@ -135,7 +135,7 @@ export default function InfoSection() {
           <p className="font-cinzel text-cream text-xl sm:text-2xl tracking-[0.35em] uppercase mt-5 mb-3">
             {dressCode.code}
           </p>
-          <p className="font-seasons italic text-cream/60 text-base sm:text-lg max-w-md mx-auto mb-6">
+          <p className="font-oldstandard italic text-cream/60 text-base sm:text-lg max-w-md mx-auto mb-6">
             {dressCode.note}
           </p>
         </ScrollReveal>

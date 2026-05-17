@@ -17,7 +17,7 @@ export default function AccommodationsSection() {
         </ScrollReveal>
 
         <ScrollReveal delay={150}>
-          <p className="font-seasons italic text-cream/75 text-story-body leading-relaxed max-w-xl mt-6">
+          <p className="font-oldstandard italic text-cream/75 text-story-body leading-relaxed max-w-xl mt-6">
             {accommodations.text}
           </p>
         </ScrollReveal>
@@ -69,7 +69,7 @@ export default function AccommodationsSection() {
               <p className="font-cinzel text-cream/30 text-[0.7rem] tracking-[0.3em] uppercase">
                 Próximamente
               </p>
-              <p className="font-seasons italic text-cream/45 text-sm mt-2">
+              <p className="font-oldstandard italic text-cream/45 text-sm mt-2">
                 Añadiremos hoteles recomendados en breve
               </p>
             </div>

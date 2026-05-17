@@ -31,7 +31,7 @@ export default function StorySection() {
                     className={styles.blockIcon}
                   />
                 )}
-                <p className="font-seasons italic text-burgundy/90 text-story-body leading-relaxed">
+                <p className="font-oldstandard italic text-burgundy/90 text-story-body leading-relaxed">
                   {block.text}
                 </p>
               </article>

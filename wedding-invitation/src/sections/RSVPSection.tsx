@@ -60,7 +60,7 @@ function PartialSeatsModal({ filled, total, onConfirm, onCancel }: PartialModalP
           ¿Solo {filled} de {total}?
         </p>
 
-        <p className="font-seasons text-burgundy/75 text-base leading-relaxed">
+        <p className="font-oldstandard italic text-burgundy/75 text-base leading-relaxed">
           Tu invitación tiene espacio para{' '}
           <strong>{total} persona{total === 1 ? '' : 's'}</strong>, pero solo
           has completado{' '}
@@ -338,7 +338,7 @@ export default function RSVPSection() {
                 <p className="font-cinzel text-cream text-sm tracking-widest uppercase">
                   Plazo cerrado
                 </p>
-                <p className="font-seasons text-cream/80 text-base leading-relaxed">
+                <p className="font-oldstandard italic text-cream/80 text-base leading-relaxed">
                   {eventConfig.rsvp.closedMessage}
                 </p>
                 <a
@@ -355,7 +355,7 @@ export default function RSVPSection() {
           {!isClosed && step === 'code' && (
             <ScrollReveal delay={100}>
               <form onSubmit={handleLookup} className={styles.codeForm}>
-                <p className="font-seasons text-cream/70 text-base text-center leading-relaxed">
+                <p className="font-oldstandard italic text-cream/70 text-base text-center leading-relaxed">
                   Ingresa el código de tu invitación para confirmar tu asistencia.
                 </p>
 
@@ -383,7 +383,7 @@ export default function RSVPSection() {
                   <div className={styles.errorBox} role="alert">
                     <p className="font-cinzel text-cream text-sm">{lookupErr}</p>
                     {failCount >= 2 && (
-                      <p className="font-seasons text-cream/70 text-sm">
+                      <p className="font-oldstandard italic text-cream/70 text-sm">
                         ¿Tienes problemas?{' '}
                         <a
                           href={`mailto:${eventConfig.contact.email}`}
@@ -411,7 +411,7 @@ export default function RSVPSection() {
                     {form.invitation.display_name}
                   </p>
                   {form.existingRsvp && (
-                    <p className="font-seasons text-cream/60 text-sm mt-1 italic">
+                    <p className="font-oldstandard italic text-cream/60 text-sm mt-1 italic">
                       Ya confirmaste. Puedes actualizar tu respuesta abajo.
                     </p>
                   )}
@@ -637,7 +637,7 @@ export default function RSVPSection() {
 
                 <div className={styles.confirmationDivider} />
 
-                <p className="font-seasons text-burgundy/75 text-base leading-relaxed text-center max-w-xs">
+                <p className="font-oldstandard italic text-burgundy/75 text-base leading-relaxed text-center max-w-xs">
                   {form.attending
                     ? `Hemos recibido tu confirmación${filledCount > 0 ? ` para ${filledCount} persona${filledCount === 1 ? '' : 's'}` : ''}. ¡Estamos muy emocionados de celebrar este día contigo!`
                     : `Hemos recibido tu respuesta. Gracias por hacernos saber. Siempre estarás en nuestros corazones.`}

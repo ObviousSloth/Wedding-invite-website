@@ -26,7 +26,7 @@ export default function TransportSection() {
         </ScrollReveal>
 
         <ScrollReveal delay={160}>
-          <p className="font-seasons italic text-burgundy/75 text-story-body leading-relaxed max-w-xl mt-6 mb-10">
+          <p className="font-oldstandard italic text-burgundy/75 text-story-body leading-relaxed max-w-xl mt-6 mb-10">
             {transport.description}
           </p>
         </ScrollReveal>
@@ -43,7 +43,7 @@ export default function TransportSection() {
               <p className="font-cinzel text-burgundy text-base font-medium tracking-wide">
                 {transport.pickup.location}
               </p>
-              <p className="font-seasons italic text-burgundy/55 text-sm mt-1 leading-snug">
+              <p className="font-oldstandard italic text-burgundy/55 text-sm mt-1 leading-snug">
                 {transport.pickup.address}
               </p>
               <p className="font-cinzel text-burgundy/70 text-sm tracking-widest mt-3">
@@ -71,7 +71,7 @@ export default function TransportSection() {
                         {stop.location}
                       </p>
                       {stop.address && (
-                        <p className="font-seasons italic text-burgundy/55 text-[0.8rem] mt-0.5 leading-snug">
+                        <p className="font-oldstandard italic text-burgundy/55 text-[0.8rem] mt-0.5 leading-snug">
                           {stop.address}
                         </p>
                       )}

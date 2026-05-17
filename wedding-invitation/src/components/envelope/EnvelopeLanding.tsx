@@ -88,19 +88,22 @@ export default function EnvelopeLanding({ onComplete }: Props) {
               "--delay": p.delay,
             } as React.CSSProperties}
           >
-            {/* TODO: replace gradient with real couple photo via Next.js <Image> */}
-            <div className="m-[6px] mb-0 h-[95px] sm:h-[110px] bg-gradient-to-br from-burgundy/10 to-cream-dark flex items-center justify-center overflow-hidden">
-              <span className="text-3xl opacity-20" aria-hidden="true">📷</span>
+            <div className="m-[6px] mb-0 h-[95px] sm:h-[110px] overflow-hidden relative">
+              <Image
+                src={`/images/Envelope/${i + 1}-envelope.png`}
+                alt=""
+                aria-hidden="true"
+                fill
+                className="object-cover"
+                sizes="135px"
+              />
             </div>
             {/* Polaroid white bottom strip */}
             <div className="h-[28px]" />
           </div>
         ))}
 
-        {/* ── Envelope SVG ───────────────────────────────────────
-            Place file at: public/svgs/envelope.svg
-            Remove hardcoded width/height from <svg> root — keep viewBox only
-        ─────────────────────────────────────────────────────── */}
+        {/* ── Envelope SVG  */}
         <div
           className={`
             relative z-20 transition-transform duration-300
@@ -117,10 +120,7 @@ export default function EnvelopeLanding({ onComplete }: Props) {
           />
         </div>
 
-        {/* ── Wax Seal SVG ───────────────────────────────────────
-            Place file at: public/svgs/wax-seal.svg
-            Positioned over envelope flap center
-        ─────────────────────────────────────────────────────── */}
+        {/* ── Wax Seal SVG ─── */}
         <div className="absolute inset-0 flex items-end justify-center z-40 pb-[14%]">
           <Image
             src="/svgs/wax-seal.svg"
