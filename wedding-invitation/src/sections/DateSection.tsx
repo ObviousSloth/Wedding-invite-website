@@ -35,8 +35,9 @@ export default function DateSection() {
               alt="Jessika & Randy"
               fill
               className="object-cover"
+              style={{ transform: "scale(1.2) translateX(5%)" }}
               sizes="(max-width: 768px) 80vw, 28rem"
-              priority
+              priority 
             />
           </div>
         </ScrollReveal>
