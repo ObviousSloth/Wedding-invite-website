@@ -27,12 +27,11 @@ export default function DateSection() {
           </ScrollReveal>
         )}
 
-        {/* Photo frame placeholder
-            TODO: swap placeholder border for ornate-frame SVG once provided by user */}
+          {/*Date photo*/}
         <ScrollReveal delay={100}>
           <div className={styles.photoFrame}>
             <Image
-              src="/images/hero.jpg"
+              src="/images/Date/5-date.png"
               alt="Jessika & Randy"
               fill
               className="object-cover"

@@ -13,7 +13,6 @@ export const eventConfig: EventConfig = {
   // ── Date ────────────────────────────────────────────────────────────────
   date: {
     iso:              "2026-12-19T18:00:00+01:00",
-    displayFull:      "19 de diciembre del 2026",
     displayDay:       "19",
     displayMonth:     "Diciembre",
     displayYear:      "2026",
@@ -22,13 +21,9 @@ export const eventConfig: EventConfig = {
   },
 
   // ── Hero ────────────────────────────────────────────────────────────────
-  // Place hero video at:    public/videos/hero.mp4
-  // Place fallback photo at: public/images/hero.jpg
   hero: {
-    tagline:          "NOS CASAMOS",
-    subTagline:       "Acompáñanos en este día tan especial",
-    videoUrl:         "/videos/hero.mp4",
-    fallbackImageUrl: "/images/hero.jpg",
+    tagline:    "NOS CASAMOS",
+    subTagline: "Acompáñanos en este día tan especial",
   },
 
   // ── Story ───────────────────────────────────────────────────────────────
@@ -99,13 +94,11 @@ export const eventConfig: EventConfig = {
   ],
 
   // ── Gifts ───────────────────────────────────────────────────────────────
-  // TODO: Replace with real bank details before launch
+  // Bank details are kept out of the repo — set NEXT_PUBLIC_BANK_* in .env.local
   gifts: {
     message:
       "Tu presencia es el mejor regalo. Si quieres hacernos un detalle, " +
       "agradecemos una contribución en efectivo o una transferencia.",
-    wishlistUrl: "#", // TODO: replace with real wishlist URL
-    // Bank details are kept out of the repo — set NEXT_PUBLIC_BANK_* in .env.local
   },
 
   // ── Accommodations ──────────────────────────────────────────────────────

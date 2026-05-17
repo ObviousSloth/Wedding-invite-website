@@ -5,6 +5,17 @@
   filter: grayscale(100%);
 }
 
+/* Per-image position overrides */
+.posCenter30 {
+  object-position: 35% center; /* mobile: shift left */
+}
+
+@media (min-width: 640px) {
+  .posCenter30 {
+    object-position: center 30%;
+  }
+}
+
 .slideVisible {
   opacity: 1;
 }

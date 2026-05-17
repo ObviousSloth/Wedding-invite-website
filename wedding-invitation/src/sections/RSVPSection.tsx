@@ -631,7 +631,7 @@ export default function RSVPSection() {
                   </p>
                   <p className={styles.confirmationDate}>
                     {eventConfig.date.displayDayOfWeek},{' '}
-                    {eventConfig.date.displayFull}
+                    {eventConfig.date.displayDay} de {eventConfig.date.displayMonth} de {eventConfig.date.displayYear}
                   </p>
                 </div>
 

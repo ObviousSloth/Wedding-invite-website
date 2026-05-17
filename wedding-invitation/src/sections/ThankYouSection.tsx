@@ -10,14 +10,13 @@ export default function ThankYouSection() {
   return (
     <section id="gracias" className="relative overflow-hidden py-28 sm:py-40 min-h-[70vh] flex flex-col justify-center">
 
-      {/* ── Full-bleed background photo ─────────────────────────
-          TODO: replace /images/hero.jpg with the proposal photo
-          once provided by the user */}
+      {/* Background photo */}
       <Image
-        src="/images/hero.jpg"
+        src="/images/End/6-end.png"
         alt=""
         fill
         className="object-cover z-0"
+        style={{ objectPosition: "center 30%" }}
         aria-hidden="true"
         priority={false}
         sizes="100vw"

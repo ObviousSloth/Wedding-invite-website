@@ -7,21 +7,15 @@ import styles from "./HeroSection.module.css";
 import { useAudio } from "@/context/AudioContext";
 import { useHeroAudio } from "@/hooks/useHeroAudio";
 
-const CAROUSEL_IMAGES = [
-  "/images/Hero/9B1EC8BB-77AF-4D72-AA90-375398ABCECC.png",
-  "/images/Hero/BC305A12-0D80-45CD-9C5F-BA817E143B03.png",
-  "/images/Hero/E6C35C48-DA40-4EE0-8856-C9F6D88C4207.png",
-  "/images/Hero/E6C3442D-92AA-4211-A0BB-D11C3DC89F32.png",
-  "/images/Hero/IMG_8332.png",
-  "/images/Hero/IMG_8335.png",
-  "/images/Hero/IMG_8337.png",
-  "/images/Hero/IMG_8374.png",
-  "/images/Hero/IMG_8375.png",
-  "/images/Hero/IMG_8377.png",
-  "/images/Hero/IMG_8423.png",
-  "/images/Hero/IMG_8430.png",
-  "/images/Hero/IMG_8433.png",
-  "/images/Hero/IMG_8440.png",
+const CAROUSEL_IMAGES: { src: string; posClass?: string }[] = [
+  { src: "/images/Hero/4.1.png" },
+  { src: "/images/Hero/4.2.png" },
+  { src: "/images/Hero/4.3.png", posClass: "posCenter30" },
+  { src: "/images/Hero/4.4.png" },
+  { src: "/images/Hero/4.5.png", posClass: "posCenter30" },
+  { src: "/images/Hero/4.6.png", posClass: "posCenter30" },
+  { src: "/images/Hero/4.7.png" },
+  { src: "/images/Hero/4.8.png" },
 ];
 
 const INTERVAL_MS = 4500;
@@ -51,7 +45,7 @@ export default function HeroSection() {
     >
 
       {/* ── Carousel images ────────────────────────────────────── */}
-      {CAROUSEL_IMAGES.map((src, i) => (
+      {CAROUSEL_IMAGES.map(({ src, posClass }, i) => (
         <Image
           key={src}
           src={src}
@@ -59,7 +53,11 @@ export default function HeroSection() {
           aria-hidden="true"
           fill
           priority={i === 0}
-          className={`${styles.slide} ${i === current ? styles.slideVisible : styles.slideHidden}`}
+          className={[
+            styles.slide,
+            i === current ? styles.slideVisible : styles.slideHidden,
+            posClass ? styles[posClass] : "",
+          ].join(" ")}
           sizes="100vw"
         />
       ))}

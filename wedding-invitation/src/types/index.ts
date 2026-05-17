@@ -8,7 +8,6 @@ export interface Couple {
 // ─── Date ──────────────────────────────────────────────────────────────────
 export interface DateInfo {
   iso: string;
-  displayFull: string;
   displayDay: string;
   displayMonth: string;
   displayYear: string;
@@ -20,8 +19,6 @@ export interface DateInfo {
 export interface Hero {
   tagline: string;
   subTagline: string;
-  videoUrl: string;
-  fallbackImageUrl: string;
 }
 
 // ─── Story ─────────────────────────────────────────────────────────────────
@@ -32,8 +29,6 @@ export interface StoryBlock {
 
 export interface Story {
   blocks: StoryBlock[];
-  text?: string;    // legacy — kept for TS compatibility, not rendered
-  imageUrl?: string;
 }
 
 // ─── Venue ─────────────────────────────────────────────────────────────────
@@ -82,8 +77,7 @@ export interface BankDetails {
 
 export interface Gifts {
   message: string;
-  wishlistUrl?: string;
-  // Bank details are loaded from NEXT_PUBLIC_BANK_* env vars — not stored in config
+  // Bank/Zelle details loaded from NEXT_PUBLIC_BANK_* / NEXT_PUBLIC_ZELLE_* env vars
 }
 
 // ─── Accommodations ────────────────────────────────────────────────────────
