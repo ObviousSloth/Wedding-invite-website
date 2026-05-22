@@ -28,12 +28,34 @@
 .waxSealVisible { transform: scale(1) rotate(0deg); opacity: 1; }
 .waxSealHidden  { transform: scale(0) rotate(65deg); opacity: 0; }
 
-/* ── Skeleton shimmer (all cards) ──────────────────────────────────── */
+/* ── Skeleton polaroid card ─────────────────────────────────────────── */
 .skeleton {
-  border-radius: 12px;
-  background: linear-gradient(90deg, #d1d1d1 25%, #e8e8e8 50%, #d1d1d1 75%);
-  background-size: 200% 100%;
+  background: #fff;
+  border-radius: 3px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
   will-change: transform, opacity;
+  display: flex;
+  flex-direction: column;
+  padding: 5px 5px 20px 5px;
+}
+
+/* Inner photo area — carries the shimmer (non-focal cards) */
+.skeletonPhoto {
+  flex: 1;
+  background: linear-gradient(90deg, #cfc8c4 25%, #e4deda 50%, #cfc8c4 75%);
+  background-size: 200% 100%;
+  animation: shimmer 0.85s linear infinite;
+}
+
+/* Focal card photo — faded real image instead of gray */
+.skeletonPhotoFocal {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  display: block;
+  object-fit: cover;
+  object-position: center top;
+  opacity: 0.55;
 }
 
 .skeletonIdle {
@@ -48,9 +70,7 @@
 
 /* ── Continuous volcano fan (index 1–N, fly off-screen) ────────────── */
 .skeletonBurst {
-  animation:
-    shimmer 0.85s linear infinite,
-    volcanoFly 0.65s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0ms) both;
+  animation: volcanoFly 0.65s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0ms) both;
 }
 
 @keyframes volcanoFly {
@@ -70,9 +90,7 @@
 
 /* ── Focal card (index 0 — hovers mid-air, camera pans to it) ──────── */
 .focalCardBurst {
-  animation:
-    shimmer 0.85s linear infinite,
-    focalRise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: focalRise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes focalRise {
@@ -100,14 +118,16 @@
 }
 
 /* ── Camera rush toward focal card ────────────────────────────────── */
+/* transform-origin 20% matches focal card's position (~20% from top) */
 .cameraRush {
   transform-origin: 50% 20%;
-  animation: cameraRush 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: cameraRush 1s cubic-bezier(0.4, 0, 1, 1) forwards;
 }
 
 @keyframes cameraRush {
-  from { transform: scale(1);   }
-  to   { transform: scale(1.8); }
+  0%   { transform: scale(1); }
+  60%  { transform: scale(4); }
+  100% { transform: scale(12); }
 }
 
 /* ── Polaroid strip: top → bottom fall ─────────────────────────────── */

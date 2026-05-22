@@ -88,7 +88,7 @@ export default function EnvelopeLanding({ onComplete }: Props) {
   const [photoOverlayFading,  setPhotoOverlayFading]  = useState(false);
 
   useEffect(() => {
-    isMobile.current             = window.matchMedia("(hover: none)").matches;
+    isMobile.current             = window.innerWidth < 1024;
     prefersReducedMotion.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (isMobile.current) {
       ENVELOPE_PHOTOS.forEach((src) => { const img = new window.Image(); img.src = src; });
@@ -156,10 +156,15 @@ export default function EnvelopeLanding({ onComplete }: Props) {
         <div
           aria-hidden="true"
           className={[
-            "fixed inset-0 z-[999] bg-black overflow-hidden pointer-events-none",
+            "fixed inset-0 z-[999] overflow-hidden pointer-events-none",
             "transition-opacity duration-500",
             photoOverlayOpaque && !photoOverlayFading ? "opacity-100" : "opacity-0",
           ].join(" ")}
+          style={{
+            backgroundImage: "url('/images/Envelope/Background/filip-zrnzevic-QsWG0kjPQRY-unsplash.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
         >
           {/* Polaroid strip — falls from top to bottom */}
           <div
@@ -210,11 +215,16 @@ export default function EnvelopeLanding({ onComplete }: Props) {
         onKeyDown={(e) => e.key === "Enter" && handleOpen()}
         className={[
           "fixed inset-0 z-[100] flex flex-col items-center justify-center",
-          "cursor-pointer select-none bg-cream",
+          "cursor-pointer select-none",
           "transition-opacity duration-700 ease-in-out",
           cameraRush ? styles.cameraRush : "",
-          phase === "fading" ? "opacity-0 pointer-events-none" : "opacity-100",
+          phase === "fading" || photoOverlayFading ? "opacity-0 pointer-events-none" : "opacity-100",
         ].join(" ")}
+        style={{
+          backgroundImage: "url('/images/Envelope/Background/filip-zrnzevic-QsWG0kjPQRY-unsplash.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
       >
 
         {/* Skeleton volcano burst cards */}
@@ -235,10 +245,14 @@ export default function EnvelopeLanding({ onComplete }: Props) {
               "--tx":    s.tx,
               "--ty":    s.ty,
               "--rot":   s.rot,
-              // focal card fires immediately; others stagger by 90 ms
               "--delay": i === 0 ? "0ms" : `${(i - 1) * 90}ms`,
             } as React.CSSProperties}
-          />
+          >
+            {i === 0
+              ? <img src="/images/Envelope/1-envelope.png" alt="" className={styles.skeletonPhotoFocal} />
+              : <div className={styles.skeletonPhoto} />
+            }
+          </div>
         ))}
 
         {/* Envelope + polaroids */}
