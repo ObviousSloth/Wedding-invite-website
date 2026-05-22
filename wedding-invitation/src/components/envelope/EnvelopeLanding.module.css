@@ -1,8 +1,4 @@
-/* ── Polaroid card ─────────────────────────────────────────
-   Per-card values (--tx, --ty, --rot, --delay) are passed
-   as CSS custom properties via inline style on the element.
-   This keeps presentation here and data in the component.
-───────────────────────────────────────────────────────────── */
+/* ── Polaroid card ─────────────────────────────────────────────────── */
 .polaroid {
   transition:
     transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) var(--delay, 0ms),
@@ -15,28 +11,133 @@
 }
 
 .polaroidBurst {
-  transform: translate(
-    calc(-50% + var(--tx, 0px)),
-    calc(-50% + var(--ty, 0px))
-  )
-  rotate(var(--rot, 0deg))
-  scale(1);
+  transform:
+    translate(calc(-50% + var(--tx, 0px)), calc(-50% + var(--ty, 0px)))
+    rotate(var(--rot, 0deg))
+    scale(1);
   opacity: 1;
 }
 
-/* ── Wax seal ───────────────────────────────────────────── */
+/* ── Wax seal ──────────────────────────────────────────────────────── */
 .waxSeal {
   transition:
     transform 0.28s cubic-bezier(0.55, 0, 1, 0.45),
     opacity   0.22s ease;
 }
 
-.waxSealVisible {
-  transform: scale(1) rotate(0deg);
-  opacity: 1;
+.waxSealVisible { transform: scale(1) rotate(0deg); opacity: 1; }
+.waxSealHidden  { transform: scale(0) rotate(65deg); opacity: 0; }
+
+/* ── Skeleton shimmer (all cards) ──────────────────────────────────── */
+.skeleton {
+  border-radius: 12px;
+  background: linear-gradient(90deg, #d1d1d1 25%, #e8e8e8 50%, #d1d1d1 75%);
+  background-size: 200% 100%;
+  will-change: transform, opacity;
 }
 
-.waxSealHidden {
-  transform: scale(0) rotate(65deg);
+.skeletonIdle {
+  transform: translate(-50%, -50%) scale(0);
   opacity: 0;
+}
+
+@keyframes shimmer {
+  from { background-position:  200% 0; }
+  to   { background-position: -200% 0; }
+}
+
+/* ── Continuous volcano fan (index 1–N, fly off-screen) ────────────── */
+.skeletonBurst {
+  animation:
+    shimmer 0.85s linear infinite,
+    volcanoFly 0.65s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0ms) both;
+}
+
+@keyframes volcanoFly {
+  0% {
+    transform: translate(-50%, -50%) scale(0.05) rotate(0deg);
+    opacity: 1;
+  }
+  70% { opacity: 1; }
+  100% {
+    transform:
+      translate(calc(-50% + var(--tx, 0px)), calc(-50% + var(--ty, 0px)))
+      rotate(var(--rot, 0deg))
+      scale(1);
+    opacity: 0;
+  }
+}
+
+/* ── Focal card (index 0 — hovers mid-air, camera pans to it) ──────── */
+.focalCardBurst {
+  animation:
+    shimmer 0.85s linear infinite,
+    focalRise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes focalRise {
+  0% {
+    transform: translate(-50%, -50%) scale(0.05) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, calc(-50% - 255px)) scale(1.2) rotate(-4deg);
+    opacity: 1;
+  }
+}
+
+/* ── Envelope recoil ───────────────────────────────────────────────── */
+.envelopeRecoil {
+  animation: envelopeRecoil 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes envelopeRecoil {
+  0%   { transform: scaleY(1)    scaleX(1);    }
+  15%  { transform: scaleY(0.78) scaleX(1.14); }
+  42%  { transform: scaleY(1.08) scaleX(0.94); }
+  68%  { transform: scaleY(0.97) scaleX(1.02); }
+  100% { transform: scaleY(1)    scaleX(1);    }
+}
+
+/* ── Camera rush toward focal card ────────────────────────────────── */
+.cameraRush {
+  transform-origin: 50% 20%;
+  animation: cameraRush 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes cameraRush {
+  from { transform: scale(1);   }
+  to   { transform: scale(1.8); }
+}
+
+/* ── Polaroid strip: top → bottom fall ─────────────────────────────── */
+/* Start: first card just above viewport top (~350px = ~one card height) */
+/* Keep SCROLL_DURATION_MS in the component in sync with animation-duration */
+.polaroidStripHidden {
+  transform: translateY(-350px);
+}
+
+.polaroidStrip {
+  animation: polaroidFall 3.5s linear forwards;
+}
+
+@keyframes polaroidFall {
+  from { transform: translateY(-350px); }
+  to   { transform: translateY(100vh);  }
+}
+
+/* ── Reduced-motion overrides ───────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .skeletonBurst,
+  .focalCardBurst,
+  .envelopeRecoil {
+    animation: none;
+    opacity: 0;
+  }
+  .cameraRush {
+    animation: none;
+  }
+  .polaroidStrip {
+    animation-duration: 7s;
+  }
 }
