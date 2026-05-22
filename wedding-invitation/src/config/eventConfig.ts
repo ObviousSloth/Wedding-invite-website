@@ -188,7 +188,7 @@ export const eventConfig: EventConfig = {
     pickup: {
       location: "Martínez Campos",
       address: "C/ Martínez Campos (esq. Fernández de la Hoz), Madrid",
-      time: "18:30 h",
+      time: "6:30 PM",
     },
     returnStops: [
       {
@@ -200,7 +200,7 @@ export const eventConfig: EventConfig = {
         address: "C/ Martínez Campos (Basílica Virgen Milagrosa), Madrid",
       },
     ],
-    returnTime: "aprox. 02:30 h",
+    returnTime: "aprox. 02:30 AM",
     note: "Si necesitas transporte, márcalo en tu confirmación de asistencia.",
   },
 
