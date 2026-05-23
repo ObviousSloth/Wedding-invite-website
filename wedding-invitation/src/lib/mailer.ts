@@ -146,7 +146,7 @@ function venueBlock(): string {
             <p style="margin:0 0 4px;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:#5e0813;font-family:Georgia,serif;">Recepción</p>
             <p style="margin:0 0 2px;font-size:16px;color:#1a1a1a;font-family:Georgia,serif;">${escape(reception.name)}</p>
             <p style="margin:0 0 2px;font-size:13px;color:#555555;font-family:Georgia,serif;">${escape(reception.address)}</p>
-            <p style="margin:0 0 12px;font-size:13px;color:#5e0813;font-family:Georgia,serif;">${escape(reception.time)} — ${escape(reception.endTime ?? '')}</p>
+            <p style="margin:0 0 12px;font-size:13px;color:#5e0813;font-family:Georgia,serif;">${escape(reception.time)}</p>
             <a href="${receptionCalUrl}"
               style="display:inline-block;padding:8px 18px;background-color:#5e0813;color:#f4f2eb;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;border-radius:100px;font-family:Georgia,serif;">
               Añadir al Calendario
