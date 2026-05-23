@@ -294,7 +294,7 @@ export async function sendRsvpReminderEmail(payload: RsvpEmailPayload): Promise<
     ${venueBlock()}
     <p style="margin:0 0 6px;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:#5e0813;font-family:Georgia,serif;">Código de Vestimenta</p>
     <p style="margin:0 0 28px;font-size:15px;color:#333333;font-family:Georgia,serif;">
-      <strong>${escape(eventConfig.dressCode.code)}</strong> — ${escape(eventConfig.dressCode.note)}
+      <strong>${escape(eventConfig.dressCode.code)}</strong>, ${escape(eventConfig.dressCode.note)}
     </p>
     ${rsvpCodeBlock(rsvpCode)}`;
 
