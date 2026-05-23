@@ -17,7 +17,7 @@ export const eventConfig: EventConfig = {
     displayMonth:     "Diciembre",
     displayYear:      "2026",
     displayDayOfWeek: "Sábado",
-    heading:          "Acompáñanos este día especial",
+    heading:          "Acompáñanos en este día especial",
   },
 
   // ── Hero ────────────────────────────────────────────────────────────────
@@ -97,7 +97,7 @@ export const eventConfig: EventConfig = {
   gifts: {
     message:
       "Tu presencia es el mejor regalo. Si quieres hacernos un detalle, " +
-      "agradecemos una contribución en efectivo o una transferencia.",
+      "agradecemos una contribución en efectivo.",
   },
 
   // ── Accommodations ──────────────────────────────────────────────────────
@@ -145,7 +145,7 @@ export const eventConfig: EventConfig = {
   // ── Suggestions & Conditions ────────────────────────────────────────────
   suggestionsAndConditions: {
     items: [
-      "Por favor confirma tu asistencia antes del 30 de septiembre de 2026. Pasada esa fecha no podremos garantizar tu lugar.",
+      "Por favor confirma tu asistencia antes del 30 de septiembre 2026. Pasada esa fecha no podremos garantizar tu lugar.",
       "El evento es solo para adultos. Agradecemos tu comprensión y esperamos que disfrutes de una noche sin preocupaciones.",
       "Si tienes alguna alergia o intolerancia alimentaria, indícala en tu RSVP para que podamos coordinarlo con el catering.",
       "La ceremonia religiosa dará comienzo puntualmente a las 5:00 pm. Te pedimos llegar con al menos 30 minutos de antelación.",
@@ -206,7 +206,7 @@ export const eventConfig: EventConfig = {
 
   rsvp: {
     deadline:        '2026-09-30T23:59:59+02:00',
-    deadlineDisplay: '30 de septiembre de 2026',
+    deadlineDisplay: '30 de septiembre 2026',
     closedMessage:   'El plazo para confirmar asistencia ha cerrado. Si tienes alguna pregunta, contáctanos por correo.',
   }
 

@@ -61,6 +61,10 @@ function escape(str: string): string {
 }
 
 function htmlShell(title: string, bodyContent: string): string {
+  const { partner1, partner2 } = eventConfig.couple;
+  const { displayDay, displayMonth, displayYear } = eventConfig.date;
+  const siteHost = eventConfig.siteUrl.replace(/^https?:\/\//, '');
+
   return `<!DOCTYPE html>
 <html lang="es">
 <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/></head>
@@ -73,7 +77,7 @@ function htmlShell(title: string, bodyContent: string): string {
         <tr>
           <td style="background-color:#5e0813;padding:32px 40px;text-align:center;">
             <p style="margin:0;font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:#f4f2eb;opacity:0.75;font-family:Georgia,serif;">
-              Jessika &amp; Randy &nbsp;·&nbsp; 19 de Diciembre del 2026
+              ${escape(partner1)} &amp; ${escape(partner2)} &nbsp;·&nbsp; ${escape(displayDay)} de ${escape(displayMonth)} del ${escape(displayYear)}
             </p>
             <h1 style="margin:12px 0 0;font-size:28px;font-weight:400;color:#f4f2eb;letter-spacing:0.08em;font-family:Georgia,serif;">
               ${escape(title)}
@@ -90,7 +94,7 @@ function htmlShell(title: string, bodyContent: string): string {
         <tr>
           <td style="background-color:#e8e4d9;padding:18px 40px;text-align:center;">
             <p style="margin:0;font-size:10px;color:#999999;letter-spacing:0.2em;text-transform:uppercase;font-family:Georgia,serif;">
-              bodaayubidefaria.eu
+              ${escape(siteHost)}
             </p>
           </td>
         </tr>
@@ -177,11 +181,12 @@ function attendeeListBlock(attendees: Array<{ firstName: string; lastName: strin
 }
 
 function rsvpCodeBlock(rsvpCode: string): string {
+  const siteHost = eventConfig.siteUrl.replace(/^https?:\/\//, '');
   return `
     <div style="border:1px solid rgba(94,8,19,0.15);border-radius:4px;padding:16px 24px;text-align:center;margin-top:24px;">
       <p style="margin:0 0 4px;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:#5e0813;opacity:0.65;font-family:Georgia,serif;">Tu código de invitación</p>
       <p style="margin:0;font-size:22px;letter-spacing:0.2em;color:#5e0813;font-family:Georgia,serif;">${escape(rsvpCode)}</p>
-      <p style="margin:6px 0 0;font-size:11px;color:#aaaaaa;font-family:Georgia,serif;">Úsalo para editar tu confirmación en bodaayubidefaria.eu</p>
+      <p style="margin:6px 0 0;font-size:11px;color:#aaaaaa;font-family:Georgia,serif;">Úsalo para editar tu confirmación en ${escape(siteHost)}</p>
     </div>`;
 }
 
@@ -205,9 +210,11 @@ export async function sendContactNotification(payload: ContactEmailPayload): Pro
     </div>
     <p style="margin:0;font-size:11px;color:#aaaaaa;letter-spacing:0.1em;font-family:Georgia,serif;">Recibido el ${timestamp}</p>`;
 
+  const { partner1, partner2 } = eventConfig.couple;
+  const coupleDisplay = `${partner1} & ${partner2}`;
   const transporter = getTransporter();
   await transporter.sendMail({
-    from: `"Jessika & Randy 💌" <${process.env.GMAIL_USER}>`,
+    from: `"${coupleDisplay} 💌" <${process.env.GMAIL_USER}>`,
     to: process.env.GMAIL_NOTIFICATION_EMAIL,
     subject: `💌 Mensaje de invitado: ${fullName}`,
     html: htmlShell('Nuevo Mensaje', body),
@@ -232,12 +239,15 @@ export async function sendRsvpConfirmationEmail(payload: RsvpEmailPayload): Prom
     </p>
     ${rsvpCodeBlock(rsvpCode)}`;
 
+  const { partner1, partner2 } = eventConfig.couple;
+  const { displayDay, displayMonth } = eventConfig.date;
+  const coupleDisplay = `${partner1} & ${partner2}`;
   const transporter = getTransporter();
   await transporter.sendMail({
-    from: `"Jessika & Randy 💌" <${process.env.GMAIL_USER}>`,
+    from: `"${coupleDisplay} 💌" <${process.env.GMAIL_USER}>`,
     to: email,
-    subject: `🎉 ¡Confirmación recibida! Boda de Jessika & Randy`,
-    html: htmlShell('¡Nos vemos el 19 de Diciembre!', body),
+    subject: `🎉 ¡Confirmación recibida! Boda de ${coupleDisplay}`,
+    html: htmlShell(`¡Nos vemos el ${displayDay} de ${displayMonth}!`, body),
   });
 }
 
@@ -259,11 +269,13 @@ export async function sendRsvpUpdateEmail(payload: RsvpEmailPayload): Promise<vo
     </p>
     ${rsvpCodeBlock(rsvpCode)}`;
 
+  const { partner1, partner2 } = eventConfig.couple;
+  const coupleDisplay = `${partner1} & ${partner2}`;
   const transporter = getTransporter();
   await transporter.sendMail({
-    from: `"Jessika & Randy 💌" <${process.env.GMAIL_USER}>`,
+    from: `"${coupleDisplay} 💌" <${process.env.GMAIL_USER}>`,
     to: email,
-    subject: `✅ Tus cambios han sido guardados — Boda de Jessika & Randy`,
+    subject: `✅ Tus cambios han sido guardados — Boda de ${coupleDisplay}`,
     html: htmlShell('¡Cambios Guardados!', body),
   });
 }
@@ -286,11 +298,13 @@ export async function sendRsvpReminderEmail(payload: RsvpEmailPayload): Promise<
     </p>
     ${rsvpCodeBlock(rsvpCode)}`;
 
+  const { partner1, partner2 } = eventConfig.couple;
+  const coupleDisplay = `${partner1} & ${partner2}`;
   const transporter = getTransporter();
   await transporter.sendMail({
-    from: `"Jessika & Randy 💌" <${process.env.GMAIL_USER}>`,
+    from: `"${coupleDisplay} 💌" <${process.env.GMAIL_USER}>`,
     to: email,
-    subject: `💒 ¡Un mes para la boda de Jessika & Randy!`,
+    subject: `💒 ¡Un mes para la boda de ${coupleDisplay}!`,
     html: htmlShell('¡Nos vemos en un mes!', body),
   });
 }
