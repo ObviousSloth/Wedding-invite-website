@@ -12,8 +12,11 @@ const CAROUSEL_IMAGES: { src: string; posClass?: string }[] = [
   { src: "/images/Hero/4.2.png" },
   { src: "/images/Hero/4.3.png", posClass: "posCenter30" },
   { src: "/images/Hero/4.4.png" },
-  { src: "/images/Hero/4.5.png", posClass: "posCenter30" },
+  { src: "/images/Envelope/1-envelope.png" },
+  {src: "/images/Envelope/3-envelope.png", posClass: "posCenter30" },
+  { src: "/images/Envelope/2-envelope.png", posClass: "posCenter30" },
   { src: "/images/Hero/4.6.png", posClass: "posCenter30" },
+  { src: "/images/Hero/4.5.png", posClass: "posCenter30" },
   { src: "/images/Hero/4.7.png" },
   { src: "/images/Hero/4.8.png" },
 ];

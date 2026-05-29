@@ -3,7 +3,9 @@
     "allow": [
       "Bash(npm run *)",
       "Bash(grep -v \"import\\\\|//\")",
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "mcp__claude_ai_Supabase__list_tables",
+      "mcp__claude_ai_Supabase__execute_sql"
     ]
   }
 }
