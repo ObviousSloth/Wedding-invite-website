@@ -102,6 +102,11 @@ export default function EnvelopeLanding({ onComplete }: Props) {
     return () => { document.body.style.overflow = prev; };
   }, []);
 
+  const handleComplete = () => {
+    window.scrollTo(0, 0);
+    onComplete();
+  };
+
   const handleOpen = () => {
     if (phase !== "idle") return;
     if (mobileAnimActive.current) return;
@@ -129,7 +134,7 @@ export default function EnvelopeLanding({ onComplete }: Props) {
         const scrollEnd = 1700 + SCROLL_DURATION_MS;
         timers.current.push(
           setTimeout(() => setPhotoOverlayFading(true), scrollEnd),
-          setTimeout(onComplete,                        scrollEnd + 700),
+          setTimeout(handleComplete,                    scrollEnd + 700),
         );
       } else {
         // Reduced motion: skip burst + camera rush, just show polaroid strip
@@ -138,7 +143,7 @@ export default function EnvelopeLanding({ onComplete }: Props) {
           setTimeout(() => setPhotoOverlayOpaque(true), 20),
           setTimeout(() => setPhotoScrolling(true),     400),
           setTimeout(() => setPhotoOverlayFading(true), 400 + SCROLL_DURATION_MS * 2),
-          setTimeout(onComplete,                        400 + SCROLL_DURATION_MS * 2 + 700),
+          setTimeout(handleComplete,                    400 + SCROLL_DURATION_MS * 2 + 700),
         );
       }
     } else {
@@ -147,7 +152,7 @@ export default function EnvelopeLanding({ onComplete }: Props) {
       timers.current = [
         setTimeout(() => setPhase("burst"),  400),
         setTimeout(() => setPhase("fading"), 1700),
-        setTimeout(onComplete,               2450),
+        setTimeout(handleComplete,           2450),
       ];
     }
   };
