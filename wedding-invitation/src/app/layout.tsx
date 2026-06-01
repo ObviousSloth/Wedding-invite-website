@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import localFont from 'next/font/local';
 import { AudioProvider } from "@/context/AudioContext";
+import { Analytics } from "@vercel/analytics/next";
  
 
 
@@ -78,6 +79,7 @@ export default function RootLayout({
         <AudioProvider>
           {children}
         </AudioProvider>
+        <Analytics />
       </body>
     </html>
   );

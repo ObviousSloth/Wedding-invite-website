@@ -37,3 +37,4 @@ next-env.d.ts
 documentation/INVITADOS - CODIGOS.xlsx
 documentation/invitations_import.csv
 /wedding-invitation/.claude
+wedding-invitation/.claude/settings.local.json
