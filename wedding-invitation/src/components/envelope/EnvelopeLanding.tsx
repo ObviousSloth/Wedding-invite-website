@@ -95,11 +95,11 @@ export default function EnvelopeLanding({ onComplete }: Props) {
     }
   }, []);
 
-  // Lock body scroll while envelope is visible
+  // Lock body scroll while envelope is visible (overflow:hidden alone doesn't work on iOS)
   useEffect(() => {
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => { document.body.style.overflow = prev; };
+    const prevent = (e: TouchEvent) => e.preventDefault();
+    document.addEventListener('touchmove', prevent, { passive: false });
+    return () => document.removeEventListener('touchmove', prevent);
   }, []);
 
   const handleComplete = () => {
