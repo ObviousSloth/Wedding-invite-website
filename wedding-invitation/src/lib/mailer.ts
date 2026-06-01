@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer';
 import { eventConfig } from '@/config/eventConfig';
+import { MEAL_LABELS } from '@/lib/meals';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -160,15 +161,9 @@ function venueBlock(): string {
 function attendeeListBlock(attendees: Array<{ firstName: string; lastName: string; meal?: string }>): string {
   if (!attendees.length) return '';
 
-  const mealLabels: Record<string, string> = {
-    carne:        'Carne',
-    pescado:      'Pescado',
-    vegetariano:  'Vegetariano',
-  };
-
   const names = attendees
     .map((a) => {
-      const mealLabel = a.meal ? mealLabels[a.meal] ?? a.meal : null;
+      const mealLabel = a.meal ? (MEAL_LABELS[a.meal as keyof typeof MEAL_LABELS] ?? a.meal) : null;
       return `<li style="padding:4px 0;font-size:15px;color:#1a1a1a;font-family:Georgia,serif;">
         ${escape(a.firstName)} ${escape(a.lastName)}${mealLabel ? ` <span style="font-size:12px;color:#5e0813;letter-spacing:0.1em;font-family:Georgia,serif;">— ${mealLabel}</span>` : ''}
       </li>`;

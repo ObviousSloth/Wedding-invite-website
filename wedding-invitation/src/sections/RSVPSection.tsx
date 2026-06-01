@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { eventConfig } from '@/config/eventConfig'
 import { Invitation, Rsvp, Attendee, MealChoice } from '@/types'
+import { MEAL_OPTIONS } from '@/lib/meals'
 import SectionHeading from '@/components/ui/SectionHeading'
 import Container from '@/components/ui/Container'
 import Button from '@/components/ui/Button'
@@ -472,18 +473,15 @@ export default function RSVPSection() {
                       {/* Meal selection pills */}
                       {(att.firstName.trim() || att.lastName.trim()) && (
                         <div className={styles.mealRow} role="group" aria-label={`Menú persona ${i + 1}`}>
-                          {(['carne', 'pescado', 'vegetariano'] as MealChoice[]).map((option) => (
+                          {MEAL_OPTIONS.map(({ value, label, emoji }) => (
                             <button
-                              key={option}
+                              key={value}
                               type="button"
-                              onClick={() => updateAttendeeMeal(i, option)}
-                              className={`${styles.mealBtn} ${att.meal === option ? styles.mealBtnActive : ''}`}
-                              aria-pressed={att.meal === option}
+                              onClick={() => updateAttendeeMeal(i, value)}
+                              className={`${styles.mealBtn} ${att.meal === value ? styles.mealBtnActive : ''}`}
+                              aria-pressed={att.meal === value}
                             >
-                              {option === 'carne' && '🥩 '}
-                              {option === 'pescado' && '🐟 '}
-                              {option === 'vegetariano' && '🥗 '}
-                              {option.charAt(0).toUpperCase() + option.slice(1)}
+                              {emoji} {label}
                             </button>
                           ))}
                         </div>
