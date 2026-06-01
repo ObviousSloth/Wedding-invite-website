@@ -95,6 +95,13 @@ export default function EnvelopeLanding({ onComplete }: Props) {
     }
   }, []);
 
+  // Lock body scroll while envelope is visible
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = prev; };
+  }, []);
+
   const handleOpen = () => {
     if (phase !== "idle") return;
     if (mobileAnimActive.current) return;
