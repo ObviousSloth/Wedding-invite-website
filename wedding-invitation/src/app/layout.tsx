@@ -48,9 +48,9 @@ export const metadata: Metadata = {
   title: "Jessika & Randy",
   description: "Nos alegra invitarlos a la boda de Jessika y Randy el 19 de diciembre del 2026 en Madrid, España.",
   icons: {
-    icon: "/svgs/monogram.svg",
-    shortcut: "/svgs/monogram.svg",
-    apple: "/svgs/monogram.svg",
+    icon: "/svgs/decorative/monogram.svg",
+    shortcut: "/svgs/decorative/monogram.svg",
+    apple: "/svgs/decorative/monogram.svg",
   },
   openGraph: {
     title: "Jessika & Randy",
