@@ -6,14 +6,16 @@ import { scrollToSection } from "@/lib/utils";
 import { eventConfig } from "@/config/eventConfig";
 
 const navLinks = [
-  { label: "Inicio",      id: "inicio" },
-  { label: "Fecha",       id: "fecha" },
-  { label: "Historia",    id: "historia" },
-  { label: "Itinerario",  id: "itinerario" },
-  { label: "Info",        id: "info" },
-  { label: "Regalo",      id: "regalo" },
-  { label: "RSVP",        id: "rsvp" },
-  { label: "Contacto",    id: "contacto" },
+  { label: "Inicio",       id: "inicio" },
+  { label: "Fecha",        id: "fecha" },
+  { label: "Historia",     id: "historia" },
+  { label: "Itinerario",   id: "itinerario" },
+  { label: "Regalo",       id: "regalo" },
+  { label: "Info",         id: "info" },
+  { label: "Transporte",   id: "transporte" },
+  { label: "RSVP",         id: "rsvp" },
+  { label: "Alojamiento",  id: "alojamiento" },
+  { label: "Contacto",     id: "contacto" },
 ];
 
 export default function Navbar() {
@@ -58,7 +60,7 @@ export default function Navbar() {
         </button>
 
         {/* Desktop Links */}
-        <ul className="hidden md:flex items-center gap-8">
+        <ul className="hidden lg:flex items-center gap-8">
           {navLinks.map((link) => (
             <li key={link.id}>
               <button
@@ -78,7 +80,7 @@ export default function Navbar() {
         {/* Mobile Hamburger */}
         <button
           className={cn(
-            "md:hidden flex flex-col gap-1.5 p-2 transition-colors",
+            "lg:hidden flex flex-col gap-1.5 p-2 transition-colors",
             scrolled ? "text-burgundy" : "text-cream"
           )}
           onClick={() => setMenuOpen(!menuOpen)}
@@ -93,7 +95,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden bg-cream/98 backdrop-blur-sm border-t border-burgundy/10 shadow-lg">
+        <div className="lg:hidden bg-cream/98 backdrop-blur-sm border-t border-burgundy/10 shadow-lg">
           <ul className="flex flex-col py-4">
             {navLinks.map((link) => (
               <li key={link.id}>
