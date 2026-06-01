@@ -43,7 +43,7 @@ export const eventConfig: EventConfig = {
   // ── Ceremony ────────────────────────────────────────────────────────────
   ceremony: {
     name:        "Basílica parroquia Virgen Milagrosa",
-    time:        "5:00 pm",
+    time:        "4:45 pm",
     location:    "Madrid, España",
     address:     "García de Paredes, 45, 28010 Madrid",
     coordinates: { lat: 40.4356, lng: -3.6944 },
@@ -82,7 +82,7 @@ export const eventConfig: EventConfig = {
  
   // ── Timeline ────────────────────────────────────────────────────────────
   timeline: [
-    { time: "5:00 pm",  event: "Iglesia",               icon: "church",  iconSize: "7rem"   },
+    { time: "4:45 pm",  event: "Iglesia",               icon: "church",  iconSize: "7rem"   },
     { time: "6:30 pm",  event: "Partida al Salón",       icon: "car",     iconSize: "6.5rem" },
     { time: "7:00 pm",  event: "Cóctel de Bienvenida",   icon: "drinks",  iconSize: "9rem"   },
     { time: "7:30 pm",  event: "Primer Baile y Brindis", icon: "swans",   iconSize: "10rem"  },
@@ -148,7 +148,7 @@ export const eventConfig: EventConfig = {
       "Por favor confirma tu asistencia antes del 30 de septiembre 2026. Pasada esa fecha no podremos garantizar tu lugar.",
       "El evento es solo para adultos. Agradecemos tu comprensión y esperamos que disfrutes de una noche sin preocupaciones.",
       "Si tienes alguna alergia o intolerancia alimentaria, indícala en tu RSVP para que podamos coordinarlo con el catering.",
-      "La ceremonia religiosa dará comienzo puntualmente a las 5:00 pm. Te pedimos llegar con al menos 30 minutos de antelación.",
+      "La ceremonia religiosa dará comienzo puntualmente a las 4:45 pm. Te pedimos llegar con al menos 30 minutos de antelación.",
       "El Complejo La Cigüeña dispone de aparcamiento gratuito para los invitados que vengan en coche.",
       "Si necesitas información sobre cómo llegar al complejo o sobre opciones de transporte compartido, no dudes en escribirnos.",
     ],
@@ -165,7 +165,7 @@ export const eventConfig: EventConfig = {
   calendar: {
     ceremony: {
       title:       "💒 Boda de Jessika & Randy — Ceremonia",
-      start:       "2026-12-19T18:00:00+01:00",
+      start:       "2026-12-19T16:45:00+01:00",
       end:         "2026-12-19T20:00:00+01:00",
       location:    "Basílica parroquia Virgen Milagrosa, García de Paredes 45, 28010 Madrid",
       description: "¡La boda de Jessika & Randy! Te esperamos en la Basílica parroquia Virgen Milagrosa.\n\nDirección: García de Paredes, 45, 28010 Madrid\n\nMás info: https://www.bodaayubidefaria.eu",
