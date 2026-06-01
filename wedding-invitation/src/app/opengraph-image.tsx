@@ -9,7 +9,7 @@ export const contentType = 'image/png';
 
 export default async function Image() {
   const cinzelFont = readFileSync(
-    path.join(process.cwd(), 'public/fonts/Cinzel-Regular.woff2')
+    path.join(process.cwd(), 'public/fonts/Slight.otf')
   );
 
   const monogramSvg = readFileSync(
@@ -90,6 +90,7 @@ export default async function Image() {
           style: 'normal',
           weight: 400,
         },
+
       ],
     }
   );
