@@ -4,7 +4,7 @@ import { CalendarEvent } from '@/types'
 
 export function buildGoogleCalendarUrl(event: CalendarEvent): string {
   const fmt = (iso: string) =>
-    iso.replace(/[-:]/g, '').replace(/\.\d{3}/, '').replace('+01:00', '+0100')
+    new Date(iso).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z')
 
   const params = new URLSearchParams({
     action:   'TEMPLATE',

@@ -12,7 +12,7 @@ export const eventConfig: EventConfig = {
 
   // ── Date ────────────────────────────────────────────────────────────────
   date: {
-    iso:              "2026-12-19T18:00:00+01:00",
+    iso:              "2026-12-19T16:45:00+01:00",
     displayDay:       "19",
     displayMonth:     "Diciembre",
     displayYear:      "2026",
@@ -167,15 +167,15 @@ export const eventConfig: EventConfig = {
       title:       "💒 Boda de Jessika & Randy — Ceremonia",
       start:       "2026-12-19T16:45:00+01:00",
       end:         "2026-12-19T20:00:00+01:00",
-      location:    "Basílica parroquia Virgen Milagrosa, García de Paredes 45, 28010 Madrid",
-      description: "¡La boda de Jessika & Randy! Te esperamos en la Basílica parroquia Virgen Milagrosa.\n\nDirección: García de Paredes, 45, 28010 Madrid\n\nMás info: https://www.bodaayubidefaria.eu",
+      location:    "Basílica parroquia Virgen Milagrosa, García de Paredes, 45, 28010 Madrid",
+      description: "¡La boda de Jessika & Randy! Te esperamos en la Basílica parroquia Virgen Milagrosa.\n\nHora: 4:45 pm\nDirección: García de Paredes, 45, 28010 Madrid\nMapa: https://maps.google.com/?q=Bas%C3%ADlica+parroquia+Virgen+Milagrosa,+Garc%C3%ADa+de+Paredes+45,+28010+Madrid\n\nMás info: https://www.bodaayubidefaria.eu",
     },
     reception: {
       title:       "🥂 Boda de Jessika & Randy — Recepción",
-      start:       "2026-12-19T20:00:00+01:00",
+      start:       "2026-12-19T19:00:00+01:00",
       end:         "2026-12-20T02:00:00+01:00",   
-      location:    "Complejo La Cigüeña, Ctra. de Arganda a Chinchón Km 2,5, Arganda del Rey",
-      description: "¡La boda de Jessika & Randy! Te esperamos en Complejo La Cigüeña para la recepción, cena y fiesta.\n\nDirección: Ctra. de Arganda a Chinchón Km 2,5, Arganda del Rey\n\nMás info: https://www.bodaayubidefaria.eu",
+      location:    "Complejo La Cigüeña, Ctra. de Arganda a Chinchón Km 2,5, Arganda del Rey, Madrid",
+      description: "¡La boda de Jessika & Randy! Te esperamos en Complejo La Cigüeña para la recepción, cena y fiesta.\n\nHora: 7:00 pm – 2:00 am\nDirección: Ctra. de Arganda a Chinchón Km 2,5, Arganda del Rey\nMapa: https://maps.app.goo.gl/AwBbgLUUCmEiuhGt8\n\nMás info: https://www.bodaayubidefaria.eu",
     },
   },
 

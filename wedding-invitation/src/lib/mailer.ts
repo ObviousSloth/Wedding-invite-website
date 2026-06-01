@@ -40,7 +40,7 @@ function googleCalUrl(
   description: string
 ): string {
   const fmt = (iso: string) =>
-    iso.slice(0, 19).replace(/-/g, '').replace(/:/g, '');
+    new Date(iso).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
   const params = new URLSearchParams({
     action: 'TEMPLATE',
     text: title,
