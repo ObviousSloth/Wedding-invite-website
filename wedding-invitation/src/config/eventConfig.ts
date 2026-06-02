@@ -55,7 +55,7 @@ export const eventConfig: EventConfig = {
   reception: {
     name:        "Complejo La Cigüeña",
     time:        "7:00 pm",
-    endTime:     "2:00 am",             
+    endTime:     "3:00 am",             
     location:    "Arganda del Rey, Madrid",
     address:     "Ctra. de Arganda a Chinchón Km 2,5, Arganda del Rey",
     coordinates: { lat: 40.3039, lng: -3.4459 },
@@ -89,7 +89,7 @@ export const eventConfig: EventConfig = {
     { time: "8:00 pm",  event: "Cena",                   icon: "menu",    iconSize: "7rem"   },
     { time: "10:30 pm", event: "Cortar la Tarta",         icon: "cake",    iconSize: "7rem"   },
     { time: "11:00 pm", event: "Fiesta",                 icon: "disco",   iconSize: "7rem"   },
-    { time: "",         event: "Fin",                    icon: "clock",   iconSize: "7rem"   },
+    { time: "3:00 am",  event: "Fin",                    icon: "clock",   iconSize: "7rem"   },
   ],
 
   // ── Gifts ───────────────────────────────────────────────────────────────
@@ -173,9 +173,9 @@ export const eventConfig: EventConfig = {
     reception: {
       title:       "🥂 Boda de Jessika & Randy — Recepción",
       start:       "2026-12-19T19:00:00+01:00",
-      end:         "2026-12-20T02:00:00+01:00",   
+      end:         "2026-12-20T03:00:00+01:00",   
       location:    "Complejo La Cigüeña, Ctra. de Arganda a Chinchón Km 2,5, Arganda del Rey, Madrid",
-      description: "¡La boda de Jessika & Randy! Te esperamos en Complejo La Cigüeña para la recepción, cena y fiesta.\n\nHora: 7:00 pm – 2:00 am\nDirección: Ctra. de Arganda a Chinchón Km 2,5, Arganda del Rey\nMapa: https://maps.app.goo.gl/AwBbgLUUCmEiuhGt8\n\nMás info: https://www.bodaayubidefaria.eu",
+      description: "¡La boda de Jessika & Randy! Te esperamos en Complejo La Cigüeña para la recepción, cena y fiesta.\n\nHora: 7:00 pm – 3:00 am\nDirección: Ctra. de Arganda a Chinchón Km 2,5, Arganda del Rey\nMapa: https://maps.app.goo.gl/AwBbgLUUCmEiuhGt8\n\nMás info: https://www.bodaayubidefaria.eu",
     },
   },
 
