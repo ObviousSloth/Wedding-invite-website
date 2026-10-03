@@ -29,6 +29,7 @@ interface FormState {
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function isDeadlinePassed(): boolean {
+  if (!eventConfig.rsvp.deadlineEnabled) return false
   return new Date() > new Date(eventConfig.rsvp.deadline)
 }
 
@@ -327,9 +328,13 @@ export default function RSVPSection() {
             </SectionHeading>
           </ScrollReveal>
           {/* Deadline line */}
-          <p className="font-cinzel text-cream/50 text-[10px] tracking-[0.35em] uppercase text-center mb-10">
-            Hasta el {eventConfig.rsvp.deadlineDisplay}
-          </p>
+          {eventConfig.rsvp.deadlineEnabled ? (
+            <p className="font-cinzel text-cream/50 text-[10px] tracking-[0.35em] uppercase text-center mb-10">
+              Hasta el {eventConfig.rsvp.deadlineDisplay}
+            </p>
+          ) : (
+            <div className="mb-10" />
+          )}
 
           {/* ── RSVP Closed ───────────────────────────────────────────────── */}
           {isClosed && (

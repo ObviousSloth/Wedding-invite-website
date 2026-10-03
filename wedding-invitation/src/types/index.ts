@@ -186,6 +186,7 @@ export interface EventConfig {
   };
   transport: Transport;
   rsvp: {
+    deadlineEnabled: boolean;
     deadline: string;
     deadlineDisplay: string;
     closedMessage: string;

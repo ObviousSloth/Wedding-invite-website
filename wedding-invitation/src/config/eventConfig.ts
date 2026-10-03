@@ -205,7 +205,9 @@ export const eventConfig: EventConfig = {
   },
 
   rsvp: {
-    deadline:        '2026-09-30T23:59:59+02:00',
+    // Set to true to enforce the deadline again
+    deadlineEnabled: false,
+    deadline:      '2026-09-30T23:59:59+02:00',
     deadlineDisplay: '30 de septiembre 2026',
     closedMessage:   'El plazo para confirmar asistencia ha cerrado. Si tienes alguna pregunta, contáctanos por correo.',
   }
